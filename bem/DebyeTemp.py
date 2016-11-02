@@ -4,7 +4,11 @@
 Debye temperature of elements
 """
 
-DebyeTemperatures = dict(
+def getT(element, default=None):
+    return table.get(element, default)
+
+
+table = dict(
     Li=344, Be=1440, C=2230, Ne=75,
     Na=158, Mg=400, Al=428, Si=645, Ar=92,
     K=91, Ca=230, Sc=360, Ti=420, V=380, Cr=630, Mn=410, Fe=470, Co=445, Ni=450, Cu=343, Zn=327, Ga=320, Ge=374, As=282, Se=90, Kr=72,
