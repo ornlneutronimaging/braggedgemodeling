@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import numpy as np
 from bem import diffraction
 from danse.ins import matter
 
@@ -13,12 +14,13 @@ fccNi = matter.Structure(atoms, lattice, sgid=225)
 
 
 def test_F_i():
-    print diffraction.F_i(0, fccNi, (1,1,1), 300)
+    assert np.isclose(diffraction.F_i(0, fccNi, (1,1,1), 300), 10.11, rtol=0.002)
     return
 
 def test_F():
-    print diffraction.F(fccNi, (1,1,1), 300)
-    print diffraction.F(fccNi, (2,0,0), 300)
+    assert np.isclose(diffraction.F(fccNi, (1,1,1), 300), 40.44, rtol=0.002)
+    assert np.isclose(diffraction.F(fccNi, (2,0,0), 300), 40.19, rtol=0.002)
+    assert np.isclose(diffraction.F(fccNi, (4,4,4), 300), 30.6, rtol=0.002)
     return
 
 
