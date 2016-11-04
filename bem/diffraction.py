@@ -26,4 +26,20 @@ def d(lattice, hkl):
     return 1./np.linalg.norm(recvec)
 
 
+def multiplicity(hkl, sg):
+    vs = []
+    for symop in sg.symop_list:
+        v1 = np.dot(symop.R, hkl)
+        added=False
+        for v2 in vs:
+            if np.isclose(v1, v2, atol=1e-7).all():
+                added=True
+                break
+            continue
+        if not added:
+            vs.append(v1)
+        continue
+    return len(vs)
+
+
 # End of file
