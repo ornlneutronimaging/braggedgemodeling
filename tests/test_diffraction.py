@@ -17,6 +17,10 @@ def test_F():
     assert np.isclose(diffraction.F(fccNi, (4,4,4), 300), 30.6, rtol=0.002)
     return
 
+def test_d():
+    assert np.isclose(diffraction.d(fccNi.lattice, (1,1,1)), 2.03447)
+    return
+
 def test_peaks():
     for pk in diffraction.iter_peaks(fccNi, 300):
         print pk
@@ -26,6 +30,7 @@ def test_peaks():
 def main():
     test_F_i()
     test_F()
+    test_d()
     test_peaks()
     return
 
