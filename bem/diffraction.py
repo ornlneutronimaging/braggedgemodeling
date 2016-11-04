@@ -5,11 +5,22 @@ import periodictable as pt
 
 
 def iter_peaks(structure, T, max_index=5):
-    for h in range(max_index):
-        for k in range(max_index):
-            for l in range(max_index):
+    "iterate over unique diffraction peaks"
+    # when adding a peak, also add all its equivalent peaks to the "skip"
+    # list, so that those peaks can be skipped over
+    skip = set()
+    for h in range(max_index+1):
+        for k in range(max_index+1):
+            for l in range(max_index+1):
                 if h+k+l==0: continue
                 q1 = h,k,l
+                # print q1
+                if q1 in skip: continue
+                eq_hkls = equivalent_hkls(q1, structure.sg)
+                eq_hkls = [tuple(map(int, _)) for _ in eq_hkls]
+                for _ in eq_hkls:
+                    skip.add(_)
+                # print skip
                 F1 = F(structure, q1, T)
                 d1 = d(structure.lattice, q1)
                 mult1 = multiplicity(q1, structure.sg)
@@ -54,6 +65,10 @@ def d(lattice, hkl):
 
 
 def multiplicity(hkl, sg):
+    return len(equivalent_hkls(hkl, sg))
+
+
+def equivalent_hkls(hkl, sg):
     vs = []
     for symop in sg.symop_list:
         v1 = np.dot(symop.R, hkl)
@@ -66,7 +81,7 @@ def multiplicity(hkl, sg):
         if not added:
             vs.append(v1)
         continue
-    return len(vs)
+    return vs
 
 
 # End of file
