@@ -46,10 +46,11 @@ class XSCalculator:
         return self.inc_xs * (1./(2*DW))* (1-np.exp(-2*DW))
 
     def xs_coh_el(self, wavelen):
+        "unit: barn"
         vs = [np.abs(p.F)**2*p.d*p.mult for p in self.diffpeaks if p.d*2>wavelen]
-        vs = np.array(vs)
-        print wavelen, vs * wavelen*wavelen/(2*self.uc_vol)
-        return np.sum(vs) * wavelen*wavelen/(2*self.uc_vol)
+        vs = np.array(vs) # unit fm^2
+        # print wavelen, vs * wavelen*wavelen/(2*self.uc_vol)
+        return np.sum(vs)/100 * wavelen*wavelen/(2*self.uc_vol) # unit: barn
 
     def xs_abs(self, wavelen):
         Q = 2*pi/wavelen

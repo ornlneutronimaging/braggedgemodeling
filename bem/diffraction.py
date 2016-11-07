@@ -33,8 +33,8 @@ class DiffrPeak:
     
     def __init__(self, hkl, F, d, mult):
         self.hkl = hkl
-        self.F = F
-        self.d = d
+        self.F = F #unit: fm
+        self.d = d #unit: angstrom
         self.mult = mult
         return
 
@@ -43,6 +43,7 @@ class DiffrPeak:
 
 
 def F(structure, hkl, T):
+    "structure factor. unit: fm"
     fs = [F_i(i, structure, hkl, T) 
           for i in range(len(structure))]
     return sum(fs)
@@ -54,7 +55,7 @@ def F_i(i, structure, hkl, T):
     d1 = d(structure.lattice, hkl)
     position = atom.xyz
     o = atom.occupancy
-    b = getattr(pt, atom.symbol).neutron.b_c
+    b = getattr(pt, atom.symbol).neutron.b_c # unit: fm
     return o*b*np.exp(2*np.pi*1j*np.dot(hkl, position) - B/4/d1/d1)
 
 
