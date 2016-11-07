@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # Jiao Lin <jiao.lin@gmail.com>
 
+interactive = False
+
 import numpy as np
 from bem import xscalc, diffraction
 from fccNi import fccNi
@@ -35,16 +37,22 @@ def test_fccNi():
     print Ni.xs(2200)
     lambdas = np.arange(0.05, 5.5, 0.001)
     xs = [Ni.xs_coh(l) for l in lambdas]
-    from matplotlib import pyplot as plt
-    plt.plot(lambdas, xs)
-    plt.show()
+    data = np.array([lambdas, xs])
+    expected = np.load('fccNi-coh-el-xs.npy')
+    assert np.isclose(data, expected).all()
+    if interactive:
+        from matplotlib import pyplot as plt
+        plt.plot(lambdas, xs)
+        plt.show()
     return
 
-def test():
+def main():
+    global interactive
+    interactive = True
     # test_Fe()
     test_fccNi()
     return
 
-if __name__ == '__main__': test()
+if __name__ == '__main__': main()
 
 # End of file
