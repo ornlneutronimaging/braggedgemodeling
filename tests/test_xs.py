@@ -27,16 +27,10 @@ def test_Fe():
 
 
 def test_fccNi():
-    peaks = list(diffraction.iter_peaks(fccNi, 300, max_index=5))
-    import periodictable as pt
-    Ni_xs = pt.Ni.neutron
-    Ni = xscalc.XSCalculator(
-        'Ni',
-        Ni_xs.coherent, Ni_xs.incoherent, Ni_xs.absorption,
-        fccNi.lattice.getVolume(), peaks, B=0.5)
-    print Ni.xs(2200)
     lambdas = np.arange(0.05, 5.5, 0.001)
-    xs = [Ni.xs_coh(l) for l in lambdas]
+    T = 300
+    calc = xscalc.XSCalculator(fccNi, T)
+    xs = [calc.xs_coh_el(l) for l in lambdas]
     data = np.array([lambdas, xs])
     expected = np.load('fccNi-coh-el-xs.npy')
     assert np.isclose(data, expected).all()

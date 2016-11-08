@@ -6,19 +6,23 @@ from numpy import pi
 
 class XSCalculator:
 
-    def __init__(
-        self, name, coh_xs, inc_xs, abs_xs_at2200,
-        uc_vol,
-        diffpeaks,
-        B
-    ):
-        self.name = name
-        self.coh_xs = coh_xs
-        self.inc_xs = inc_xs
-        self.abs_xs_at2200 = abs_xs_at2200
-        self.uc_vol = uc_vol
-        self.diffpeaks = diffpeaks
-        self.B = B 
+    def __init__(self, structure, T):
+        self.name = structure.description
+        occs = np.array([atom.occupancy for atom in structure])
+        from atomic_scattering import AtomicScattering as AS
+        sctts = [AS(atom.symbol) for atom in structure]
+        bs = np.array([sc.b() for sc in sctts])
+        inc_xss = np.array([sc.sigma_inc() for sc in sctts])
+        abs_xss = np.array([sc.sigma_abs() for sc in sctts])
+        self.coh_xs = (occs * bs).sum()**2*4*np.pi
+        self.inc_xs = (occs*bs*bs).sum()*4*np.pi - self.coh_xs + (occs*inc_xss).sum()
+        self.abs_xs_at2200 = abs_xss.sum()
+        self.uc_vol = structure.lattice.getVolume()
+        self.structure = structure
+        # temperature dependent
+        self.T = T
+        from . import diffraction
+        self.diffpeaks = list(diffraction.iter_peaks(structure, T, max_index=5))
         return
 
     def xs(self, wavelen):
