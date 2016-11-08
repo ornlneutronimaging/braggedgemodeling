@@ -16,7 +16,7 @@ class XSCalculator:
         abs_xss = np.array([sc.sigma_abs() for sc in sctts])
         self.coh_xs = np.average(occs * bs)**2*4*np.pi / 100
         self.inc_xs = np.average(occs*bs*bs)*4*np.pi/100 - self.coh_xs + np.average(occs*inc_xss)
-        self.abs_xs_at2200 = np.sum(abs_xss)
+        self.abs_xs_at2200 = np.sum(occs*abs_xss)
         self.uc_vol = structure.lattice.getVolume()
         self.structure = structure
         # temperature dependent
