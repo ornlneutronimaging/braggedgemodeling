@@ -49,7 +49,7 @@ def F(structure, hkl, T):
     return sum(fs)
 
 def F_i(i, structure, hkl, T):
-    from .DebyeWaller import B
+    from .atomic_scattering import B
     atom = structure[i]
     B = B(atom.symbol, T)
     d1 = d(structure.lattice, hkl)
