@@ -49,9 +49,9 @@ def F(structure, hkl, T):
     return sum(fs)
 
 def F_i(i, structure, hkl, T):
-    from .atomic_scattering import B
+    from .atomic_scattering import AtomicScattering
     atom = structure[i]
-    B = B(atom.symbol, T)
+    B = AtomicScattering(atom.symbol).B(T)
     d1 = d(structure.lattice, hkl)
     position = atom.xyz
     o = atom.occupancy
