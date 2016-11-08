@@ -36,10 +36,12 @@ def test_fccNi():
     assert np.isclose(data, expected).all()
 
     inc_el_xs = [calc.xs_inc_el(l) for l in lambdas]
+    inel_xs = [calc.xs_inel(l) for l in lambdas]
     if interactive:
         from matplotlib import pyplot as plt
         plt.plot(lambdas, xs)
         plt.plot(lambdas, inc_el_xs)
+        plt.plot(lambdas, inel_xs)
         plt.show()
     return
 

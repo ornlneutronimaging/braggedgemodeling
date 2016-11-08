@@ -29,21 +29,14 @@ class XSCalculator:
         """wavelen: angstom
         """
         abs = self.xs_abs(wavelen)
-        coh = self.xs_coh(wavelen)
-        inc = self.xs_inc(wavelen)
-        return abs+coh+inc
+        coh_el = self.xs_coh_el(wavelen)
+        inc_el = self.xs_inc_el(wavelen)
+        inel = self.xs_inel(wavelen)
+        return abs+coh_el+inc_el+inel
 
-    def xs_inc(self, wavelen):
-        return self.xs_inc_el(wavelen) + self.xs_inc_inel(wavelen)
-
-    def xs_coh(self, wavelen):
-        return self.xs_coh_el(wavelen) + self.xs_coh_inel(wavelen)
-
-    def xs_coh_inel(self, wavelen):
-        return 0
-
-    def xs_inc_inel(self, wavelen):
-        return 0
+    def xs_inel(self, wavelen):
+        ss = [sc.S_inel_inc(wavelen, self.T) for sc in self.sctts]
+        return (self.coh_xs + self.inc_xs)*np.sum(ss)
 
     def xs_inc_el(self, wavelen):
         sctts = self.sctts
