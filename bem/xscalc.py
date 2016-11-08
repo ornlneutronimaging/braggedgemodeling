@@ -10,13 +10,13 @@ class XSCalculator:
         self.name = structure.description
         occs = np.array([atom.occupancy for atom in structure])
         from atomic_scattering import AtomicScattering as AS
-        sctts = [AS(atom.symbol) for atom in structure]
+        sctts = self.sctts = [AS(atom.symbol) for atom in structure]
         bs = np.array([sc.b() for sc in sctts])
         inc_xss = np.array([sc.sigma_inc() for sc in sctts])
         abs_xss = np.array([sc.sigma_abs() for sc in sctts])
-        self.coh_xs = (occs * bs).sum()**2*4*np.pi
-        self.inc_xs = (occs*bs*bs).sum()*4*np.pi - self.coh_xs + (occs*inc_xss).sum()
-        self.abs_xs_at2200 = abs_xss.sum()
+        self.coh_xs = np.average(occs * bs)**2*4*np.pi / 100
+        self.inc_xs = np.average(occs*bs*bs)*4*np.pi/100 - self.coh_xs + np.average(occs*inc_xss)
+        self.abs_xs_at2200 = np.average(abs_xss)
         self.uc_vol = structure.lattice.getVolume()
         self.structure = structure
         # temperature dependent
@@ -46,8 +46,9 @@ class XSCalculator:
         return 0
 
     def xs_inc_el(self, wavelen):
-        DW = self.B/wavelen/wavelen
-        return self.inc_xs * (1./(2*DW))* (1-np.exp(-2*DW))
+        sctts = self.sctts
+        S = np.sum([sc.S_el_inc(wavelen, self.T) for sc in sctts])
+        return self.inc_xs * S
 
     def xs_coh_el(self, wavelen):
         "unit: barn"
