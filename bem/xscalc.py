@@ -3,10 +3,11 @@
 
 import numpy as np
 from numpy import pi
+from .xtaloriprobmodel import IsotropicXOPM
 
 class XSCalculator:
 
-    def __init__(self, structure, T):
+    def __init__(self, structure, T, xopm=None):
         self.name = structure.description
         occs = np.array([atom.occupancy for atom in structure])
         from atomic_scattering import AtomicScattering as AS
@@ -23,6 +24,7 @@ class XSCalculator:
         self.T = T
         from . import diffraction
         self.diffpeaks = list(diffraction.iter_peaks(structure, T, max_index=5))
+        self.xopm = xopm or IsotropicXOPM()
         return
 
     def xs(self, wavelen):
@@ -45,7 +47,7 @@ class XSCalculator:
 
     def xs_coh_el(self, wavelen):
         "unit: barn"
-        vs = [np.abs(p.F)**2*p.d*p.mult for p in self.diffpeaks if p.d*2>wavelen]
+        vs = [np.abs(p.F)**2*p.d*p.mult*self.xopm(p, wavelen) for p in self.diffpeaks if p.d*2>wavelen]
         vs = np.array(vs) # unit fm^2
         # print wavelen, vs * wavelen*wavelen/(2*self.uc_vol)
         return np.sum(vs)/100 * wavelen*wavelen/(2*self.uc_vol) # unit: barn
