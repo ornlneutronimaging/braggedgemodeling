@@ -11,7 +11,7 @@ class XSCalculator:
         self.name = structure.description
         occs = np.array([atom.occupancy for atom in structure])
         from atomic_scattering import AtomicScattering as AS
-        sctts = self.sctts = [AS(atom.symbol) for atom in structure]
+        sctts = self.sctts = [AS(atom.symbol, occupancy=atom.occupancy) for atom in structure]
         bs = np.array([sc.b() for sc in sctts])
         inc_xss = np.array([sc.sigma_inc() for sc in sctts])
         abs_xss = np.array([sc.sigma_abs() for sc in sctts])
@@ -40,12 +40,12 @@ class XSCalculator:
         return abs+coh_el+inc_el+inel
 
     def xs_inel(self, wavelen):
-        ss = [sc.S_inel_inc(wavelen, self.T) for sc in self.sctts]
+        ss = [sc.S_inel_inc(wavelen, self.T)*sc.occupancy for sc in self.sctts]
         return (self.coh_xs + self.inc_xs)*np.sum(ss)
 
     def xs_inc_el(self, wavelen):
         sctts = self.sctts
-        S = np.sum([sc.S_el_inc(wavelen, self.T) for sc in sctts])
+        S = np.sum([sc.S_el_inc(wavelen, self.T)*sc.occupancy for sc in sctts])
         return self.inc_xs * S
 
     def xs_coh_el(self, wavelen):

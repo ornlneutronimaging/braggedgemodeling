@@ -12,11 +12,12 @@ class AtomicScattering:
     really accurate.
     """
 
-    def __init__(self, element):
+    def __init__(self, element, occupancy=1.):
         self.element = element
         self.atom = matter.Atom(element)
         import periodictable as pt
         self.ns = getattr(pt, element).neutron # neutron scattering lengths, cross sections etc
+        self.occupancy = occupancy
         return
 
 
