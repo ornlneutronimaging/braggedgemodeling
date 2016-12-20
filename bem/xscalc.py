@@ -7,7 +7,7 @@ from .xtaloriprobmodel import IsotropicXOPM
 
 class XSCalculator:
 
-    def __init__(self, structure, T, xopm=None):
+    def __init__(self, structure, T, xopm=None, max_diffraction_index=5):
         self.name = structure.description
         occs = np.array([atom.occupancy for atom in structure])
         from atomic_scattering import AtomicScattering as AS
@@ -15,20 +15,23 @@ class XSCalculator:
         bs = np.array([sc.b() for sc in sctts])
         inc_xss = np.array([sc.sigma_inc() for sc in sctts])
         abs_xss = np.array([sc.sigma_abs() for sc in sctts])
-        self.coh_xs = np.average(occs * bs)**2*4*np.pi / 100
-        self.inc_xs = np.average(occs*bs*bs)*4*np.pi/100 - self.coh_xs + np.average(occs*inc_xss)
+        def average(occs, qs):
+            return np.sum(occs*qs)/np.sum(occs)
+        self.coh_xs = average(occs, bs) **2*4*np.pi / 100
+        self.inc_xs = average(occs, bs*bs)*4*np.pi/100 - self.coh_xs + average(occs, inc_xss)
         self.abs_xs_at2200 = np.sum(occs*abs_xss)
         self.uc_vol = structure.lattice.getVolume()
         self.structure = structure
         # temperature dependent
         self.T = T
         from . import diffraction
-        self.diffpeaks = list(diffraction.iter_peaks(structure, T, max_index=5))
+        self.diffpeaks = list(diffraction.iter_peaks(structure, T, max_index=max_diffraction_index))
         self.xopm = xopm or IsotropicXOPM()
         return
 
     def xs(self, wavelen):
         """wavelen: angstom
+        return: cross section in barns
         """
         abs = self.xs_abs(wavelen)
         coh_el = self.xs_coh_el(wavelen)
