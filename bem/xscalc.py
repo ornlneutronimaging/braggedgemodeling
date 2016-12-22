@@ -7,7 +7,7 @@ from .xtaloriprobmodel import IsotropicXOPM
 
 class XSCalculator:
 
-    def __init__(self, structure, T, xopm=None, max_diffraction_index=5):
+    def __init__(self, structure, T, xopm=None, max_diffraction_index=5, size=0):
         self.name = structure.description
         occs = np.array([atom.occupancy for atom in structure])
         from atomic_scattering import AtomicScattering as AS
@@ -27,6 +27,7 @@ class XSCalculator:
         from . import diffraction
         self.diffpeaks = list(diffraction.iter_peaks(structure, T, max_index=max_diffraction_index))
         self.xopm = xopm or IsotropicXOPM()
+        self.size = size # size along beam. used for calculating extinction factor
         return
 
     def xs(self, wavelen):
@@ -50,7 +51,7 @@ class XSCalculator:
 
     def xs_coh_el(self, wavelen):
         "unit: barn"
-        vs = [np.abs(p.F)**2*p.d*p.mult*self.xopm(p, wavelen) for p in self.diffpeaks if p.d*2>wavelen]
+        vs = [np.abs(p.F)**2*p.d*p.mult*self.xopm(p, wavelen)*self.extinction_factor(wavelen, p) for p in self.diffpeaks if p.d*2>wavelen]
         vs = np.array(vs) # unit fm^2
         # print wavelen, vs * wavelen*wavelen/(2*self.uc_vol)
         return np.sum(vs)/100 * wavelen*wavelen/(2*self.uc_vol) # unit: barn
@@ -61,6 +62,20 @@ class XSCalculator:
         v = K2V*Q
         return self.abs_xs_at2200/v*2200
 
+    def extinction_factor(self, wavelen, pk):
+        size = self.size
+        if size == 0:
+            return 1.
+        sin_theta = wavelen / 2. / pk.d
+        sin_theta_2 = sin_theta**2
+        cos_theta_2 = 1 - sin_theta_2
+        x = size*size * (wavelen*1e-10 * pk.F*1e-15 / self.uc_vol * 1e30)**2
+        EB = 1/np.sqrt(1+x)
+        if x<=1:
+            EL = 1-x/2 + x*x/4 - 5*x**3/48
+        else:
+            EL = np.sqrt(2/np.pi/x) * (1-1/8./x - 3./128/x/x - 15./1024/x**3)
+        return EB*sin_theta_2 + EL*cos_theta_2
 
 if __name__ == '__main__': test()
 
