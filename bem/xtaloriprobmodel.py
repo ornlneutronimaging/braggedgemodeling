@@ -46,6 +46,16 @@ class MarchDollase(XtalOriProbModel):
         beta = self.beta(hkl)
         delta = np.pi/100.
         phi = np.arange(-np.pi/2, np.pi/2-delta/2., delta)
+        # array
+        if isinstance(wavelen, np.ndarray):
+            integral = (r*r - 1./r)*((np.cos(alpha)*np.cos(beta))[:, np.newaxis]
+                                     - (np.sin(alpha)*np.sin(beta))[:, np.newaxis] * np.sin(phi))**2
+            integral += 1./r
+            integral = 1./(np.sqrt(integral)*integral)
+            ret = np.sum(integral, axis=-1)*delta/np.pi
+            ret[ret!=ret] = 0
+            return ret
+        # number
         integral = (r*r - 1./r)*(np.cos(alpha)*np.cos(beta)
                                  - np.sin(alpha)*np.sin(beta)*np.sin(phi))**2
         integral += 1./r

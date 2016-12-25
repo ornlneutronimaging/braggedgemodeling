@@ -11,8 +11,11 @@ def test_fccNi():
     lambdas = np.arange(0.05, 5.5, 0.001)
     T = 300
     calc = xscalc.XSCalculator(fccNi, T, size=10e-6)
-    xs = [calc.xs(l) for l in lambdas]
+    xs1 = [calc.xs(l) for l in lambdas]
+    xs = calc.xs(lambdas)
+    assert np.allclose(xs, xs1)
     if interactive:
+        print "plotting..."
         from matplotlib import pyplot as plt
         plt.plot(lambdas, xs)
         plt.show()

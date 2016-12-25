@@ -7,7 +7,7 @@ import numpy as np
 from bem import xscalc, diffraction
 from fccNi import fccNi
 
-def test_Fe():
+def _test_Fe():
     d = laz.read("Fe.laz")
     peaks = [
         xscalc.DiffrPeak(hkl, F, d, mult)
@@ -48,11 +48,29 @@ def test_fccNi():
         plt.show()
     return
 
+def test_fccNi2():
+    lambdas = np.arange(0.05, 5.5, 0.001)
+    T = 300
+    calc = xscalc.XSCalculator(fccNi, T)
+    # coherent
+    coh_el_xs = calc.xs_coh_el(lambdas)
+    data = np.array([lambdas, coh_el_xs])
+    expected = np.load('fccNi-coh-el-xs.npy')
+    # total
+    assert np.isclose(data, expected).all()
+    xs = calc.xs(lambdas)
+    if interactive:
+        from matplotlib import pyplot as plt
+        plt.plot(lambdas, xs)
+        plt.show()
+    return
+
 def main():
     global interactive
     interactive = True
     # test_Fe()
     test_fccNi()
+    test_fccNi2()
     return
 
 if __name__ == '__main__': main()

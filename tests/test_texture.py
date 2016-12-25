@@ -13,14 +13,15 @@ def test_fccNi():
     texture_model = xopm.MarchDollase()
     texture_model.r[(0,0,1)] = 2
     calc = xscalc.XSCalculator(fccNi, T, texture_model)
-    coh_el_xs = [calc.xs_coh_el(l) for l in lambdas]
+    coh_el_xs = calc.xs_coh_el(lambdas)
+    # coh_el_xs = [calc.xs_coh_el(l) for l in lambdas]
     data = np.array([lambdas, coh_el_xs])
     # expected = np.load('fccNi-coh-el-xs.npy')
     # assert np.isclose(data, expected).all()
 
-    inc_el_xs = [calc.xs_inc_el(l) for l in lambdas]
-    inel_xs = [calc.xs_inel(l) for l in lambdas]
-    abs_xs = np.array([calc.xs_abs(l) for l in lambdas])
+    inc_el_xs = calc.xs_inc_el(lambdas)
+    inel_xs = calc.xs_inel(lambdas)
+    abs_xs = calc.xs_abs(lambdas)
     if interactive:
         from matplotlib import pyplot as plt
         plt.plot(lambdas, coh_el_xs)

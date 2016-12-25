@@ -41,20 +41,30 @@ class XSCalculator:
         return abs+coh_el+inc_el+inel
 
     def xs_inel(self, wavelen):
-        ss = [sc.S_inel_inc(wavelen, self.T)*sc.occupancy for sc in self.sctts]
-        return (self.coh_xs + self.inc_xs)*np.sum(ss)
+        Sarr = np.array([sc.S_inel_inc(wavelen, self.T)*sc.occupancy for sc in self.sctts])
+        if len(Sarr.shape) == 1:
+            S = np.sum(Sarr)
+        else:
+            S = np.sum(Sarr, axis=0)
+        return (self.coh_xs + self.inc_xs)*S
 
     def xs_inc_el(self, wavelen):
         sctts = self.sctts
-        S = np.sum([sc.S_el_inc(wavelen, self.T)*sc.occupancy for sc in sctts])
+        Sarr = np.array([sc.S_el_inc(wavelen, self.T)*sc.occupancy for sc in sctts])
+        if len(Sarr.shape) == 1:
+            S = np.sum(Sarr)
+        else:
+            S = np.sum(Sarr, axis=0)
         return self.inc_xs * S
 
     def xs_coh_el(self, wavelen):
         "unit: barn"
-        vs = [np.abs(p.F)**2*p.d*p.mult*self.xopm(p, wavelen)*self.extinction_factor(wavelen, p) for p in self.diffpeaks if p.d*2>wavelen]
+        vs = [np.abs(p.F)**2*p.d*p.mult*self.xopm(p, wavelen)*self.extinction_factor(wavelen, p)*(p.d*2>wavelen) for p in self.diffpeaks]
         vs = np.array(vs) # unit fm^2
         # print wavelen, vs * wavelen*wavelen/(2*self.uc_vol)
-        return np.sum(vs)/100 * wavelen*wavelen/(2*self.uc_vol) # unit: barn
+        if len(vs.shape) == 1:
+            return np.sum(vs)/100 * wavelen*wavelen/(2*self.uc_vol) # unit: barn
+        return np.sum(vs, axis=0)/100 * wavelen*wavelen/(2*self.uc_vol) # unit: barn
 
     def xs_abs(self, wavelen):
         Q = 2*pi/wavelen
@@ -71,10 +81,7 @@ class XSCalculator:
         cos_theta_2 = 1 - sin_theta_2
         x = size*size * (wavelen*1e-10 * pk.F*1e-15 / self.uc_vol * 1e30)**2
         EB = 1/np.sqrt(1+x)
-        if x<=1:
-            EL = 1-x/2 + x*x/4 - 5*x**3/48
-        else:
-            EL = np.sqrt(2/np.pi/x) * (1-1/8./x - 3./128/x/x - 15./1024/x**3)
+        EL = (1-x/2 + x*x/4 - 5*x**3/48)*(x<=1) + (np.sqrt(2/np.pi/x) * (1-1/8./x - 3./128/x/x - 15./1024/x**3))*(x>1)
         return EB*sin_theta_2 + EL*cos_theta_2
 
 if __name__ == '__main__': test()
