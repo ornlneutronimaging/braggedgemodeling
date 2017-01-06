@@ -9,7 +9,7 @@ class XSCalculator:
 
     """Cross section calculator
 
-    xc = XSCalculator(structure, T, xopm=, size=, max_diffraction_index)
+    xc = XSCalculator(structure, T, xopm=, size=, max_diffraction_index=)
     xc.xs(wavelen)                         # compute total cross section
     xc.diffpeaks                           # show diffraction peaks
     xc.xopm(peak=, wavelen=)               # compute factor due to orientation distribution (texture)
