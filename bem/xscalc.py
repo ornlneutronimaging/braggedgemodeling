@@ -7,7 +7,26 @@ from .xtaloriprobmodel import IsotropicXOPM
 
 class XSCalculator:
 
+    """Cross section calculator
+
+    xc = XSCalculator(structure, T, xopm=, size=, max_diffraction_index)
+    xc.xs(wavelen)                         # compute total cross section
+    xc.diffpeaks                           # show diffraction peaks
+    xc.xopm(peak=, wavelen=)               # compute factor due to orientation distribution (texture)
+    xc.extinction_factor(wavelen=, peak=)  # compute factor due to dynamical diffraction
+    """
+
     def __init__(self, structure, T, xopm=None, max_diffraction_index=5, size=0):
+        """constructor
+  Required args
+    - structure: lattice structure
+    - T: temperature
+
+  Optional args
+    - max_diffraction_index
+    - xopm: xtal orientation probability model
+    - size: size of crystallites along beam (for extinction effect calculation)
+        """
         self.name = structure.description
         occs = np.array([atom.occupancy for atom in structure])
         from atomic_scattering import AtomicScattering as AS
@@ -31,8 +50,9 @@ class XSCalculator:
         return
 
     def xs(self, wavelen):
-        """wavelen: angstom
-        return: cross section in barns
+        """calculate total cross section in barns
+
+    - wavelen: a single float or a list of floats. unit: angstom
         """
         abs = self.xs_abs(wavelen)
         coh_el = self.xs_coh_el(wavelen)
@@ -58,7 +78,6 @@ class XSCalculator:
         return self.inc_xs * S
 
     def xs_coh_el(self, wavelen):
-        "unit: barn"
         vs = [np.abs(p.F)**2*p.d*p.mult*self.xopm(p, wavelen)*self.extinction_factor(wavelen, p)*(p.d*2>wavelen) for p in self.diffpeaks]
         vs = np.array(vs) # unit fm^2
         # print wavelen, vs * wavelen*wavelen/(2*self.uc_vol)
@@ -73,6 +92,7 @@ class XSCalculator:
         return self.abs_xs_at2200/v*2200
 
     def extinction_factor(self, wavelen, pk):
+        "compute extinction factor for given wavelength and diffraction peak"
         size = self.size
         if size == 0:
             return 1.
