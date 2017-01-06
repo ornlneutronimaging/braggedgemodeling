@@ -1,0 +1,1 @@
+rsync -av bem/ /SNS/software/miniconda2/envs/py2-cg1d/lib/python2.7/site-packages/bem/
