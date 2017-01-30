@@ -3,8 +3,9 @@
 
 interactive = False
 
-import numpy as np
+import os, numpy as np
 from bem import xscalc, diffraction, matter
+thisdir = os.path.dirname(__file__)
 
 atoms = [
     matter.Atom('Ni', (0,0,0), occupancy=0.5444), matter.Atom('Ni', (0.5, 0.5, 0), occupancy = 0.5444),
@@ -27,7 +28,7 @@ def test():
     calc = xscalc.XSCalculator(mat, T)
     xs = [calc.xs(l) for l in lambdas]
     # np.save('NiFeCrMo-xs.npy', np.array([lambdas, xs]).T)
-    expected = np.load('NiFeCrMo-xs.npy')
+    expected = np.load(os.path.join(thisdir, 'NiFeCrMo-xs.npy'))
     assert np.allclose(expected[:, 1], xs)
     if interactive:
         from matplotlib import pyplot as plt

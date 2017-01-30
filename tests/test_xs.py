@@ -3,9 +3,11 @@
 
 interactive = False
 
-import numpy as np
+import os, numpy as np
 from bem import xscalc, diffraction
 from fccNi import fccNi
+
+thisdir = os.path.dirname(__file__)
 
 def _test_Fe():
     d = laz.read("Fe.laz")
@@ -32,7 +34,7 @@ def test_fccNi():
     calc = xscalc.XSCalculator(fccNi, T)
     coh_el_xs = [calc.xs_coh_el(l) for l in lambdas]
     data = np.array([lambdas, coh_el_xs])
-    expected = np.load('fccNi-coh-el-xs.npy')
+    expected = np.load(os.path.join(thisdir, 'fccNi-coh-el-xs.npy'))
     assert np.isclose(data, expected).all()
 
     inc_el_xs = [calc.xs_inc_el(l) for l in lambdas]
@@ -55,7 +57,7 @@ def test_fccNi2():
     # coherent
     coh_el_xs = calc.xs_coh_el(lambdas)
     data = np.array([lambdas, coh_el_xs])
-    expected = np.load('fccNi-coh-el-xs.npy')
+    expected = np.load(os.path.join(thisdir, 'fccNi-coh-el-xs.npy'))
     # total
     assert np.isclose(data, expected).all()
     xs = calc.xs(lambdas)
