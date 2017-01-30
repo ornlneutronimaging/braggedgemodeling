@@ -37,16 +37,21 @@ def test_fccNi():
     expected = np.load(os.path.join(thisdir, 'fccNi-coh-el-xs.npy'))
     assert np.isclose(data, expected).all()
 
-    inc_el_xs = [calc.xs_inc_el(l) for l in lambdas]
-    inel_xs = [calc.xs_inel(l) for l in lambdas]
-    abs_xs = np.array([calc.xs_abs(l) for l in lambdas])
+    inc_el_xs = calc.xs_inc_el(lambdas)
+    inel_xs = calc.xs_inel(lambdas)
+    abs_xs = calc.xs_abs(lambdas)
+    coh_inel_xs = calc.xs_coh_inel(lambdas)
+    inc_inel_xs = calc.xs_inc_inel(lambdas)
     if interactive:
         from matplotlib import pyplot as plt
-        plt.plot(lambdas, coh_el_xs)
-        plt.plot(lambdas, inc_el_xs)
-        plt.plot(lambdas, inel_xs)
-        plt.plot(lambdas, abs_xs)
+        plt.plot(lambdas, coh_el_xs, label='coh el')
+        plt.plot(lambdas, inc_el_xs, label='inc el')
+        plt.plot(lambdas, coh_inel_xs, label='inc inel')
+        plt.plot(lambdas, inc_inel_xs, label='inc inel')
+        plt.plot(lambdas, inel_xs, label='inel')
+        plt.plot(lambdas, abs_xs, label='abs')
         plt.plot(lambdas, abs_xs+coh_el_xs+inc_el_xs+inel_xs)
+        plt.legend()
         plt.show()
     return
 

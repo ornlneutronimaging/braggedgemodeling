@@ -64,6 +64,14 @@ class XSCalculator:
         S = self._S_inel(wavelen)
         return (self.coh_xs + self.inc_xs)*S
 
+    def xs_coh_inel(self, wavelen):
+        S = self._S_inel(wavelen)
+        return self.coh_xs*S
+
+    def xs_inc_inel(self, wavelen):
+        S = self._S_inel(wavelen)
+        return self.inc_xs*S
+
     def xs_inc_el(self, wavelen):
         sctts = self.sctts
         Sarr = np.array([sc.S_el_inc(wavelen, self.T)*sc.occupancy for sc in sctts])
