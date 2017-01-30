@@ -61,11 +61,7 @@ class XSCalculator:
         return abs+coh_el+inc_el+inel
 
     def xs_inel(self, wavelen):
-        Sarr = np.array([sc.S_inel_inc(wavelen, self.T)*sc.occupancy for sc in self.sctts])
-        if len(Sarr.shape) == 1:
-            S = np.sum(Sarr)
-        else:
-            S = np.sum(Sarr, axis=0)
+        S = self._S_inel(wavelen)
         return (self.coh_xs + self.inc_xs)*S
 
     def xs_inc_el(self, wavelen):
@@ -103,6 +99,14 @@ class XSCalculator:
         EB = 1/np.sqrt(1+x)
         EL = (1-x/2 + x*x/4 - 5*x**3/48)*(x<=1) + (np.sqrt(2/np.pi/x) * (1-1/8./x - 3./128/x/x - 15./1024/x**3))*(x>1)
         return EB*sin_theta_2 + EL*cos_theta_2
+
+    def _S_inel(self, wavelen):
+        Sarr = np.array([sc.S_inel_inc(wavelen, self.T)*sc.occupancy for sc in self.sctts])
+        if len(Sarr.shape) == 1:
+            S = np.sum(Sarr)
+        else:
+            S = np.sum(Sarr, axis=0)
+        return S
 
 if __name__ == '__main__': test()
 
