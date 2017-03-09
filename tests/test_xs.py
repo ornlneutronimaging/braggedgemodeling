@@ -55,6 +55,18 @@ def test_fccNi():
         plt.show()
     return
 
+def test_fccNi_onepeak():
+    lambdas = np.arange(0.05, 5.5, 0.001)
+    T = 300
+    calc = xscalc.XSCalculator(fccNi, T)
+
+    xs = calc.xs_coh_el__peak(lambdas, calc.diffpeaks[6])
+    if interactive:
+        from matplotlib import pyplot as plt
+        plt.plot(lambdas, xs)
+        plt.show()
+    return
+
 def test_fccNi2():
     lambdas = np.arange(0.05, 5.5, 0.001)
     T = 300
@@ -76,8 +88,9 @@ def main():
     global interactive
     interactive = True
     # test_Fe()
-    test_fccNi()
-    test_fccNi2()
+    # test_fccNi()
+    test_fccNi_onepeak()
+    # test_fccNi2()
     return
 
 if __name__ == '__main__': main()

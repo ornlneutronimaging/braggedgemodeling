@@ -89,6 +89,10 @@ class XSCalculator:
             return np.sum(vs)/100 * wavelen*wavelen/(2*self.uc_vol) # unit: barn
         return np.sum(vs, axis=0)/100 * wavelen*wavelen/(2*self.uc_vol) # unit: barn
 
+    def xs_coh_el__peak(self, wavelen, peak):
+        v = np.abs(peak.F)**2*peak.d*peak.mult*self.xopm(peak, wavelen)*self.extinction_factor(wavelen, peak)*(peak.d*2>wavelen)
+        return v/100 * wavelen*wavelen/(2*self.uc_vol) # unit: barn
+
     def xs_abs(self, wavelen):
         Q = 2*pi/wavelen
         from mcni.utils.conversion import K2V
@@ -115,8 +119,6 @@ class XSCalculator:
         else:
             S = np.sum(Sarr, axis=0)
         return S
-
-if __name__ == '__main__': test()
 
 
 # End of file
