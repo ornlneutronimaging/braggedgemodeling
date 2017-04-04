@@ -1,7 +1,8 @@
 # Bragg Edge Modeling
 
 * Cross section calculation from crystal structure specification
-  * Automatic calculation of diffraction peaks according to crystal structure (elements, positions, symmetry group)
+  * Calculation of diffraction peaks data (d-spacing, form factors, etc.) according to sample crystal structure
+  * Estimate of inelastic scattering using incoherent approximation
 * Support of texture model: March Dollase
 * Peak profile modeling: Jorgensen model
 * Flexible design to allow future extension to the texture and peak profile models
