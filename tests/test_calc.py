@@ -13,7 +13,7 @@ def test_fccNi():
     lambdas = np.arange(0.05, 5.5, 0.001)
     T = 300
     xs_calculator = xscalc.XSCalculator(fccNi, T)
-    jorgensen = pp.Jorgensen(alpha=[1., 0.], beta=[2., 0], sigma=[0, 30e-3, 0])
+    jorgensen = pp.Jorgensen(alpha=[50, 0.], beta=[10, 0], sigma=[0, .003, 0])
     spectrum_calculator = calc.BraggEdgeSpectrumCalculator(xs_calculator, jorgensen)
     
     spectrum = spectrum_calculator('total', lambdas)
@@ -24,6 +24,7 @@ def test_fccNi():
         plt.plot(lambdas, xs, label='cross section')
         plt.plot(lambdas, spectrum, label='convolved')
         plt.legend()
+        plt.text(0.5, 115, "alpha=[50, 0.], beta=[10, 0], sigma=[0, .003, 0])")
         plt.show()
     return
 
