@@ -39,10 +39,17 @@ class Jorgensen(AbstractPeakProfile):
 
     def calc_profile(self, x, d):
         alpha = self.alpha[0] + self.alpha[1]/d
+        # print "d=%s" % (d,)
+        # print "alpha=%s" % alpha
         beta = self.beta[0] + self.beta[1]/d**4
+        # print "beta=%s" % beta
         sigma2 = self.sigma[0]**2 + (self.sigma[1]*d)**2 + (self.sigma[2]*d*d)**2
         sigma = np.sqrt(sigma2)
-        return Jorgensen_simple(x, sigma, alpha, beta)
+        # print "sigma=%s" % sigma
+        # print "x=%s" % x
+        rt = Jorgensen_simple(x, sigma, alpha, beta)
+        # print "rt=%s" % rt
+        return rt
 
 
     def convolve(self, x, f):
@@ -61,7 +68,12 @@ def Jorgensen_simple(x, sigma, alpha, beta):
     v = beta/2. * (beta*sigma2 - 2*x)
     y = (alpha*sigma2+x)/(sqrt2*sigma)
     z = (beta*sigma2 - x)/(sqrt2*sigma)
-    return scale*(np.exp(u)*sp.erfc(y) + np.exp(v)*sp.erfc(z))
+    # special treatment because exp(u) may goes to infinity
+    term1 = np.exp(u)*sp.erfc(y)
+    term1[sp.erfc(y)==0] = 0
+    term2 = np.exp(v)*sp.erfc(z)
+    term2[sp.erfc(z)==0] = 0
+    return scale*(term1 + term2)
 
 
 def test1():
