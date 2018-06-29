@@ -70,6 +70,8 @@ def multiplicity(hkl, sg):
 
 
 def equivalent_hkls(hkl, sg):
+    """computes all equivalent hkl vectors for the given space group
+    """
     vs = []
     for symop in sg.symop_list:
         v1 = np.dot(symop.R, hkl)
