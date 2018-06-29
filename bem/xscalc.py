@@ -95,7 +95,7 @@ class XSCalculator:
 
     def xs_abs(self, wavelen):
         Q = 2*pi/wavelen
-        from mcni.utils.conversion import K2V
+        from .constants import K2V
         v = K2V*Q
         return self.abs_xs_at2200/v*2200
 
