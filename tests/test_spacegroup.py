@@ -2,7 +2,7 @@
 # Jiao Lin <jiao.lin@gmail.com>
 
 import numpy as np
-from danse.ins.matter import SpaceGroups as sg
+from bem.matter import SpaceGroups as sg
 
 def test():
     test1()

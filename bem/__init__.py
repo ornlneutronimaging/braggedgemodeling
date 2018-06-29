@@ -2,12 +2,12 @@
 
 """
 deps:
-  * danse.ins.matter
+  * diffpy.Structure
   * periodictable
   * matplotlib, numpy
   * mcvine (can simplify)
 """
 
-from danse.ins import matter
+from . import matter
 
 # End of file
