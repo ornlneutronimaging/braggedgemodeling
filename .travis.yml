@@ -31,7 +31,7 @@ install:
   - conda config --add channels conda-forge
   - conda create -n testenv pip pytest pytest-cov python=$TRAVIS_PYTHON_VERSION
   - conda install -n testenv numpy scipy matplotlib
-  - conda install -n testenv -c mcvine danse.ins.matter
+  - conda install -n testenv -c diffpy diffpy.Structure
   - conda install -n testenv periodictable
   - conda install -n testenv -c mcvine mcvine-core
   - source activate testenv
