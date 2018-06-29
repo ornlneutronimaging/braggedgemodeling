@@ -27,10 +27,10 @@ class XSCalculator:
     - xopm: xtal orientation probability model
     - size: size of crystallites along beam (for extinction effect calculation)
         """
-        self.name = structure.description
+        self.name = structure.title
         occs = np.array([atom.occupancy for atom in structure])
         from atomic_scattering import AtomicScattering as AS
-        sctts = self.sctts = [AS(atom.symbol, occupancy=atom.occupancy) for atom in structure]
+        sctts = self.sctts = [AS(atom.element, occupancy=atom.occupancy) for atom in structure]
         bs = np.array([sc.b() for sc in sctts])
         inc_xss = np.array([sc.sigma_inc() for sc in sctts])
         abs_xss = np.array([sc.sigma_abs() for sc in sctts])
@@ -39,7 +39,7 @@ class XSCalculator:
         self.coh_xs = average(occs, bs) **2*4*np.pi / 100
         self.inc_xs = average(occs, bs*bs)*4*np.pi/100 - self.coh_xs + average(occs, inc_xss)
         self.abs_xs_at2200 = np.sum(occs*abs_xss)
-        self.uc_vol = structure.lattice.getVolume()
+        self.uc_vol = structure.lattice.volume
         self.structure = structure
         # temperature dependent
         self.T = T
@@ -95,7 +95,7 @@ class XSCalculator:
 
     def xs_abs(self, wavelen):
         Q = 2*pi/wavelen
-        from mcni.utils.conversion import K2V
+        from .constants import K2V
         v = K2V*Q
         return self.abs_xs_at2200/v*2200
 

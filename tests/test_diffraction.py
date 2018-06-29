@@ -2,7 +2,6 @@
 
 import numpy as np
 from bem import diffraction
-from danse.ins import matter
 
 from fccNi import fccNi
 

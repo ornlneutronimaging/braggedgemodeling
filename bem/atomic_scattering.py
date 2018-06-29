@@ -1,7 +1,8 @@
 # -*- Python -*-
 
 import numpy as np
-from danse.ins import matter
+from diffpy import Structure as matter
+import periodictable as ptbl
 from .vogel import phi1
 
 
@@ -45,7 +46,7 @@ class AtomicScattering:
 
     def S_total_inc(self, lambda1, T):
         atom = self.atom
-        mass = atom.mass
+        mass = getattr(ptbl,atom.element).mass
         m_r = mass/1.
         theta1 = self.theta(T)
         from . import vogel
@@ -68,7 +69,7 @@ class AtomicScattering:
     def B(self, T):
         element = self.element
         atom = self.atom
-        mass = atom.mass
+        mass = getattr(ptbl,atom.element).mass
         from DebyeTemp import getT
         T_D = getT(element)
         theta1 = self.theta(T)

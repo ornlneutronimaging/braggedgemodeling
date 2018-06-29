@@ -87,10 +87,10 @@ def test_fccNi2():
 def main():
     global interactive
     interactive = True
-    # test_Fe()
-    # test_fccNi()
+    # _test_Fe()
+    test_fccNi()
     test_fccNi_onepeak()
-    # test_fccNi2()
+    test_fccNi2()
     return
 
 if __name__ == '__main__': main()
