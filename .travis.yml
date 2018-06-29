@@ -40,7 +40,8 @@ install:
 #  - pip install codecov
 
 script:
-   - PYTHONPATH=$PWD travis_wait 60 py.test --cov=bem tests
+#   - PYTHONPATH=$PWD travis_wait 60 py.test --cov=bem tests
+   - PYTHONPATH=$PWD py.test --cov=bem tests
 
 after_success:
 #   - coveralls
