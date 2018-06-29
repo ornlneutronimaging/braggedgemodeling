@@ -2,6 +2,8 @@
 
 """
 Debye temperature of elements
+
+Refs: Kittel, Introduction to Solid State Physics, Eighth Edition
 """
 
 def getT(element, default=None):
