@@ -34,13 +34,13 @@ install:
   - conda install -n testenv -c diffpy diffpy.Structure
   - conda install -n testenv periodictable
   - source activate testenv
-#  - python setup.py install
+  - python setup.py install
   - pip install coveralls
 #  - pip install codecov
 
 script:
-#   - PYTHONPATH=$PWD travis_wait 60 py.test --cov=bem tests
-   - PYTHONPATH=$PWD py.test --cov=bem tests
+#   - travis_wait 60 py.test --cov=bem tests
+   - py.test --cov=bem tests
 
 after_success:
 #   - coveralls
