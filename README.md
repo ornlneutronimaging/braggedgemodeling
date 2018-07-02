@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/ornlneutronimaging/braggedgemodeling.svg?branch=master)](https://travis-ci.org/ornlneutronimaging/braggedgemodeling)
 # Bragg Edge Modeling
 
 * Cross section calculation from crystal structure specification
