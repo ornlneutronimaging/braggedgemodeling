@@ -6,9 +6,11 @@ Debye temperature of elements
 Refs: Kittel, Introduction to Solid State Physics, Eighth Edition
 """
 
-def getT(element, default=None):
-    return table.get(element, default)
-
+def getT(element):
+    T = table.get(element, None)
+    if T is None:
+        raise ValueError("Debye temperature for %r is unknown to BEM. Please supply its value using `bem.conf` file" % element)
+    return T
 
 table = dict(
     Li=344, Be=1440, C=2230, Ne=75,
@@ -17,7 +19,12 @@ table = dict(
     Rb=56, Sr=147, Y=280, Zr=291, Nb=275, Mo=450, Ru=600, Rh=480, Pd=274, Ag=225, Cd=209, In=108, Sn=200, Sb=211, Te=153, Xe=64,
     Cs=38, Ba=110, La=142, Hf=252, Ta=240, W=400, Re=430, Os=500, Ir=420, Pt=240, Au=165, Hg=71.9, Tl=78.5, Pb=105, Bi=119, 
     Gd=200, Dy=210, Yb=120, Lu=210,
-    Th=163, U=207, 
+    Th=163, U=207,
     )
+
+from . import config
+debye_temperatures = config.get('DebyeTemperatures')
+if debye_temperatures:
+    table.update(debye_temperatures)
 
 # End of file
