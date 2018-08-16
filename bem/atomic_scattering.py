@@ -14,6 +14,7 @@ class AtomicScattering:
     """
 
     def __init__(self, element, occupancy=1.):
+        element = ''.join(c for c in element if c.isalpha()) # remove numbers
         self.element = element
         self.atom = matter.Atom(element)
         import periodictable as pt
