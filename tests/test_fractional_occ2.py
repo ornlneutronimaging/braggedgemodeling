@@ -27,8 +27,8 @@ def test():
     T = 300
     calc = xscalc.XSCalculator(mat, T)
     xs = [calc.xs(l) for l in lambdas]
-    # np.save('NiFeCrMo-xs.npy', np.array([lambdas, xs]).T)
-    expected = np.load(os.path.join(thisdir, 'NiFeCrMo-xs.npy'))
+    # np.save('expected/NiFeCrMo-xs.npy', np.array([lambdas, xs]).T)
+    expected = np.load(os.path.join(thisdir, 'expected', 'NiFeCrMo-xs.npy'))
     assert np.allclose(expected[:, 1], xs)
     if interactive:
         from matplotlib import pyplot as plt

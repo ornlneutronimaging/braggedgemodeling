@@ -34,7 +34,7 @@ def test_fccNi():
     calc = xscalc.XSCalculator(fccNi, T)
     coh_el_xs = [calc.xs_coh_el(l) for l in lambdas]
     data = np.array([lambdas, coh_el_xs])
-    expected = np.load(os.path.join(thisdir, 'fccNi-coh-el-xs.npy'))
+    expected = np.load(os.path.join(thisdir, 'expected', 'fccNi-coh-el-xs.npy'))
     assert np.isclose(data, expected).all()
 
     inc_el_xs = calc.xs_inc_el(lambdas)
@@ -74,7 +74,7 @@ def test_fccNi2():
     # coherent
     coh_el_xs = calc.xs_coh_el(lambdas)
     data = np.array([lambdas, coh_el_xs])
-    expected = np.load(os.path.join(thisdir, 'fccNi-coh-el-xs.npy'))
+    expected = np.load(os.path.join(thisdir, 'expected', 'fccNi-coh-el-xs.npy'))
     # total
     assert np.isclose(data, expected).all()
     xs = calc.xs(lambdas)

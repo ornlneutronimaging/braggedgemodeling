@@ -16,7 +16,7 @@ def test_fccNi():
     coh_el_xs = calc.xs_coh_el(lambdas)
     # coh_el_xs = [calc.xs_coh_el(l) for l in lambdas]
     data = np.array([lambdas, coh_el_xs])
-    # expected = np.load('fccNi-coh-el-xs.npy')
+    # expected = np.load('expected/fccNi-coh-el-xs.npy')
     # assert np.isclose(data, expected).all()
 
     inc_el_xs = calc.xs_inc_el(lambdas)
