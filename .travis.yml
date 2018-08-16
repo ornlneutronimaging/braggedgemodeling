@@ -30,7 +30,7 @@ install:
   - conda update conda
   - conda config --add channels conda-forge
   - conda create -n testenv pip pytest pytest-cov python=$TRAVIS_PYTHON_VERSION
-  - conda install -n testenv numpy scipy matplotlib
+  - conda install -n testenv pyyaml numpy scipy matplotlib
   - conda install -n testenv -c diffpy diffpy.Structure
   - conda install -n testenv periodictable
   - source activate testenv
