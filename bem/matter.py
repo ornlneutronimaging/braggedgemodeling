@@ -11,3 +11,11 @@ def Structure(*args, **kwds):
     if sgid is not None:
         s.sg = getSpaceGroup(sgid)
     return s
+
+
+def loadCif(path):
+    from diffpy.Structure.Parsers import getParser
+    p = getParser('cif')
+    nacl = p.parseFile(path)
+    nacl.sg = p.spacegroup
+    return nacl
