@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # Jiao Lin <jiao.lin@gmail.com>
 
+from __future__ import print_function
+
 interactive = False
 
 import os, numpy as np
@@ -19,7 +21,7 @@ def _test_Fe():
     # Journal of Physics C: Solid State Physics, Volume 12, Number 17
     B = 0.35
     Fe = xscalc.XSCalculator('Fe', 11.22, 0.4, 2.56, 2.886**3, peaks, B)
-    print Fe.xs(2200)
+    print(Fe.xs(2200))
     lambdas = np.arange(0.05, 5.5, 0.001)
     xs = [Fe.xs_coh(l) for l in lambdas]
     from matplotlib import pyplot as plt
