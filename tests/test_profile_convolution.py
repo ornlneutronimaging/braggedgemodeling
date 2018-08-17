@@ -5,7 +5,7 @@ interactive = False
 
 import os, numpy as np
 from bem import xscalc, peak_profile as pp
-from fccNi import fccNi
+from bem.matter import fccNi
 
 thisdir = os.path.dirname(__file__)
 

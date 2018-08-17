@@ -29,7 +29,7 @@ class XSCalculator:
         """
         self.name = structure.title
         occs = np.array([atom.occupancy for atom in structure])
-        from atomic_scattering import AtomicScattering as AS
+        from .atomic_scattering import AtomicScattering as AS
         sctts = self.sctts = [AS(atom.element, occupancy=atom.occupancy) for atom in structure]
         bs = np.array([sc.b() for sc in sctts])
         inc_xss = np.array([sc.sigma_inc() for sc in sctts])

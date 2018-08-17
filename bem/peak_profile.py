@@ -39,16 +39,16 @@ class Jorgensen(AbstractPeakProfile):
 
     def calc_profile(self, x, d):
         alpha = self.alpha[0] + self.alpha[1]/d
-        # print "d=%s" % (d,)
-        # print "alpha=%s" % alpha
+        # print("d=%s" % (d,))
+        # print("alpha=%s" % alpha)
         beta = self.beta[0] + self.beta[1]/d**4
-        # print "beta=%s" % beta
+        # print("beta=%s" % beta)
         sigma2 = self.sigma[0]**2 + (self.sigma[1]*d)**2 + (self.sigma[2]*d*d)**2
         sigma = np.sqrt(sigma2)
-        # print "sigma=%s" % sigma
-        # print "x=%s" % x
+        # print("sigma=%s" % sigma)
+        # print("x=%s" % x)
         rt = Jorgensen_simple(x, sigma, alpha, beta)
-        # print "rt=%s" % rt
+        # print("rt=%s" % rt)
         return rt
 
 
@@ -102,7 +102,7 @@ def test():
     beta = beta0+beta1/d**4
     sigma_sq = sigma0**2 + sigma1**2 * d*d + sigma2**2 * d**4
     sigma = sigma_sq**.5
-    print sigma, alpha, beta
+    print(sigma, alpha, beta)
     y = Jorgensen_simple(x, sigma, alpha, beta)
     plt.plot(x,y)
     plt.show()

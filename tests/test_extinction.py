@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # Jiao Lin <jiao.lin@gmail.com>
 
+from __future__ import print_function
+
 interactive = False
 
 import numpy as np
 from bem import xscalc, diffraction
-from fccNi import fccNi
+from bem.matter import fccNi
 
 def test_fccNi():
     lambdas = np.arange(0.05, 5.5, 0.001)
@@ -15,7 +17,7 @@ def test_fccNi():
     xs = calc.xs(lambdas)
     assert np.allclose(xs, xs1)
     if interactive:
-        print "plotting..."
+        print("plotting...")
         from matplotlib import pyplot as plt
         plt.plot(lambdas, xs)
         plt.show()

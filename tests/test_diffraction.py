@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
+
 import numpy as np
 from bem import diffraction
 
-from fccNi import fccNi
+from bem.matter import fccNi
 
 
 def test_F_i():
@@ -22,7 +24,7 @@ def test_d():
 
 def test_peaks():
     for pk in diffraction.iter_peaks(fccNi, 300):
-        print pk
+        print (pk)
     return
 
 
