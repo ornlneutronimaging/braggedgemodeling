@@ -5,7 +5,7 @@ from __future__ import print_function
 import numpy as np
 from bem import diffraction
 
-from fccNi import fccNi
+from bem.matter import fccNi
 
 
 def test_F_i():

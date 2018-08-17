@@ -29,3 +29,23 @@ def loadCif(path):
     nacl = p.parseFile(path)
     nacl.sg = p.spacegroup
     return nacl
+
+
+# examples
+def fccNi():
+    atoms = [Atom('Ni', (0,0,0)), Atom('Ni', (0.5, 0.5, 0)),
+             Atom('Ni', (0.5,0,0.5)), Atom('Ni', (0, 0.5, 0.5))]
+    a=3.5238
+    alpha = 90.
+    lattice = Lattice(a=a, b=a, c=a, alpha=alpha, beta=alpha, gamma=alpha)
+    return Structure(atoms, lattice, sgid=225)
+fccNi = fccNi()
+
+def fccAl():
+    atoms = [Atom('Al', (0,0,0)), Atom('Al', (0.5, 0.5, 0)),
+         Atom('Al', (0.5,0,0.5)), Atom('Al', (0, 0.5, 0.5))]
+    a=4.046
+    alpha = 90.
+    lattice = Lattice(a=a, b=a, c=a, alpha=alpha, beta=alpha, gamma=alpha)
+    return Structure(atoms, lattice, sgid=225)
+fccAl = fccAl()

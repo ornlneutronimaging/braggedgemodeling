@@ -5,7 +5,7 @@ interactive = False
 
 import os, numpy as np
 from bem import xscalc, diffraction
-from fccAl import fccAl
+from bem.matter import fccAl
 
 thisdir = os.path.dirname(__file__)
 

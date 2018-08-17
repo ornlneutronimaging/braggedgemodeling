@@ -5,11 +5,11 @@ from __future__ import print_function
 
 interactive = False
 
-import os, numpy as np
+import os, sys, numpy as np
 from bem import xscalc, diffraction
-from fccNi import fccNi
+from bem.matter import fccNi
+thisdir = os.path.abspath(os.path.dirname(__file__))
 
-thisdir = os.path.dirname(__file__)
 
 def _test_Fe():
     d = laz.read("Fe.laz")

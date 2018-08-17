@@ -3,11 +3,11 @@
 
 interactive = False
 
-import os, numpy as np
+import os, sys, numpy as np
 from bem import xscalc, peak_profile as pp, calc
-from fccNi import fccNi
+thisdir = os.path.abspath(os.path.dirname(__file__))
 
-thisdir = os.path.dirname(__file__)
+from bem.matter import fccNi
 
 def test_fccNi():
     lambdas = np.arange(0.05, 5.5, 0.001)
