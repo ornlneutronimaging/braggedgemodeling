@@ -24,7 +24,7 @@ def loadCif(path):
     if sys.version_info[0] < 3:
         from diffpy.Structure.Parsers import getParser
     else:
-        from diffpy.structure.Parsers import getParser
+        from diffpy.structure.parsers import getParser
     p = getParser('cif')
     nacl = p.parseFile(path)
     nacl.sg = p.spacegroup
