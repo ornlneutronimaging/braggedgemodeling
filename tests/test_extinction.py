@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # Jiao Lin <jiao.lin@gmail.com>
 
+from __future__ import print_function
+
 interactive = False
 
 import numpy as np
@@ -15,7 +17,7 @@ def test_fccNi():
     xs = calc.xs(lambdas)
     assert np.allclose(xs, xs1)
     if interactive:
-        print "plotting..."
+        print("plotting...")
         from matplotlib import pyplot as plt
         plt.plot(lambdas, xs)
         plt.show()
