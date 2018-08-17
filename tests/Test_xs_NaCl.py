@@ -4,13 +4,15 @@
 interactive = False
 
 import os, numpy as np
-from bem import xscalc, diffraction, matter
-
-thisdir = os.path.dirname(__file__)
-NaCl = matter.loadCif(os.path.join(thisdir, 'NaCl.cif'))
+here = os.path.abspath(os.path.dirname(__file__))
+saved_pwd = os.path.abspath('.')
 
 
 def test_NaCl():
+    os.chdir(here)
+    from bem import xscalc, diffraction, matter
+    NaCl = matter.loadCif('NaCl.cif')
+
     lambdas = np.arange(1.5, 7, 0.01)
     T = 300
     # if max_diffraction_index is too small, the low wavelength portion will be a bit off
@@ -23,8 +25,8 @@ def test_NaCl():
     inc_inel_xs = calc.xs_inc_inel(lambdas)
     total = calc.xs(lambdas)
     data = np.array([lambdas, total])
-    # np.save(os.path.join(thisdir, 'expected', 'NaCl-total-xs.npy'), data)
-    expected = np.load(os.path.join(thisdir, 'expected', 'NaCl-total-xs.npy'))
+    # np.save(os.path.join(here, 'expected', 'NaCl-total-xs.npy'), data)
+    expected = np.load(os.path.join(here, 'expected', 'NaCl-total-xs.npy'))
     assert np.isclose(data, expected).all()
 
     if interactive:
@@ -42,11 +44,17 @@ def test_NaCl():
         plt.xlim(2,9)
         plt.legend()
         plt.show()
+
+    os.chdir(saved_pwd)
     return
 
 def main():
+    import sys
     global interactive
-    interactive = True
+    if len(sys.argv)>1 and  sys.argv[1] == 'noplot':
+        interactive = False
+    else:
+        interactive = True
     test_NaCl()
     return
 

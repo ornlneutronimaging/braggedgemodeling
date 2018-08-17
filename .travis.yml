@@ -41,7 +41,8 @@ install:
 script:
 #   - travis_wait 60 py.test --cov=bem tests
    - py.test --cov=bem tests
-
+   - ./tests/Test_xs_NaCl.py noplot
+   
 after_success:
 #   - coveralls
 
