@@ -45,7 +45,7 @@ script:
    - ./tests/Test_xs_NaCl.py noplot
    
 after_success:
-#   - coveralls
+   - coveralls
 
 notifications:
   email:
