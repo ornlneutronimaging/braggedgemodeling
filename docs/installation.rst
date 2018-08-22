@@ -3,10 +3,12 @@
 Installation
 ============
 
+The braggedgemodeling package depends on python version 3 (3.5 and newer).
+
 Using conda
 -----------
 
-The braggedgemodeling package can be installed using conda (python 3)::
+The braggedgemodeling package can be installed using conda::
 
       $ conda config --add channels conda-forge
       $ conda install braggedgemodeling
