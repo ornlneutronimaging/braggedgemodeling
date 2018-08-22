@@ -10,7 +10,7 @@ Welcome to bem's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   installation
 
 .. autoclass:: bem.xscalc.XSCalculator
 
