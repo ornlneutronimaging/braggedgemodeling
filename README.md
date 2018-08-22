@@ -20,16 +20,16 @@ calculate neutron Bragg Edge spectrum as a function of neutron wavelength.
 
 ## Installation
 
-Conda installation
+Using [conda](https://conda.io/)
 
 `$ conda install -c conda-forge braggedgemodeling`
 
-Install from source:
+From source
 
 * Check out the source repository or download and expand the source tar ball
 * Run `python setup.py install`
 
 ## Known problems
-* Debye temperature are listed a table, which is missing data for some elements. However, users can provide their
-  own table in a configuration file.
+* Debye temperatures are listed in a table, which is missing data for some elements.
+  However, users can provide their own table in a configuration file.
 
