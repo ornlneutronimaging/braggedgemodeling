@@ -11,8 +11,8 @@ Welcome to bem's documentation!
    :caption: Contents:
 
    installation
-
-.. autoclass:: bem.xscalc.XSCalculator
+   tutorial
+   api
 
 
 Indices and tables
