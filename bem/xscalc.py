@@ -121,4 +121,24 @@ class XSCalculator:
         return S
 
 
+    def plotAll(self, wavelen):
+        coh_el_xs = self.xs_coh_el(wavelen)
+        inc_el_xs = self.xs_inc_el(wavelen)
+        abs_xs = self.xs_abs(wavelen)
+        coh_inel_xs = self.xs_coh_inel(wavelen)
+        inc_inel_xs = self.xs_inc_inel(wavelen)
+        # and the total cross section
+        total = self.xs(wavelen)
+        # plot
+        from matplotlib import pyplot as plt
+        plt.plot(wavelen, coh_el_xs, label='coh el')
+        plt.plot(wavelen, inc_el_xs, label='inc el')
+        plt.plot(wavelen, coh_inel_xs, label='coh inel')
+        plt.plot(wavelen, inc_inel_xs, label='inc inel')
+        plt.plot(wavelen, abs_xs, label='abs')
+        plt.plot(wavelen, total, label='total')
+        plt.legend()
+        return
+
+
 # End of file
