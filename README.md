@@ -3,7 +3,8 @@
 # Bragg Edge Modeling
 
 This python package provides tools to model and help analyze neutron Bragg Edge imaging data.
-** Main functionality: ** given lattice structure of a material and optionally a texture model and
+
+**Main functionality:** given lattice structure of a material and optionally a texture model and
 an instrument beam model,
 calculate neutron Bragg Edge spectrum as a function of neutron wavelength.
 
@@ -28,6 +29,20 @@ From source
 
 * Check out the source repository or download and expand the source tar ball
 * Run `python setup.py install`
+
+## Community guidelines
+
+**How to contribute**
+
+Please clone the repository, make changes and make a pull request.
+
+**How to report issues**
+
+Please use [the github issues](https://github.com/ornlneutronimaging/braggedgemodeling/issues) to report issues or bug reports.
+
+**Support**
+
+Please either use [the github issues](https://github.com/ornlneutronimaging/braggedgemodeling/issues) to ask for support, or contact the authors directly using email.
 
 ## Known problems
 * Debye temperatures are listed in a table, which is missing data for some elements.
