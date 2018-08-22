@@ -12,17 +12,17 @@ wavelengths = np.arange(0.05, 5.5, 0.005)
 T = 300
 # create calculator
 from bem import xscalc
-calc = xscalc.XSCalculator(fccNi, T, max_diffraction_index=7)
+xscalculator = xscalc.XSCalculator(fccNi, T, max_diffraction_index=7)
 # compute various contributions
 # In neutron Bragg Edge data analysis, it may not be necessary to calculate all these
 # contributions, but it is useful to see them when exploring.
-coh_el_xs = calc.xs_coh_el(wavelengths)
-inc_el_xs = calc.xs_inc_el(wavelengths)
-abs_xs = calc.xs_abs(wavelengths)
-coh_inel_xs = calc.xs_coh_inel(wavelengths)
-inc_inel_xs = calc.xs_inc_inel(wavelengths)
+coh_el_xs = xscalculator.xs_coh_el(wavelengths)
+inc_el_xs = xscalculator.xs_inc_el(wavelengths)
+abs_xs = xscalculator.xs_abs(wavelengths)
+coh_inel_xs = xscalculator.xs_coh_inel(wavelengths)
+inc_inel_xs = xscalculator.xs_inc_inel(wavelengths)
 # and the total cross section
-total = calc.xs(wavelengths)
+total = xscalculator.xs(wavelengths)
 # plot
 from matplotlib import pyplot as plt
 plt.plot(wavelengths, coh_el_xs, label='coh el')
@@ -40,6 +40,17 @@ plt.show()
 from bem import xtaloriprobmodel as xopm
 texture_model = xopm.MarchDollase()
 texture_model.r[(0,0,1)] = 2
-calc = xscalc.XSCalculator(fccNi, T, texture_model)
-calc.plotAll(wavelengths)
+xscalculator = xscalc.XSCalculator(fccNi, T, texture_model)
+xscalculator.plotAll(wavelengths)
+plt.show()
+
+
+# peak profile
+from bem import peak_profile as pp, calc
+jorgensen = pp.Jorgensen(alpha=[50, 0.], beta=[10, 0], sigma=[0, .003, 0])
+spectrum_calculator = calc.BraggEdgeSpectrumCalculator(xscalculator, jorgensen)
+  
+spectrum = spectrum_calculator('total', wavelengths)
+plt.plot(wavelengths, spectrum)
+xscalculator.plotAll(wavelengths)
 plt.show()
