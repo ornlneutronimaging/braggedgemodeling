@@ -30,6 +30,20 @@ From source
 * Check out the source repository or download and expand the source tar ball
 * Run `python setup.py install`
 
+## Community guidelines
+
+**How to contribute**
+
+Please clone the repository, make changes and make a pull request.
+
+**How to report issues**
+
+Please use [the github issues](https://github.com/ornlneutronimaging/braggedgemodeling/issues) to report issues or bug reports.
+
+**Support**
+
+Please either use [the github issues](https://github.com/ornlneutronimaging/braggedgemodeling/issues) to ask for support, or contact the authors directly using email.
+
 ## Known problems
 * Debye temperatures are listed in a table, which is missing data for some elements.
   However, users can provide their own table in a configuration file.
