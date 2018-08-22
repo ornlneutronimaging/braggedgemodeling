@@ -3,7 +3,8 @@
 # Bragg Edge Modeling
 
 This python package provides tools to model and help analyze neutron Bragg Edge imaging data.
-** Main functionality: ** given lattice structure of a material and optionally a texture model and
+
+**Main functionality:** given lattice structure of a material and optionally a texture model and
 an instrument beam model,
 calculate neutron Bragg Edge spectrum as a function of neutron wavelength.
 
