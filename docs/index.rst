@@ -12,6 +12,9 @@ Welcome to bem's documentation!
 
 
 
+.. autoclass:: bem.xscalc.XSCalculator
+
+
 Indices and tables
 ==================
 
