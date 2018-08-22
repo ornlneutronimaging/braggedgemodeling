@@ -9,41 +9,58 @@ Please see :ref:`installation` before start here.
 Let us start by create an atomic structure::
 
   from bem.matter import Atom, Lattice, Structure
-  atoms = [Atom('Al', (0,0,0)), Atom('Al', (0.5, 0.5, 0)),
-           Atom('Al', (0.5,0,0.5)), Atom('Al', (0, 0.5, 0.5))]
-  a=4.046
+  atoms = [Atom('Ni', (0,0,0)), Atom('Ni', (0.5, 0.5, 0)),
+           Atom('Ni', (0.5,0,0.5)), Atom('Ni', (0, 0.5, 0.5))]
+  a=3.5238
   alpha = 90.
   lattice = Lattice(a=a, b=a, c=a, alpha=alpha, beta=alpha, gamma=alpha)
-  fccAl = Structure(atoms, lattice, sgid=225)
+  fccNi = Structure(atoms, lattice, sgid=225)
 
 Then we can perform a simple Bragg Edge neutron cross section calculation and plot them::
 
   # define wavelength axis
   import numpy as np
-  lambdas = np.arange(0.05, 5.5, 0.005)
+  wavelengths = np.arange(0.05, 5.5, 0.005)
   T = 300
   # create calculator
   from bem import xscalc
-  calc = xscalc.XSCalculator(fccAl, T, max_diffraction_index=7)
+  calc = xscalc.XSCalculator(fccNi, T, max_diffraction_index=7)
   # compute various contributions
   # In neutron Bragg Edge data analysis, it may not be necessary to calculate all these
   # contributions, but it is useful to see them when exploring.
-  coh_el_xs = calc.xs_coh_el(lambdas)
-  inc_el_xs = calc.xs_inc_el(lambdas)
-  abs_xs = calc.xs_abs(lambdas)
-  coh_inel_xs = calc.xs_coh_inel(lambdas)
-  inc_inel_xs = calc.xs_inc_inel(lambdas)
+  coh_el_xs = calc.xs_coh_el(wavelengths)
+  inc_el_xs = calc.xs_inc_el(wavelengths)
+  abs_xs = calc.xs_abs(wavelengths)
+  coh_inel_xs = calc.xs_coh_inel(wavelengths)
+  inc_inel_xs = calc.xs_inc_inel(wavelengths)
   # and the total cross section
-  total = calc.xs(lambdas)
+  total = calc.xs(wavelengths)
   # plot
   from matplotlib import pyplot as plt
-  plt.plot(lambdas, coh_el_xs, label='coh el')
-  plt.plot(lambdas, inc_el_xs, label='inc el')
-  plt.plot(lambdas, coh_inel_xs, label='coh inel')
-  plt.plot(lambdas, inc_inel_xs, label='inc inel')
-  plt.plot(lambdas, abs_xs, label='abs')
-  plt.plot(lambdas, total, label='total')
+  plt.plot(wavelengths, coh_el_xs, label='coh el')
+  plt.plot(wavelengths, inc_el_xs, label='inc el')
+  plt.plot(wavelengths, coh_inel_xs, label='coh inel')
+  plt.plot(wavelengths, inc_inel_xs, label='inc inel')
+  plt.plot(wavelengths, abs_xs, label='abs')
+  plt.plot(wavelengths, total, label='total')
   plt.ylim(-0.2, None)
   plt.xlim(0,7)
   plt.legend()
   plt.show()
+
+To introduce texture into the sample, we can use a texture model::
+
+  from bem import xtaloriprobmodel as xopm
+  texture_model = xopm.MarchDollase()
+  texture_model.r[(0,0,1)] = 2
+
+Now we recreate the calculator using this texture model::
+  
+  calc = xscalc.XSCalculator(fccNi, T, texture_model)
+
+And replot::
+    
+  calc.plotAll(wavelengths)
+  plt.show()
+
+The "plotAll" method simplifies plotting.
