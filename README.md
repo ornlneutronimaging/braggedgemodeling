@@ -21,14 +21,7 @@ calculate neutron Bragg Edge spectrum as a function of neutron wavelength.
 
 ## Installation
 
-Using [conda](https://conda.io/)
-
-`$ conda install -c conda-forge braggedgemodeling`
-
-From source
-
-* Check out the source repository or download and expand the source tar ball
-* Run `python setup.py install`
+Please see https://ornlneutronimaging.github.io/braggedgemodeling/installation.html
 
 ## Community guidelines
 
@@ -44,7 +37,9 @@ Please use [the github issues](https://github.com/ornlneutronimaging/braggedgemo
 
 Please either use [the github issues](https://github.com/ornlneutronimaging/braggedgemodeling/issues) to ask for support, or contact the authors directly using email.
 
+## API doc
+See https://ornlneutronimaging.github.io/braggedgemodeling/api.html
+
 ## Known problems
 * Debye temperatures are listed in a table, which is missing data for some elements.
   However, users can provide their own table in a configuration file.
-
