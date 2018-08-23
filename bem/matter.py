@@ -64,3 +64,11 @@ def fccAl():
     lattice = Lattice(a=a, b=a, c=a, alpha=alpha, beta=alpha, gamma=alpha)
     return Structure(atoms, lattice, sgid=225)
 fccAl = fccAl()
+
+def bccFe():
+    atoms = [Atom('Fe', (0,0,0)), Atom('Fe', (0.5, 0.5, 0.5))]
+    a=2.856
+    alpha = 90.
+    lattice = Lattice(a=a, b=a, c=a, alpha=alpha, beta=alpha, gamma=alpha)
+    return Structure(atoms, lattice, sgid=229)
+bccFe = bccFe()
