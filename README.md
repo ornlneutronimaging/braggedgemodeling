@@ -19,9 +19,10 @@ calculate neutron Bragg Edge spectrum as a function of neutron wavelength.
 * Flexible design to allow future extension to texture and peak profile models
 * Enable easy fitting to measured Bragg Edge data
 
-## Installation
+## Documentation
 
-Please see https://ornlneutronimaging.github.io/braggedgemodeling/installation.html
+Please refer to https://ornlneutronimaging.github.io/braggedgemodeling for documentation
+for installation, usage, and API.
 
 ## Community guidelines
 
@@ -37,8 +38,6 @@ Please use [the github issues](https://github.com/ornlneutronimaging/braggedgemo
 
 Please either use [the github issues](https://github.com/ornlneutronimaging/braggedgemodeling/issues) to ask for support, or contact the authors directly using email.
 
-## API doc
-See https://ornlneutronimaging.github.io/braggedgemodeling/api.html
 
 ## Known problems
 * Debye temperatures are listed in a table, which is missing data for some elements.
