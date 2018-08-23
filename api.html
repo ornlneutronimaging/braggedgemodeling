@@ -1,0 +1,469 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API &mdash; bem 0.1.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Tutorial" href="tutorial.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> bem
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#atomic-structure">Atomic structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cross-section-calculator">Cross section calculator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#texture">Texture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#peak-profile">Peak profile</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bem</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api">
+<h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<p>The braggedgemodeling package provides tools to calculate neutron Bragg Edge
+spectrum for a material.</p>
+<div class="section" id="atomic-structure">
+<h2>Atomic structure<a class="headerlink" href="#atomic-structure" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="bem.matter.Structure">
+<code class="descclassname">bem.matter.</code><code class="descname">Structure</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.matter.Structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>a wrapper for Structure method that injects “sg” data member</p>
+<p>Structure(atoms, lattice, sgid=)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>atoms</strong> (<em>list</em>) – list of atoms</li>
+<li><strong>lattice</strong> (<em>Lattice</em>) – </li>
+<li><strong>sgid</strong> (<em>int</em>) – space group id. For example 225 for FCC</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="bem.matter.loadCif">
+<code class="descclassname">bem.matter.</code><code class="descname">loadCif</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.matter.loadCif" title="Permalink to this definition">¶</a></dt>
+<dd><p>load CIF file from given path to create a Structure instance</p>
+</dd></dl>
+
+</div>
+<div class="section" id="cross-section-calculator">
+<h2>Cross section calculator<a class="headerlink" href="#cross-section-calculator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bem.xscalc.XSCalculator">
+<em class="property">class </em><code class="descclassname">bem.xscalc.</code><code class="descname">XSCalculator</code><span class="sig-paren">(</span><em>structure</em>, <em>T</em>, <em>xopm=None</em>, <em>max_diffraction_index=5</em>, <em>size=0</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xscalc.XSCalculator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cross section calculator</p>
+<dl class="method">
+<dt id="bem.xscalc.XSCalculator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>structure</em>, <em>T</em>, <em>xopm=None</em>, <em>max_diffraction_index=5</em>, <em>size=0</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xscalc.XSCalculator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>structure</strong> (<em>diffpy.structure</em>) – lattice structure</li>
+<li><strong>T</strong> (<em>float</em>) – temperature (Kelvin)</li>
+<li><strong>max_diffraction_index</strong> (<em>int</em><em>, </em><em>optional</em>) – max integer for h,k, and l</li>
+<li><strong>xopm</strong> (<em>xtaloriprobmodel.XtalOriProbModel</em><em>, </em><em>optional</em>) – crystal orientation probability model</li>
+<li><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – size of crystallites along beam (for extinction effect calculation)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bem.xscalc.XSCalculator.extinction_factor">
+<code class="descname">extinction_factor</code><span class="sig-paren">(</span><em>wavelen</em>, <em>pk</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xscalc.XSCalculator.extinction_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute extinction factor for given wavelength and diffraction peak</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bem.xscalc.XSCalculator.plotAll">
+<code class="descname">plotAll</code><span class="sig-paren">(</span><em>wavelen</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xscalc.XSCalculator.plotAll" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot all cross sections w.r.t the given wavelength array</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wavelen</strong> (<em>floats</em>) – wavelengths. unit: angstrom</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bem.xscalc.XSCalculator.xs">
+<code class="descname">xs</code><span class="sig-paren">(</span><em>wavelen</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xscalc.XSCalculator.xs" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate total cross section in barns</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wavelen</strong> (<em>float</em><em>, </em><em>floats</em>) – wavelength or wavelengths. unit: angstrom</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bem.xscalc.XSCalculator.xs_abs">
+<code class="descname">xs_abs</code><span class="sig-paren">(</span><em>wavelen</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xscalc.XSCalculator.xs_abs" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate absorption cross section in barns</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wavelen</strong> (<em>float</em><em>, </em><em>floats</em>) – wavelength or wavelengths. unit: angstrom</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bem.xscalc.XSCalculator.xs_coh_el">
+<code class="descname">xs_coh_el</code><span class="sig-paren">(</span><em>wavelen</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xscalc.XSCalculator.xs_coh_el" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate coherent elastic cross section in barns</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wavelen</strong> (<em>float</em><em>, </em><em>floats</em>) – wavelength or wavelengths. unit: angstrom</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bem.xscalc.XSCalculator.xs_coh_el__peak">
+<code class="descname">xs_coh_el__peak</code><span class="sig-paren">(</span><em>wavelen</em>, <em>peak</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xscalc.XSCalculator.xs_coh_el__peak" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate coherent elastic cross section for one peak in barns</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>wavelen</strong> (<em>float</em><em>, </em><em>floats</em>) – wavelength or wavelengths. unit: angstrom</li>
+<li><strong>peak</strong> (<em>diffraction.DiffrPeak</em>) – diffraction peak instance</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bem.xscalc.XSCalculator.xs_coh_inel">
+<code class="descname">xs_coh_inel</code><span class="sig-paren">(</span><em>wavelen</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xscalc.XSCalculator.xs_coh_inel" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate coherent inelastic cross section in barns</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wavelen</strong> (<em>float</em><em>, </em><em>floats</em>) – wavelength or wavelengths. unit: angstrom</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bem.xscalc.XSCalculator.xs_inc_el">
+<code class="descname">xs_inc_el</code><span class="sig-paren">(</span><em>wavelen</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xscalc.XSCalculator.xs_inc_el" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate incoherent elastic cross section in barns</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wavelen</strong> (<em>float</em><em>, </em><em>floats</em>) – wavelength or wavelengths. unit: angstrom</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bem.xscalc.XSCalculator.xs_inc_inel">
+<code class="descname">xs_inc_inel</code><span class="sig-paren">(</span><em>wavelen</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xscalc.XSCalculator.xs_inc_inel" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate incoherent inelastic cross section in barns</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wavelen</strong> (<em>float</em><em>, </em><em>floats</em>) – wavelength or wavelengths. unit: angstrom</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bem.xscalc.XSCalculator.xs_inel">
+<code class="descname">xs_inel</code><span class="sig-paren">(</span><em>wavelen</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xscalc.XSCalculator.xs_inel" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate inelastic cross section in barns</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wavelen</strong> (<em>float</em><em>, </em><em>floats</em>) – wavelength or wavelengths. unit: angstrom</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="texture">
+<h2>Texture<a class="headerlink" href="#texture" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bem.xtaloriprobmodel.MarchDollase">
+<em class="property">class </em><code class="descclassname">bem.xtaloriprobmodel.</code><code class="descname">MarchDollase</code><span class="sig-paren">(</span><em>r=None</em>, <em>beta=None</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xtaloriprobmodel.MarchDollase" title="Permalink to this definition">¶</a></dt>
+<dd><p>March Dollase model for texture</p>
+<p>Create an instance</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">md</span> <span class="o">=</span> <span class="n">MarchDollase</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now md.r and md.beta are parameters.
+The default value for r is 1.
+The default value for beta is 0.</p>
+<p>To change r and beta value for a specific hkl, do</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">md</span><span class="o">.</span><span class="n">r</span><span class="p">[</span><span class="n">hkl</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_r_value</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">md</span><span class="o">.</span><span class="n">beta</span><span class="p">[</span><span class="n">hkl</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_beta_value</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="peak-profile">
+<h2>Peak profile<a class="headerlink" href="#peak-profile" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bem.peak_profile.Jorgensen">
+<em class="property">class </em><code class="descclassname">bem.peak_profile.</code><code class="descname">Jorgensen</code><span class="sig-paren">(</span><em>alpha=None</em>, <em>beta=None</em>, <em>sigma=None</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.peak_profile.Jorgensen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Jorgensen peak profile</p>
+<dl class="method">
+<dt id="bem.peak_profile.Jorgensen.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>alpha=None</em>, <em>beta=None</em>, <em>sigma=None</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.peak_profile.Jorgensen.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Jorgensen peak profile constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>alpha</strong> – 2-tuple of floats</li>
+<li><strong>beta</strong> – 2-tuple of floats</li>
+<li><strong>sigma</strong> – 3-tuple of floats</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="tutorial.html" class="btn btn-neutral" title="Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2018, ORNL Neutron Data Sciences Group.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

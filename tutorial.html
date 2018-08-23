@@ -1,0 +1,315 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tutorial &mdash; bem 0.1.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> bem
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#atomic-structure">Atomic structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cross-section">Cross section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#texture">Texture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#peak-profile">Peak profile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bem</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Tutorial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tutorial">
+<span id="id1"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
+<p>Please see <a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installation</span></a> before start here.</p>
+<div class="section" id="atomic-structure">
+<h2>Atomic structure<a class="headerlink" href="#atomic-structure" title="Permalink to this headline">¶</a></h2>
+<p>Let us start by creating an atomic structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bem.matter</span> <span class="k">import</span> <span class="n">Atom</span><span class="p">,</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">Structure</span>
+<span class="n">atoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">Atom</span><span class="p">(</span><span class="s1">&#39;Ni&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span> <span class="n">Atom</span><span class="p">(</span><span class="s1">&#39;Ni&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+         <span class="n">Atom</span><span class="p">(</span><span class="s1">&#39;Ni&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)),</span> <span class="n">Atom</span><span class="p">(</span><span class="s1">&#39;Ni&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))]</span>
+<span class="n">a</span><span class="o">=</span><span class="mf">3.5238</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">90.</span>
+<span class="n">lattice</span> <span class="o">=</span> <span class="n">Lattice</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+<span class="n">fccNi</span> <span class="o">=</span> <span class="n">Structure</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">lattice</span><span class="p">,</span> <span class="n">sgid</span><span class="o">=</span><span class="mi">225</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can also use <code class="code docutils literal notranslate"><span class="pre">bem.matter.loadCif(path)</span></code> to load an atomic structure
+from a CIF file.</p>
+</div>
+</div>
+<div class="section" id="cross-section">
+<h2>Cross section<a class="headerlink" href="#cross-section" title="Permalink to this headline">¶</a></h2>
+<p>Then we can perform a simple Bragg Edge neutron cross section calculation and plot them:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># define wavelength axis</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">wavelengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="c1"># create calculator</span>
+<span class="kn">from</span> <span class="nn">bem</span> <span class="k">import</span> <span class="n">xscalc</span>
+<span class="n">xscalculator</span> <span class="o">=</span> <span class="n">xscalc</span><span class="o">.</span><span class="n">XSCalculator</span><span class="p">(</span><span class="n">fccNi</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">max_diffraction_index</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="c1"># compute various contributions</span>
+<span class="c1"># In neutron Bragg Edge data analysis, it may not be necessary to calculate all these</span>
+<span class="c1"># contributions, but it is useful to see them when exploring.</span>
+<span class="n">coh_el_xs</span> <span class="o">=</span> <span class="n">xscalculator</span><span class="o">.</span><span class="n">xs_coh_el</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+<span class="n">inc_el_xs</span> <span class="o">=</span> <span class="n">xscalculator</span><span class="o">.</span><span class="n">xs_inc_el</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+<span class="n">abs_xs</span> <span class="o">=</span> <span class="n">xscalculator</span><span class="o">.</span><span class="n">xs_abs</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+<span class="n">coh_inel_xs</span> <span class="o">=</span> <span class="n">xscalculator</span><span class="o">.</span><span class="n">xs_coh_inel</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+<span class="n">inc_inel_xs</span> <span class="o">=</span> <span class="n">xscalculator</span><span class="o">.</span><span class="n">xs_inc_inel</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+<span class="c1"># and the total cross section</span>
+<span class="n">total</span> <span class="o">=</span> <span class="n">xscalculator</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+<span class="c1"># plot</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">coh_el_xs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;coh el&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">inc_el_xs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;inc el&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">coh_inel_xs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;coh inel&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">inc_inel_xs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;inc inel&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">abs_xs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;abs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;total&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="texture">
+<h2>Texture<a class="headerlink" href="#texture" title="Permalink to this headline">¶</a></h2>
+<p>To introduce texture into the sample, we can use a texture model:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bem</span> <span class="k">import</span> <span class="n">xtaloriprobmodel</span> <span class="k">as</span> <span class="n">xopm</span>
+<span class="n">texture_model</span> <span class="o">=</span> <span class="n">xopm</span><span class="o">.</span><span class="n">MarchDollase</span><span class="p">()</span>
+<span class="n">texture_model</span><span class="o">.</span><span class="n">r</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>Now we recreate the calculator using this texture model:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xscalculator</span> <span class="o">=</span> <span class="n">xscalc</span><span class="o">.</span><span class="n">XSCalculator</span><span class="p">(</span><span class="n">fccNi</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">texture_model</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And replot:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xscalculator</span><span class="o">.</span><span class="n">plotAll</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The “plotAll” method simplifies plotting.</p>
+</div>
+<div class="section" id="peak-profile">
+<h2>Peak profile<a class="headerlink" href="#peak-profile" title="Permalink to this headline">¶</a></h2>
+<p>To take instrument broadening into account:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bem</span> <span class="k">import</span> <span class="n">peak_profile</span> <span class="k">as</span> <span class="n">pp</span><span class="p">,</span> <span class="n">calc</span>
+<span class="n">jorgensen</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">Jorgensen</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">beta</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">sigma</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">003</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">spectrum_calculator</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">BraggEdgeSpectrumCalculator</span><span class="p">(</span><span class="n">xscalculator</span><span class="p">,</span> <span class="n">jorgensen</span><span class="p">)</span>
+<span class="c1"># calculate total cross section convolved with peak profile</span>
+<span class="n">spectrum</span> <span class="o">=</span> <span class="n">spectrum_calculator</span><span class="p">(</span><span class="s1">&#39;total&#39;</span><span class="p">,</span> <span class="n">wavelengths</span><span class="p">)</span>
+<span class="c1"># plot it</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">spectrum</span><span class="p">)</span>
+<span class="c1"># also plot the cross sections</span>
+<span class="n">xscalculator</span><span class="o">.</span><span class="n">plotAll</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2018, ORNL Neutron Data Sciences Group.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
