@@ -215,6 +215,7 @@ from a CIF file.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bem</span> <span class="k">import</span> <span class="n">xtaloriprobmodel</span> <span class="k">as</span> <span class="n">xopm</span>
 <span class="n">texture_model</span> <span class="o">=</span> <span class="n">xopm</span><span class="o">.</span><span class="n">MarchDollase</span><span class="p">()</span>
 <span class="n">texture_model</span><span class="o">.</span><span class="n">r</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">texture_model</span><span class="o">.</span><span class="n">r</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mf">60.</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Now we recreate the calculator using this texture model:</p>
