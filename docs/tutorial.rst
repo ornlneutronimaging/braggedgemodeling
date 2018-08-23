@@ -5,6 +5,8 @@ Tutorial
 
 Please see :ref:`installation` before start here.
 
+Cross section
+-------------
 
 Let us start by creating an atomic structure::
 
@@ -48,6 +50,10 @@ Then we can perform a simple Bragg Edge neutron cross section calculation and pl
   plt.legend()
   plt.show()
 
+
+Texture
+-------
+
 To introduce texture into the sample, we can use a texture model::
 
   from bem import xtaloriprobmodel as xopm
@@ -64,6 +70,10 @@ And replot::
   plt.show()
 
 The "plotAll" method simplifies plotting.
+
+
+Peak profile
+------------
 
 To take instrument broadening into account::
   

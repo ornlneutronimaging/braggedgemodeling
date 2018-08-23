@@ -8,9 +8,9 @@ from .xtaloriprobmodel import IsotropicXOPM
 class XSCalculator:
 
     """Cross section calculator
+    """
 
-    Example:
-
+    example_code = """
     >>> xc = XSCalculator(structure, T, xopm=, size=, max_diffraction_index=)
     >>> xc.xs(wavelen)                         # compute total cross section
     >>> xc.diffpeaks                           # show diffraction peaks

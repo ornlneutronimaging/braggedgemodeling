@@ -3,16 +3,22 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to bem's documentation!
-===============================
+Welcome to braggedgemodeling!
+=============================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    installation
    tutorial
    api
+
+
+Links
+=====
+
+* `source repo <http://github.com/ornlneutronimaging/braggedgemodeling>`_
 
 
 Indices and tables
