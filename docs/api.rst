@@ -8,5 +8,6 @@ Calculators
 --------------------
 
 .. autoclass:: bem.xscalc.XSCalculator
-
+   :members:
+   :special-members: __init__
 		  
