@@ -22,7 +22,7 @@ calculate neutron Bragg Edge spectrum as a function of neutron wavelength.
 ## Documentation
 
 Please refer to https://ornlneutronimaging.github.io/braggedgemodeling for documentation
-for installation, usage, and API.
+on installation, usage, and API.
 
 ## Community guidelines
 
@@ -41,4 +41,4 @@ Please either use [the github issues](https://github.com/ornlneutronimaging/brag
 
 ## Known problems
 * Debye temperatures are listed in a table, which is missing data for some elements.
-  However, users can provide their own table in a configuration file.
+  However, users can provide their own table in a [configuration file](tests/bem.conf).
