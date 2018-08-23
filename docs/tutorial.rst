@@ -65,6 +65,7 @@ To introduce texture into the sample, we can use a texture model::
   from bem import xtaloriprobmodel as xopm
   texture_model = xopm.MarchDollase()
   texture_model.r[(0,0,1)] = 2
+  texture_model.r[(0,0,1)] = np.deg2rad(60.)
 
 Now we recreate the calculator using this texture model::
   
