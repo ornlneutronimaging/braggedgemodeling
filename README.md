@@ -40,5 +40,5 @@ Please either use [the github issues](https://github.com/ornlneutronimaging/brag
 
 
 ## Known problems
-* Debye temperatures are listed in a table, which is missing data for some elements.
+* Debye temperatures are listed in a [table](bem/DebyeTemp.py), which is missing data for some elements.
   However, users can provide their own table in a [configuration file](tests/bem.conf).
