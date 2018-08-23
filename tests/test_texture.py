@@ -12,6 +12,7 @@ def test_fccNi():
     T = 300
     texture_model = xopm.MarchDollase()
     texture_model.r[(0,0,1)] = 2
+    texture_model.beta[(0,0,1)] = 1.
     calc = xscalc.XSCalculator(fccNi, T, texture_model)
     coh_el_xs = calc.xs_coh_el(lambdas)
     # coh_el_xs = [calc.xs_coh_el(l) for l in lambdas]

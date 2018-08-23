@@ -4,10 +4,14 @@ API
 The braggedgemodeling package provides tools to calculate neutron Bragg Edge
 spectrum for a material.
 
-Calculators
---------------------
+Cross section calculator
+------------------------
 
 .. autoclass:: bem.xscalc.XSCalculator
    :members:
    :special-members: __init__
 		  
+Texture
+-------
+
+.. autoclass:: bem.xtaloriprobmodel.MarchDollase
