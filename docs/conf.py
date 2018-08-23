@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'bem'
-copyright = '2018, ORNL Neutron Data Sciences Group'
+copyright = '2017-2018, ORNL Neutron Data Sciences Group'
 author = 'ORNL Neutron Data Sciences Group'
 
 # The short X.Y version
