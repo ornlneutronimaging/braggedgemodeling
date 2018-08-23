@@ -9,11 +9,13 @@ class XSCalculator:
 
     """Cross section calculator
 
-    xc = XSCalculator(structure, T, xopm=, size=, max_diffraction_index=)
-    xc.xs(wavelen)                         # compute total cross section
-    xc.diffpeaks                           # show diffraction peaks
-    xc.xopm(peak=, wavelen=)               # compute factor due to orientation distribution (texture)
-    xc.extinction_factor(wavelen=, peak=)  # compute factor due to dynamical diffraction
+    Example:
+
+      xc = XSCalculator(structure, T, xopm=, size=, max_diffraction_index=)
+      xc.xs(wavelen)                         # compute total cross section
+      xc.diffpeaks                           # show diffraction peaks
+      xc.xopm(peak=, wavelen=)               # compute factor due to orientation distribution (texture)
+      xc.extinction_factor(wavelen=, peak=)  # compute factor due to dynamical diffraction
     """
 
     def __init__(self, structure, T, xopm=None, max_diffraction_index=5, size=0):
