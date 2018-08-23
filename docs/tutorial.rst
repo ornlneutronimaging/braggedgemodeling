@@ -5,8 +5,8 @@ Tutorial
 
 Please see :ref:`installation` before start here.
 
-Cross section
--------------
+Atomic structure
+----------------
 
 Let us start by creating an atomic structure::
 
@@ -17,6 +17,12 @@ Let us start by creating an atomic structure::
   alpha = 90.
   lattice = Lattice(a=a, b=a, c=a, alpha=alpha, beta=alpha, gamma=alpha)
   fccNi = Structure(atoms, lattice, sgid=225)
+
+.. note:: You can also use :code:`bem.matter.loadCif(path)` to load an atomic structure
+   from a CIF file.
+
+Cross section
+-------------
 
 Then we can perform a simple Bragg Edge neutron cross section calculation and plot them::
 

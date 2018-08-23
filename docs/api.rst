@@ -4,6 +4,12 @@ API
 The braggedgemodeling package provides tools to calculate neutron Bragg Edge
 spectrum for a material.
 
+Atomic structure
+----------------
+
+.. autofunction:: bem.matter.Structure
+.. autofunction:: bem.matter.loadCif
+
 Cross section calculator
 ------------------------
 
