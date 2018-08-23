@@ -3,7 +3,7 @@
 Installation
 ============
 
-The braggedgemodeling package depends on python version 3 (3.5 and newer).
+The braggedgemodeling package depends on python version 3 (3.5, 3.6).
 
 Using conda
 -----------
