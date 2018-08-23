@@ -24,6 +24,9 @@ before_install:
   - chmod +x miniconda.sh
   - ./miniconda.sh -b -p /home/travis/mc
   - export PATH=/home/travis/mc/bin:$PATH
+  - "export DISPLAY=:99.0" # configure a headless display to test plot generation
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
 
 install:
   - export GIT_FULL_HASH=`git rev-parse HEAD`
