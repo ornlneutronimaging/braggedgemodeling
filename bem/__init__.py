@@ -1,6 +1,8 @@
 # -*- Python -*-
 
 """
+Bragg edge modeling
+
 deps:
   * diffpy.Structure
   * periodictable

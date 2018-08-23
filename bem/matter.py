@@ -9,7 +9,20 @@ else:
     
 
 def Structure(*args, **kwds):
-    """a wrapper for Structure method that injects "sg" data member"""
+    """a wrapper for Structure method that injects "sg" data member
+
+    Structure(atoms, lattice, sgid=)
+    
+    Parameters
+    ----------
+    atoms : list
+        list of atoms
+
+    lattice : Lattice
+    
+    sgid : int
+        space group id. For example 225 for FCC
+    """
     if 'sgid' in kwds:
         sgid = kwds.pop('sgid')
     else:
@@ -21,6 +34,8 @@ def Structure(*args, **kwds):
 
 
 def loadCif(path):
+    """load CIF file from given path to create a Structure instance
+    """
     if sys.version_info[0] < 3:
         from diffpy.Structure.Parsers import getParser
     else:

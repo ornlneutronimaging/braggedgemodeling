@@ -30,7 +30,23 @@ class DeltaFunction(AbstractPeakProfile):
 
 class Jorgensen(AbstractPeakProfile):
 
+    """Jorgensen peak profile
+    """
+
     def __init__(self, alpha=None, beta=None, sigma=None):
+        """Jorgensen peak profile constructor
+        
+        Parameters
+        ----------
+        alpha :
+          2-tuple of floats
+
+        beta :
+          2-tuple of floats
+
+        sigma :
+          3-tuple of floats        
+        """
         self.alpha = alpha if alpha is not None else [1., 0.]
         self.beta = beta if beta is not None else [1., 0.]
         self.sigma = sigma if sigma is not None else [0., 1., 0.]

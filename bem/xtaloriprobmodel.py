@@ -18,7 +18,31 @@ class IsotropicXOPM(XtalOriProbModel):
 
 class MarchDollase(XtalOriProbModel):
 
+    """March Dollase model for texture
+
+    Usage
+    -----
+
+    Create an instance
+
+    >>> md = MarchDollase()
+    
+    Now md.r and md.beta are parameters.
+    The default value for r is 1.
+    The default value for beta is 0.
+    
+    To change r and beta value for a specific hkl, do
+
+    >>> md.r[hkl] = new_r_value
+    >>> md.beta[hkl] = new_beta_value
+    """
+
     class Texture(dict):
+
+        def __init__(self, defaultvalue):
+            self.defaultvalue = defaultvalue
+            dict.__init__(self)
+            return
 
         def __call__(self, hkl):
             if hkl in self: return self[hkl]
@@ -28,12 +52,12 @@ class MarchDollase(XtalOriProbModel):
                 if np.allclose(hkl, np.array(hkl1)*div):
                     return self[hkl1]
                 continue
-            return 1.
+            return self.defaultvalue
     
 
     def __init__(self, r=None, beta=None):
-        self.r = r or self.Texture()
-        self.beta = beta or self.Texture()
+        self.r = r or self.Texture(1.)
+        self.beta = beta or self.Texture(0.)
         return
 
 
