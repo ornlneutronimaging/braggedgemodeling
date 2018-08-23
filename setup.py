@@ -17,6 +17,8 @@ setup(
     data_files = [],
     test_suite = 'tests',
     install_requires = [
+        'pyyaml', 'numpy', 'scipy', 'matplotlib',
+        'diffpy.structure', 'periodictable'
     ],
     dependency_links = [
     ],
