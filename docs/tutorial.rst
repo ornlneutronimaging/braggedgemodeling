@@ -6,7 +6,7 @@ Tutorial
 Please see :ref:`installation` before start here.
 
 
-Let us start by create an atomic structure::
+Let us start by creating an atomic structure::
 
   from bem.matter import Atom, Lattice, Structure
   atoms = [Atom('Ni', (0,0,0)), Atom('Ni', (0.5, 0.5, 0)),

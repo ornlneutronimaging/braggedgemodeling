@@ -15,3 +15,10 @@ Texture
 -------
 
 .. autoclass:: bem.xtaloriprobmodel.MarchDollase
+
+
+Peak profile
+------------
+.. autoclass:: bem.peak_profile.Jorgensen
+   :members:
+   :special-members: __init__
