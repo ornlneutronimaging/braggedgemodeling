@@ -32,7 +32,7 @@ Then we can perform a simple Bragg Edge neutron cross section calculation and pl
   T = 300
   # create calculator
   from bem import xscalc
-  xscalculator = xscalc.XSCalculator(fccNi, T, max_diffraction_index=7)
+  xscalculator = xscalc.XSCalculator(fccNi, T, max_diffraction_index=4)
   # compute various contributions
   # In neutron Bragg Edge data analysis, it may not be necessary to calculate all these
   # contributions, but it is useful to see them when exploring.
@@ -65,7 +65,7 @@ To introduce texture into the sample, we can use a texture model::
   from bem import xtaloriprobmodel as xopm
   texture_model = xopm.MarchDollase()
   texture_model.r[(0,0,1)] = 2
-  texture_model.r[(0,0,1)] = np.deg2rad(60.)
+  texture_model.beta[(0,0,1)] = np.deg2rad(60.)
 
 Now we recreate the calculator using this texture model::
   
