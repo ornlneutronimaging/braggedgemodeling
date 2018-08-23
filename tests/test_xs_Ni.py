@@ -39,7 +39,10 @@ def test_fccNi():
     expected = np.load(os.path.join(thisdir, 'expected', 'fccNi-coh-el-xs.npy'))
     assert np.isclose(data, expected).all()
 
-    from matplotlib import pyplot as plt
+    if not interactive:
+        import matplotlib as mpl
+        mpl.use('Agg')
+    from matplotlib import pyplot as plt        
     calc.plotAll(lambdas)
     if interactive:
         plt.show()
