@@ -70,8 +70,10 @@ To take instrument broadening into account::
   from bem import peak_profile as pp, calc
   jorgensen = pp.Jorgensen(alpha=[50, 0.], beta=[10, 0], sigma=[0, .003, 0])
   spectrum_calculator = calc.BraggEdgeSpectrumCalculator(xscalculator, jorgensen)
-  
+  # calculate total cross section convolved with peak profile
   spectrum = spectrum_calculator('total', wavelengths)
+  # plot it
   plt.plot(wavelengths, spectrum)
+  # also plot the cross sections
   xscalculator.plotAll(wavelengths)
   plt.show()

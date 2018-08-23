@@ -48,8 +48,7 @@ plt.show()
 # peak profile
 from bem import peak_profile as pp, calc
 jorgensen = pp.Jorgensen(alpha=[50, 0.], beta=[10, 0], sigma=[0, .003, 0])
-spectrum_calculator = calc.BraggEdgeSpectrumCalculator(xscalculator, jorgensen)
-  
+spectrum_calculator = calc.BraggEdgeSpectrumCalculator(xscalculator, jorgensen)  
 spectrum = spectrum_calculator('total', wavelengths)
 plt.plot(wavelengths, spectrum)
 xscalculator.plotAll(wavelengths)
