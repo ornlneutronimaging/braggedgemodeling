@@ -31,6 +31,9 @@ class DeltaFunction(AbstractPeakProfile):
 class Jorgensen(AbstractPeakProfile):
 
     """Jorgensen peak profile
+
+    This class implements formulas in section 3.3.3 of Sven Vogel's thesis,
+    "A Rietveld-approach for the analysis of neutron time-of-flight transmission data"
     """
 
     def __init__(self, alpha=None, beta=None, sigma=None):

@@ -8,6 +8,9 @@ from .xtaloriprobmodel import IsotropicXOPM
 class XSCalculator:
 
     """Cross section calculator
+
+    This class implements formulas in Chapter 3, section 2 of Sven Vogel's thesis,
+    "A Rietveld-approach for the analysis of neutron time-of-flight transmission data"
     """
 
     example_code = """

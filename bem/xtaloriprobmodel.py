@@ -20,6 +20,13 @@ class MarchDollase(XtalOriProbModel):
 
     """March Dollase model for texture
 
+    This class implements the formula 3.68 of Sven Vogel's thesis,
+    "A Rietveld-approach for the analysis of neutron time-of-flight transmission data".
+    An easier to read reference is Eq. (5) of 
+    "Imaging of a spatial distribution of preferred orientation of crystallites by pulsed neutron Bragg edge transmission" 
+    by H Sato et. al.
+    http://iopscience.iop.org/article/10.1088/1742-6596/251/1/012070
+
     Usage
     -----
 
