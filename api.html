@@ -191,6 +191,8 @@ spectrum for a material.</p>
 <dt id="bem.xscalc.XSCalculator">
 <em class="property">class </em><code class="descclassname">bem.xscalc.</code><code class="descname">XSCalculator</code><span class="sig-paren">(</span><em>structure</em>, <em>T</em>, <em>xopm=None</em>, <em>max_diffraction_index=5</em>, <em>size=0</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xscalc.XSCalculator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cross section calculator</p>
+<p>This class implements formulas in Chapter 3, section 2 of Sven Vogel’s thesis,
+“A Rietveld-approach for the analysis of neutron time-of-flight transmission data”</p>
 <dl class="method">
 <dt id="bem.xscalc.XSCalculator.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>structure</em>, <em>T</em>, <em>xopm=None</em>, <em>max_diffraction_index=5</em>, <em>size=0</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xscalc.XSCalculator.__init__" title="Permalink to this definition">¶</a></dt>
@@ -357,6 +359,12 @@ spectrum for a material.</p>
 <dt id="bem.xtaloriprobmodel.MarchDollase">
 <em class="property">class </em><code class="descclassname">bem.xtaloriprobmodel.</code><code class="descname">MarchDollase</code><span class="sig-paren">(</span><em>r=None</em>, <em>beta=None</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.xtaloriprobmodel.MarchDollase" title="Permalink to this definition">¶</a></dt>
 <dd><p>March Dollase model for texture</p>
+<p>This class implements the formula 3.68 of Sven Vogel’s thesis,
+“A Rietveld-approach for the analysis of neutron time-of-flight transmission data”.
+An easier to read reference is Eq. (5) of
+“Imaging of a spatial distribution of preferred orientation of crystallites by pulsed neutron Bragg edge transmission”
+by H Sato et. al.
+<a class="reference external" href="http://iopscience.iop.org/article/10.1088/1742-6596/251/1/012070">http://iopscience.iop.org/article/10.1088/1742-6596/251/1/012070</a></p>
 <p>Create an instance</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">md</span> <span class="o">=</span> <span class="n">MarchDollase</span><span class="p">()</span>
 </pre></div>
@@ -378,6 +386,8 @@ The default value for beta is 0.</p>
 <dt id="bem.peak_profile.Jorgensen">
 <em class="property">class </em><code class="descclassname">bem.peak_profile.</code><code class="descname">Jorgensen</code><span class="sig-paren">(</span><em>alpha=None</em>, <em>beta=None</em>, <em>sigma=None</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.peak_profile.Jorgensen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Jorgensen peak profile</p>
+<p>This class implements formulas in section 3.3.3 of Sven Vogel’s thesis,
+“A Rietveld-approach for the analysis of neutron time-of-flight transmission data”</p>
 <dl class="method">
 <dt id="bem.peak_profile.Jorgensen.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>alpha=None</em>, <em>beta=None</em>, <em>sigma=None</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.peak_profile.Jorgensen.__init__" title="Permalink to this definition">¶</a></dt>
