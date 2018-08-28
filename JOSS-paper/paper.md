@@ -11,9 +11,6 @@ authors:
   - name: Gian Song
     orcid: 0000-0001-7462-384X
     affiliation: 1
-  - name: Hassina Bilheux
-    orcid: 0000-0001-8574-2449
-    affiliation: 1
 affiliations:
   - name: Oak Ridge National Laboratory
     index: 1
@@ -30,7 +27,7 @@ the fact that the neutron scattering cross section of hydrogen is large makes ne
 a useful tool in biology.
 In the past half century, Neutron imaging has seen growing applications
 in various scientific fields
-including physics, engineering sciences, biology, and even archaology
+including physics, engineering sciences, biology, and archaeology
 [@strobl2009].
 
 With energy-resolved neutron imaging techniques,
