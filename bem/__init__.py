@@ -9,6 +9,8 @@ deps:
   * matplotlib, numpy
 """
 
+from ._version import __version__
+
 # config file
 import yaml, os
 conf_path = "bem.conf"
