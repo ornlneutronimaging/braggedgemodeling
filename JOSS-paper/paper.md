@@ -1,5 +1,5 @@
 ---
-title: 'bem: Modeling for Neutron Bragg-Edge Imaging'
+title: 'bem: modeling for neutron Bragg-edge imaging'
 tags:
   - neutron
   - neutron imaging
@@ -22,16 +22,16 @@ bibliography: paper.bib
 Due to its zero net charge, neutron is a unique probe of materials.
 Low neutron absorption and scattering cross sections by most nuclei make it
 suitable for studying bulk samples.
-Unlike X-ray scattering, neutron form factors are not monotonically dependent of atomic numbers;
+Unlike X-ray scattering, neutron form factors are not monotonically dependent on atomic numbers;
 the fact that the neutron scattering cross section of hydrogen is large makes neutron
 a useful tool in biology.
-In the past half century, Neutron imaging has seen growing applications
+In the past half century, neutron imaging has seen growing applications
 in various scientific fields
 including physics, engineering sciences, biology, and archaeology
 [@strobl2009].
 
 With energy-resolved neutron imaging techniques,
-Neutron Bragg-edge imaging has recently found applications for materials science in phase mapping,
+neutron Bragg-edge imaging has recently found applications for materials science in phase mapping,
 stress/strain mapping, and texture analysis
 [@lehmann2010, @sato2017].
 To model Bragg-edge neutron imaging data, it is necessary to calculate
