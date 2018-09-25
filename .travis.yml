@@ -10,6 +10,7 @@ python:
 branches:
   only:
     - master
+    - texture
 #
 # services:
 #
