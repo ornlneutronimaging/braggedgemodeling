@@ -81,8 +81,8 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#using-conda">Using conda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prefereed-install-using-conda">Prefereed: Install using conda</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#using-setup-py">Using setup.py</a></li>
 </ul>
 </li>
@@ -154,13 +154,14 @@
             
   <div class="section" id="installation">
 <span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
-<p>The braggedgemodeling package depends on python version 3 (3.5, 3.6).</p>
+<div class="section" id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>braggedgemodeling</cite> package depends on python version 3 (3.5, 3.6).</p>
 </div>
-<div class="section" id="using-conda">
-<h2>Using conda<a class="headerlink" href="#using-conda" title="Permalink to this headline">¶</a></h2>
-<p>The braggedgemodeling package can be installed using conda:</p>
+<div class="section" id="prefereed-install-using-conda">
+<h2>Prefereed: Install using conda<a class="headerlink" href="#prefereed-install-using-conda" title="Permalink to this headline">¶</a></h2>
+<p>The preferred method for installation is to use <a class="reference external" href="https://conda.io/">conda</a>.
+Please use the following commands to install <cite>braggedgemodeling</cite>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda config --add channels conda-forge
 $ conda install braggedgemodeling
 </pre></div>
@@ -169,15 +170,41 @@ $ conda install braggedgemodeling
 </div>
 <div class="section" id="using-setup-py">
 <h2>Using setup.py<a class="headerlink" href="#using-setup-py" title="Permalink to this headline">¶</a></h2>
-<p>This package is a pure python package and can be installed simply by</p>
+<p>It is also possible to install <cite>braggedgemodeling</cite> using <cite>setup.py</cite> script,
+but there are some hoops to jump through.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The following instructions assume an ubuntu distribution. For other platforms, please make appropriate adjustments.</p>
+</div>
 <ul>
-<li><p class="first">Checking out the code:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/ornlneutronimaging/braggedgemodeling.git
+<li><p class="first">First, please install <a class="reference external" href="https://pypi.org/project/pip/">pip</a> for python 3 (pip3) using <cite>apt-get</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install python3-pip
 </pre></div>
 </div>
 </li>
-<li><p class="first">Run setup.py:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd braggedgemodeling &amp;&amp; python setup.py install
+<li><p class="first">Then, use pip3 to install some dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip3 install --user numpy pycifrw pyyaml scipy matplotlib periodictable
+</pre></div>
+</div>
+</li>
+<li><p class="first">Next, please install diffpy.structure (python 3 version) from source:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/diffpy/diffpy.structure
+$ cd diffpy.structure
+$ git checkout python3  # Important! make sure to checkout the python3 branch
+$ python3 setup.py install --user
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">This step may fail if you have mistakenly tried to install the python 2 version of diffpy.structure.
+If so, you may need to remove the pip cache (which should be ~/.cache/pip) before trying this step again.</p>
+</div>
+<ul>
+<li><p class="first">Now you can install <cite>braggedgemodeling</cite> by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/ornlneutronimaging/braggedgemodeling.git
+$ cd braggedgemodeling &amp;&amp; python setup.py install --user
 </pre></div>
 </div>
 </li>
