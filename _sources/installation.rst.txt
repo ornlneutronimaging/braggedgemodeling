@@ -8,7 +8,7 @@ Python
 The `braggedgemodeling` package depends on python version 3 (3.5, 3.6).
 
 
-Prefereed: Install using conda
+Preferred: Install using conda
 ------------------------------
 
 The preferred method for installation is to use `conda <https://conda.io/>`_.
@@ -43,7 +43,7 @@ but there are some hoops to jump through.
    $ git checkout python3  # Important! make sure to checkout the python3 branch
    $ python3 setup.py install --user
 
-.. attention:: This step may fail if you have mistakenly tried to install the python 2 version of diffpy.structure.
+.. attention:: This step may fail if you have tried to install the python 2 version of diffpy.structure in the python 3 environment.
 	       If so, you may need to remove the pip cache (which should be ~/.cache/pip) before trying this step again.
   
 * Now you can install `braggedgemodeling` by::
