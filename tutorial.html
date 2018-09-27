@@ -83,7 +83,10 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#atomic-structure">Atomic structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cross-section">Cross section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#no-texture">No texture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#calculate-cross-sections">Calculate cross sections</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#texture">Texture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#peak-profile">Peak profile</a></li>
 </ul>
@@ -156,38 +159,57 @@
   <div class="section" id="tutorial">
 <span id="id1"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <p>Please see <a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installation</span></a> before start here.</p>
+<p>This tutorial also exists as a jupyter notebook: <a class="reference external" href="https://github.com/ornlneutronimaging/braggedgemodeling/blob/master/notebooks/tutorial.ipynb">https://github.com/ornlneutronimaging/braggedgemodeling/blob/master/notebooks/tutorial.ipynb</a></p>
+<p>This tutorial walks through some basic steps of using braggedgemodeling for modeling of neutron Bragg edge spectrum.</p>
+<p>First we import some essential tools:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">bem.matter</span> <span class="k">import</span> <span class="n">Atom</span><span class="p">,</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">Structure</span>
+</pre></div>
+</div>
 <div class="section" id="atomic-structure">
 <h2>Atomic structure<a class="headerlink" href="#atomic-structure" title="Permalink to this headline">¶</a></h2>
-<p>Let us start by creating an atomic structure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bem.matter</span> <span class="k">import</span> <span class="n">Atom</span><span class="p">,</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">Structure</span>
-<span class="n">atoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">Atom</span><span class="p">(</span><span class="s1">&#39;Ni&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span> <span class="n">Atom</span><span class="p">(</span><span class="s1">&#39;Ni&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
-         <span class="n">Atom</span><span class="p">(</span><span class="s1">&#39;Ni&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)),</span> <span class="n">Atom</span><span class="p">(</span><span class="s1">&#39;Ni&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))]</span>
-<span class="n">a</span><span class="o">=</span><span class="mf">3.5238</span>
+<p>The first step is to create a model of the material. Here we use bcc Fe as the example. In the following cell, we create the atomic structure of bcc Fe by adding atoms to a lattice with a space group:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">atoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">Atom</span><span class="p">(</span><span class="s1">&#39;Fe&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span> <span class="n">Atom</span><span class="p">(</span><span class="s1">&#39;Fe&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))]</span>
+<span class="n">a</span><span class="o">=</span><span class="mf">2.856</span>
 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">90.</span>
 <span class="n">lattice</span> <span class="o">=</span> <span class="n">Lattice</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
-<span class="n">fccNi</span> <span class="o">=</span> <span class="n">Structure</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">lattice</span><span class="p">,</span> <span class="n">sgid</span><span class="o">=</span><span class="mi">225</span><span class="p">)</span>
+<span class="n">astruct</span> <span class="o">=</span> <span class="n">Structure</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">lattice</span><span class="p">,</span> <span class="n">sgid</span><span class="o">=</span><span class="mi">229</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">You can also use <code class="code docutils literal notranslate"><span class="pre">bem.matter.loadCif(path)</span></code> to load an atomic structure
-from a CIF file.</p>
+<p>You can also use <code class="code docutils literal notranslate"><span class="pre">bem.matter.loadCif(path)</span></code> to load an atomic structure
+from a CIF file:</p>
+<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bem.matter</span> <span class="k">import</span> <span class="n">loadCif</span>
+<span class="n">astruct</span> <span class="o">=</span> <span class="n">loadCif</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
-<div class="section" id="cross-section">
-<h2>Cross section<a class="headerlink" href="#cross-section" title="Permalink to this headline">¶</a></h2>
-<p>Then we can perform a simple Bragg Edge neutron cross section calculation and plot them:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># define wavelength axis</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">wavelengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">)</span>
-<span class="n">T</span> <span class="o">=</span> <span class="mi">300</span>
-<span class="c1"># create calculator</span>
-<span class="kn">from</span> <span class="nn">bem</span> <span class="k">import</span> <span class="n">xscalc</span>
-<span class="n">xscalculator</span> <span class="o">=</span> <span class="n">xscalc</span><span class="o">.</span><span class="n">XSCalculator</span><span class="p">(</span><span class="n">fccNi</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">max_diffraction_index</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="c1"># compute various contributions</span>
-<span class="c1"># In neutron Bragg Edge data analysis, it may not be necessary to calculate all these</span>
-<span class="c1"># contributions, but it is useful to see them when exploring.</span>
-<span class="n">coh_el_xs</span> <span class="o">=</span> <span class="n">xscalculator</span><span class="o">.</span><span class="n">xs_coh_el</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+</div>
+<div class="section" id="no-texture">
+<h2>No texture<a class="headerlink" href="#no-texture" title="Permalink to this headline">¶</a></h2>
+<p>It is always good to start with a simplified case. Here we consider a bcc Fe sample without texture, and the following code computes and plots various contributions to the neutron cross section for this material.</p>
+<p>The neutron Bragg edge spectrum is wavelength (𝜆) dependent, so we will calculate the cross sections as functions of  𝜆</p>
+<p>Define wavelength axis:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wavelengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Experimental condition:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="mi">300</span> <span class="c1"># Kelvin</span>
+</pre></div>
+</div>
+<div class="section" id="calculate-cross-sections">
+<h3>Calculate cross sections<a class="headerlink" href="#calculate-cross-sections" title="Permalink to this headline">¶</a></h3>
+<p>Create calculator. Larger max_diffraction_index will lead to more accurate result at low wavelength:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bem</span> <span class="k">import</span> <span class="n">xscalc</span>
+<span class="n">xscalculator</span> <span class="o">=</span> <span class="n">xscalc</span><span class="o">.</span><span class="n">XSCalculator</span><span class="p">(</span><span class="n">astruct</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">max_diffraction_index</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Compute various contributions</p>
+<p>Note: in neutron Bragg Edge data analysis, it may not be necessary to calculate all these contributions, but it is useful to see them when exploring:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">coh_el_xs</span> <span class="o">=</span> <span class="n">xscalculator</span><span class="o">.</span><span class="n">xs_coh_el</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
 <span class="n">inc_el_xs</span> <span class="o">=</span> <span class="n">xscalculator</span><span class="o">.</span><span class="n">xs_inc_el</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
 <span class="n">abs_xs</span> <span class="o">=</span> <span class="n">xscalculator</span><span class="o">.</span><span class="n">xs_abs</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
 <span class="n">coh_inel_xs</span> <span class="o">=</span> <span class="n">xscalculator</span><span class="o">.</span><span class="n">xs_coh_inel</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
@@ -195,7 +217,7 @@ from a CIF file.</p>
 <span class="c1"># and the total cross section</span>
 <span class="n">total</span> <span class="o">=</span> <span class="n">xscalculator</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
 <span class="c1"># plot</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">coh_el_xs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;coh el&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">inc_el_xs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;inc el&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">coh_inel_xs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;coh inel&#39;</span><span class="p">)</span>
@@ -208,42 +230,92 @@ from a CIF file.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>It will generate this plot:</p>
+<img alt="_images/Fe-notexture.png" src="_images/Fe-notexture.png" />
+</div>
 </div>
 <div class="section" id="texture">
 <h2>Texture<a class="headerlink" href="#texture" title="Permalink to this headline">¶</a></h2>
-<p>To introduce texture into the sample, we can use a texture model:</p>
+<p>Here we introduce texture into the sample using the March Dollas model and see how it influence the spectrum</p>
+<p>In March Dollase model,</p>
+<ul class="simple">
+<li>the 𝑟 parameter of a ℎ𝑘𝑙 indicates the degree of anisotropy;</li>
+<li>𝑟ℎ𝑘𝑙=1 means the sample is isotropic with respect to the distribution of the particular ℎ𝑘𝑙;</li>
+<li>𝛽 is the most probable angle of the preferred orientation</li>
+</ul>
+<p>In the following, we create a March Dollas model and adjust the 𝑟 and 𝛽 for [011]:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bem</span> <span class="k">import</span> <span class="n">xtaloriprobmodel</span> <span class="k">as</span> <span class="n">xopm</span>
 <span class="n">texture_model</span> <span class="o">=</span> <span class="n">xopm</span><span class="o">.</span><span class="n">MarchDollase</span><span class="p">()</span>
-<span class="n">texture_model</span><span class="o">.</span><span class="n">r</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">texture_model</span><span class="o">.</span><span class="n">beta</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mf">60.</span><span class="p">)</span>
+<span class="n">texture_model</span><span class="o">.</span><span class="n">r</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">texture_model</span><span class="o">.</span><span class="n">beta</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mf">60.</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Now we recreate the calculator using this texture model:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xscalculator</span> <span class="o">=</span> <span class="n">xscalc</span><span class="o">.</span><span class="n">XSCalculator</span><span class="p">(</span><span class="n">fccNi</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">texture_model</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>And replot:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xscalculator</span><span class="o">.</span><span class="n">plotAll</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+<p>calculate and plot:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xscalculator</span> <span class="o">=</span> <span class="n">xscalc</span><span class="o">.</span><span class="n">XSCalculator</span><span class="p">(</span><span class="n">astruct</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">texture_model</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="c1"># plotAll is a convenient method that calculates all contributions and plot them</span>
+    <span class="n">xscalculator</span><span class="o">.</span><span class="n">plotAll</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>The “plotAll” method simplifies plotting.</p>
+<p>This is the plot:</p>
+<img alt="_images/Fe-withtexture.png" src="_images/Fe-withtexture.png" />
+<p>The following code consider the isotropic case and three texture cases for bcc Fe. This plot reproduces Figure 1 of <a class="reference external" href="https://doi.org/10.1088/1742-6596/251/1/012070">https://doi.org/10.1088/1742-6596/251/1/012070</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="n">texture_model</span> <span class="o">=</span> <span class="n">xopm</span><span class="o">.</span><span class="n">MarchDollase</span><span class="p">()</span>
+    <span class="n">calc</span> <span class="o">=</span> <span class="n">xscalc</span><span class="o">.</span><span class="n">XSCalculator</span><span class="p">(</span><span class="n">astruct</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">texture_model</span><span class="p">,</span> <span class="n">max_diffraction_index</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="c1"># isotropic</span>
+    <span class="n">xs_0</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+    <span class="c1"># r = 2, beta = 60.</span>
+    <span class="n">texture_model</span><span class="o">.</span><span class="n">r</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">texture_model</span><span class="o">.</span><span class="n">beta</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">60.</span><span class="o">/</span><span class="mf">180.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+    <span class="n">xs_60</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+    <span class="c1"># r = 1.2, beta = 30</span>
+    <span class="n">texture_model</span><span class="o">.</span><span class="n">r</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">1.2</span>
+    <span class="n">texture_model</span><span class="o">.</span><span class="n">beta</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">30.</span><span class="o">/</span><span class="mf">180.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+    <span class="n">xs_30</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+    <span class="c1"># r = 1.2, beta = 90</span>
+    <span class="n">texture_model</span><span class="o">.</span><span class="n">r</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">1.2</span>
+    <span class="n">texture_model</span><span class="o">.</span><span class="n">beta</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">90.</span><span class="o">/</span><span class="mf">180.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+    <span class="n">xs_90</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">xs_0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;r=1, isotropic&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">xs_30</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;r=1.2, $</span><span class="se">\\</span><span class="s1">beta=30^</span><span class="se">\\</span><span class="s1">circ$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">xs_60</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;r=2.0, $</span><span class="se">\\</span><span class="s1">beta=60^</span><span class="se">\\</span><span class="s1">circ$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">xs_90</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;r=1.2, $</span><span class="se">\\</span><span class="s1">beta=90^</span><span class="se">\\</span><span class="s1">circ$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The plot looks like this:</p>
+<img alt="_images/Fe-4_texture_cases.png" src="_images/Fe-4_texture_cases.png" />
 </div>
 <div class="section" id="peak-profile">
 <h2>Peak profile<a class="headerlink" href="#peak-profile" title="Permalink to this headline">¶</a></h2>
-<p>To take instrument broadening into account:</p>
+<p>The peak profile takes care of broadening due to neutron source:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bem</span> <span class="k">import</span> <span class="n">peak_profile</span> <span class="k">as</span> <span class="n">pp</span><span class="p">,</span> <span class="n">calc</span>
 <span class="n">jorgensen</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">Jorgensen</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">beta</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">sigma</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">003</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 <span class="n">spectrum_calculator</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">BraggEdgeSpectrumCalculator</span><span class="p">(</span><span class="n">xscalculator</span><span class="p">,</span> <span class="n">jorgensen</span><span class="p">)</span>
 <span class="c1"># calculate total cross section convolved with peak profile</span>
-<span class="n">spectrum</span> <span class="o">=</span> <span class="n">spectrum_calculator</span><span class="p">(</span><span class="s1">&#39;total&#39;</span><span class="p">,</span> <span class="n">wavelengths</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="n">spectrum</span> <span class="o">=</span> <span class="n">spectrum_calculator</span><span class="p">(</span><span class="s1">&#39;total&#39;</span><span class="p">,</span> <span class="n">wavelengths</span><span class="p">)</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="n">xscalculator</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
 <span class="c1"># plot it</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">spectrum</span><span class="p">)</span>
-<span class="c1"># also plot the cross sections</span>
-<span class="n">xscalculator</span><span class="o">.</span><span class="n">plotAll</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">spectrum</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;with peak profile&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;cross section&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>The output:</p>
+<img alt="_images/Fe-withpeakprofile.png" src="_images/Fe-withpeakprofile.png" />
 </div>
 </div>
 
