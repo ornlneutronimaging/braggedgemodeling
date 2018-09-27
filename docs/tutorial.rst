@@ -13,7 +13,6 @@ First we import some essential tools::
 
   import os, numpy as np
   import warnings
-  %matplotlib notebook
   from matplotlib import pyplot as plt
   from bem.matter import Atom, Lattice, Structure
 
@@ -79,6 +78,7 @@ Note: in neutron Bragg Edge data analysis, it may not be necessary to calculate 
   plt.ylim(-0.2, None)
   plt.xlim(0,7)
   plt.legend()
+  plt.show()
 
 It will generate this plot:
 
@@ -111,6 +111,7 @@ calculate and plot::
       warnings.simplefilter("ignore")
       # plotAll is a convenient method that calculates all contributions and plot them
       xscalculator.plotAll(wavelengths)
+  plt.show()
 
 This is the plot:
 
@@ -143,6 +144,7 @@ The following code consider the isotropic case and three texture cases for bcc F
   plt.plot(wavelengths, xs_60, label='r=2.0, $\\beta=60^\\circ$')
   plt.plot(wavelengths, xs_90, label='r=1.2, $\\beta=90^\\circ$')
   plt.legend(loc='upper left')
+  plt.show()
 
 The plot looks like this:
 
@@ -159,14 +161,15 @@ The peak profile takes care of broadening due to neutron source::
   spectrum_calculator = calc.BraggEdgeSpectrumCalculator(xscalculator, jorgensen)
   # calculate total cross section convolved with peak profile
   with warnings.catch_warnings():
-  warnings.simplefilter("ignore")
-  spectrum = spectrum_calculator('total', wavelengths)
-  xs = xscalculator.xs(wavelengths)
+      warnings.simplefilter("ignore")
+      spectrum = spectrum_calculator('total', wavelengths)
+      xs = xscalculator.xs(wavelengths)
   # plot it
   plt.figure()
   plt.plot(wavelengths, spectrum, label='with peak profile')
   plt.plot(wavelengths, xs, label='cross section')
   plt.legend()
+  plt.show()
 
 The output:
 
