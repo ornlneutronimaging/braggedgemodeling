@@ -3,3 +3,4 @@
 log.*
 .~*
 .idea/*
+.pytest_cache
