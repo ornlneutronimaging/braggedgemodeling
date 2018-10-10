@@ -1,12 +1,7 @@
 import argparse
 
-<<<<<<< HEAD
 from bem.texture.preparation.vdrive_handler import VDriveHandler
 from bem.texture.preparation.vdrive_to_mtex import VDriveToMtex
-=======
-from project.preparation.vdrive_handler import VDriveHandler
-from project.preparation.vdrive_to_mtex import VDriveToMtex
->>>>>>> 3d062b611b00cc70a958d796829a04c3a1a76869
 
 parser = argparse.ArgumentParser(description='VDrive File Handler')
 parser.add_argument('-i', '--input', help='VDrive file', type=str)

@@ -148,7 +148,7 @@ class VDriveToMtex(object):
                     new_entry = "  " + "  ".join(_str_row)
                     data.append(new_entry)
 
-            data.append("")
+            data.append("   ")
 
         _create_data_array("111", self.a111_interpolated)
         _create_data_array("200", self.a200_interpolated)
