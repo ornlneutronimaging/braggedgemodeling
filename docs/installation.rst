@@ -49,7 +49,4 @@ but there are some hoops to jump through.
 * Now you can install `braggedgemodeling` by::
      
   $ git clone https://github.com/ornlneutronimaging/braggedgemodeling.git
-  $ cd braggedgemodeling && python setup.py install --user
-
-
-
+  $ cd braggedgemodeling && python3 setup.py install --user
