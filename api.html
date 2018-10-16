@@ -161,8 +161,8 @@ spectrum for a material.</p>
 <dl class="function">
 <dt id="bem.matter.Structure">
 <code class="descclassname">bem.matter.</code><code class="descname">Structure</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#bem.matter.Structure" title="Permalink to this definition">¶</a></dt>
-<dd><p>a wrapper for Structure method that injects “sg” data member</p>
-<p>Structure(atoms, lattice, sgid=)</p>
+<dd><p>a wrapper for diffpy Structure method that injects “sg” data member.</p>
+<p>Structure(atoms, lattice, sgid=): create an atomic structure given the list of atoms, the lattice, and the space group id. This method is mainly for advanced users, and for testing purpose.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -176,6 +176,16 @@ spectrum for a material.</p>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bem.matter</span> <span class="k">import</span> <span class="n">Atom</span><span class="p">,</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">Structure</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">Atom</span><span class="p">(</span><span class="s1">&#39;Fe&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span> <span class="n">Atom</span><span class="p">(</span><span class="s1">&#39;Fe&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">=</span><span class="mf">2.856</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">90.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lattice</span> <span class="o">=</span> <span class="n">Lattice</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">astruct</span> <span class="o">=</span> <span class="n">Structure</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">lattice</span><span class="p">,</span> <span class="n">sgid</span><span class="o">=</span><span class="mi">229</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For more details on Atom, Lattice, and Structure, please refer to <a class="reference external" href="http://www.diffpy.org/diffpy.structure/">http://www.diffpy.org/diffpy.structure/</a></p>
 </dd></dl>
 
 <dl class="function">
