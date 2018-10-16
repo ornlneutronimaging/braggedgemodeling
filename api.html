@@ -377,6 +377,7 @@ The default value for beta is 0.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">md</span><span class="o">.</span><span class="n">beta</span><span class="p">[</span><span class="n">hkl</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_beta_value</span>
 </pre></div>
 </div>
+<p>The r value is unitless. The beta value is in radian.</p>
 </dd></dl>
 
 </div>
@@ -397,9 +398,9 @@ The default value for beta is 0.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>alpha</strong> – 2-tuple of floats</li>
-<li><strong>beta</strong> – 2-tuple of floats</li>
-<li><strong>sigma</strong> – 3-tuple of floats</li>
+<li><strong>alpha</strong> – 2-tuple of floats. units: 1/angstrom, 1</li>
+<li><strong>beta</strong> – 2-tuple of floats. units: 1/angstrom, angstrom^3</li>
+<li><strong>sigma</strong> – 3-tuple of floats. units: angstrom, 1, 1/angstrom</li>
 </ul>
 </td>
 </tr>
