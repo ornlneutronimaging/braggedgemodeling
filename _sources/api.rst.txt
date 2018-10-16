@@ -7,8 +7,8 @@ spectrum for a material.
 Atomic structure
 ----------------
 
-.. autofunction:: bem.matter.Structure
 .. autofunction:: bem.matter.loadCif
+.. autofunction:: bem.matter.Structure
 
 Cross section calculator
 ------------------------
