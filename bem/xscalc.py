@@ -135,6 +135,7 @@ class XSCalculator:
         """
         vs = [np.abs(p.F)**2*p.d*p.mult*self.xopm(p, wavelen)*self.extinction_factor(wavelen, p)*(p.d*2>wavelen) for p in self.diffpeaks]
         vs = np.array(vs) # unit fm^2
+        vs[vs!=vs] = 0
         # print wavelen, vs * wavelen*wavelen/(2*self.uc_vol)
         if len(vs.shape) == 1:
             return np.sum(vs)/100 * wavelen*wavelen/(2*self.uc_vol) # unit: barn
