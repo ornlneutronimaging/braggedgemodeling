@@ -9,15 +9,13 @@ an instrument beam model,
 calculate neutron Bragg Edge spectrum as a function of neutron wavelength.
 
 ## Features
-* Cross section calculation from crystal structure specification
-  - Calculate diffraction peaks data (d-spacing, form factors, etc.) according to sample crystal structure
-  - Estimate inelastic scattering using incoherent approximation
+* Calculation of basic Bragg Edge spectrum from crystal structure specification, assuming an isotropic powder sample, and accounting for various contributions to neutron scattering including, for example, diffraction and inelastic scattering (using incoherent approximation)
 * Modeling of texture:
   - March Dollase
 * Modeling of peak profile:
   - Jorgensen model
 * Flexible design to allow future extension to texture and peak profile models
-* Enable easy fitting to measured Bragg Edge data
+* Allow easy fitting to measured Bragg Edge data
 
 ## Documentation
 
