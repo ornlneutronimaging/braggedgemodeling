@@ -42,6 +42,8 @@ class MarchDollase(XtalOriProbModel):
 
     >>> md.r[hkl] = new_r_value
     >>> md.beta[hkl] = new_beta_value
+
+    The r value is unitless. The beta value is in radian.
     """
 
     class Texture(dict):

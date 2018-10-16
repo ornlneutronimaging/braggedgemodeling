@@ -42,13 +42,13 @@ class Jorgensen(AbstractPeakProfile):
         Parameters
         ----------
         alpha :
-          2-tuple of floats
+          2-tuple of floats. units: 1/angstrom, 1
 
         beta :
-          2-tuple of floats
+          2-tuple of floats. units: 1/angstrom, angstrom^3
 
         sigma :
-          3-tuple of floats        
+          3-tuple of floats. units: angstrom, 1, 1/angstrom
         """
         self.alpha = alpha if alpha is not None else [1., 0.]
         self.beta = beta if beta is not None else [1., 0.]

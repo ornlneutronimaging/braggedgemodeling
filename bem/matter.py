@@ -8,31 +8,6 @@ else:
     from diffpy.structure.spacegroups import GetSpaceGroup as getSpaceGroup
     
 
-def Structure(*args, **kwds):
-    """a wrapper for Structure method that injects "sg" data member
-
-    Structure(atoms, lattice, sgid=)
-    
-    Parameters
-    ----------
-    atoms : list
-        list of atoms
-
-    lattice : Lattice
-    
-    sgid : int
-        space group id. For example 225 for FCC
-    """
-    if 'sgid' in kwds:
-        sgid = kwds.pop('sgid')
-    else:
-        sgid = None
-    s = _Structure(*args, **kwds)
-    if sgid is not None:
-        s.sg = getSpaceGroup(sgid)
-    return s
-
-
 def loadCif(path):
     """load CIF file from given path to create a Structure instance
     """
@@ -44,6 +19,42 @@ def loadCif(path):
     nacl = p.parseFile(path)
     nacl.sg = p.spacegroup
     return nacl
+
+
+def Structure(*args, **kwds):
+    """a wrapper for diffpy Structure method that injects "sg" data member.
+
+    Structure(atoms, lattice, sgid=): create an atomic structure given the list of atoms, the lattice, and the space group id. This method is mainly for advanced users, and for testing and exploration purpose.
+    
+    Parameters
+    ----------
+    atoms : list
+        list of atoms
+
+    lattice : Lattice
+    
+    sgid : int
+        space group id. For example 225 for FCC
+
+    Examples
+    --------
+    >>> from bem.matter import Atom, Lattice, Structure
+    >>> atoms = [Atom('Fe', (0,0,0)), Atom('Fe', (0.5, 0.5, 0.5))]
+    >>> a=2.856
+    >>> alpha = 90.
+    >>> lattice = Lattice(a=a, b=a, c=a, alpha=alpha, beta=alpha, gamma=alpha)
+    >>> astruct = Structure(atoms, lattice, sgid=229)
+
+    For more details on Atom, Lattice, and Structure, please refer to http://www.diffpy.org/diffpy.structure/
+    """
+    if 'sgid' in kwds:
+        sgid = kwds.pop('sgid')
+    else:
+        sgid = None
+    s = _Structure(*args, **kwds)
+    if sgid is not None:
+        s.sg = getSpaceGroup(sgid)
+    return s
 
 
 # examples
