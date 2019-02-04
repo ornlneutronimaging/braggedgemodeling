@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+import pytest
+pytest.importorskip("matlab")
+
 import os
 
 here = os.path.dirname(__file__)
