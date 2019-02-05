@@ -16,6 +16,9 @@ It takes 1 minute to run at heetuu.
 
 Calculates Bragg Edge intensities from texture file.
 A postprocessing step is needed to create histogram of computed data.
+
+*** Known problems ***
+* The method `compute` has a side effect of generating hkls.txt whi
 """
 
 import numpy as np, os, sys
@@ -33,6 +36,8 @@ def compute(
     It generates tuples of 
       (hkl_index+1, number_of_good_grains, 
        polar_angle_index+1, azimuthal_angle_index+1, 0???, wavelength)
+
+    It also writes out a list of hkl in a text file: `hkls_out`
     """
     tolerance = 90./N_RD/2. # 90./36/2.
     # read euler angles from texture file
@@ -92,7 +97,7 @@ def compute(
             continue #iRD
         hkls_outstream.write('%s\n' % (hkl,))
         continue #hkl
-    return
+    return hkls
 
 
 def read_results(path):
