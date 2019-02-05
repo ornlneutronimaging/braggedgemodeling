@@ -38,7 +38,16 @@ def mlEngine():
     return _ml_engine
 
 
-def polfig2VPSC(rpfpath, hkls, outpath):
+def polfig2VPSC(rpfpath, outpath, hkls, Npoints=5000):
+    """calling mtex to convert pol figure data to texture data.
+
+    rpfpath: pol figure data path
+    outpath: output path
+    hkls: miller indexes of the pole figures
+    Npoints: number of sampling points
+
+    !!! This implemenation is limited. Should autodetect the hkl (miller indexes) stored in the file (rpfpath) !!!
+    """
     check_setup()
     engine = mlEngine()
     import StringIO
@@ -46,7 +55,7 @@ def polfig2VPSC(rpfpath, hkls, outpath):
     err = StringIO.StringIO()
 
     ml_hkls = matlab.double(hkls)
-    engine.polfig2VPSC(rpfpath, ml_hkls, outpath, nargout=0, stdout=out, stderr=err)
+    engine.polfig2VPSC(rpfpath, ml_hkls, outpath, Npoints, nargout=0, stdout=out, stderr=err)
     if not os.path.exists(outpath):
         raise RuntimeError("polfig2VPSC failed. \nOutput: %s\nError: %s" % (out.getvalue(), err.getvalue()))
     return

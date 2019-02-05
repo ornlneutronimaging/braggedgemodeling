@@ -1,4 +1,4 @@
-function polfig2VPSC(polfigpath, hkls, outpath)
+function polfig2VPSC(polfigpath, hkls, outpath, points)
   %% Import Script for PoleFigure Data
 
   %% Specify Crystal and Specimen Symmetries
@@ -27,4 +27,4 @@ h = arrayfun( @(IDX) Miller(mat2cell(hkls(IDX,:), 1, ones(1, 3)), CS), (1:nhkl).
 pf = loadPoleFigure(fname,h,CS,SS,'interface','siemens');
 
 odf = calcODF(pf);
-odf2VPSC(odf, outpath);
+odf2VPSC(odf, outpath, 'points', points);
