@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-# import pytest
-# pytest.importorskip("matlab")
+import pytest
+pytest.importorskip("matlab")
 
 import os, numpy as np
 
