@@ -48,4 +48,8 @@ jobs:
         run: |
           py.test --cov=bem tests
           ./tests/Test_xs_NaCl.py noplot
-          coveralls
+          
+      - name: Publish to coveralls.io
+        uses: coverallsapp/github-action@v1.1.2
+        with:
+          github-token: ${{ github.token }}
