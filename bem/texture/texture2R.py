@@ -60,7 +60,7 @@ def compute(
     # _hkls = [111, 200, 220, 311, 222, 400, 331, 420, 422, 511, 333, 440, 531]
     # d_spacing_list = [2.07793, 1.800787, 1.272775, 1.085376, 1.038812, 0.90032, 0.825621, 0.804956, 0.734553, 0.692623, 0.692623, 0.6356, 0.6082,]
     d_spacing_list = [p.d for p in peaks]
-    print d_spacing_list
+    print(d_spacing_list)
     #
     outstream = open(out, 'wt')
     hkls_outstream = open(hkls_out, 'wt')
@@ -72,7 +72,7 @@ def compute(
     hkl_families = [normalized_equiv_planes(hkl, structure) for hkl in hkls]
     
     for ihkl, (hkl, d_spacing) in enumerate(zip(hkls, d_spacing_list)):
-        print ihkl
+        print(ihkl)
         lambdas = 2.*d_spacing*np.sin( RDs )
         alfas = np.arccos(lambdas/2./d_spacing)
         sa_list = np.sin(alfas)
@@ -198,7 +198,7 @@ def normalized_equiv_planes(hkl, structure):
     assert len(hkls)==len(hkls0)
     norm = lambda x: x/np.linalg.norm(x)
     norma = lambda x: norm(np.array(x))
-    return map(norma, hkls)
+    return list(map(norma, hkls))
 
 
 def main():
