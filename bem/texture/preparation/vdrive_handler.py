@@ -127,10 +127,10 @@ class VDriveHandler(object):
         [height, width] = np.shape(full_omega)
         new_dim = height * width
         
-        self.bank2.omega = np.reshape(np.transpose(full_omega), new_dim, 1)
-        self.bank2.hrot = np.reshape(np.transpose(full_hrot), new_dim, 1)
-        self.bank2.psi = np.reshape(np.transpose(full_psi), new_dim, 1)
-        self.bank2.phi = np.reshape(np.transpose(full_phi), new_dim, 1)
+        self.bank2.omega = np.reshape(np.transpose(full_omega), new_dim, "F")
+        self.bank2.hrot = np.reshape(np.transpose(full_hrot), new_dim, "F")
+        self.bank2.psi = np.reshape(np.transpose(full_psi), new_dim, "F")
+        self.bank2.phi = np.reshape(np.transpose(full_phi), new_dim, "F")
 
     def initialize_bank1_xaxis(self):
         # initialization
@@ -168,10 +168,10 @@ class VDriveHandler(object):
         [height, width] = np.shape(full_omega)
         new_dim = height * width
 
-        self.bank1.omega = np.reshape(np.transpose(full_omega), new_dim, 1)
-        self.bank1.hrot = np.reshape(np.transpose(full_hrot), new_dim, 1)
-        self.bank1.psi = np.reshape(np.transpose(full_psi), new_dim, 1)
-        self.bank1.phi = np.reshape(np.transpose(full_phi), new_dim, 1)
+        self.bank1.omega = np.reshape(np.transpose(full_omega), new_dim, "F")
+        self.bank1.hrot = np.reshape(np.transpose(full_hrot), new_dim, "F")
+        self.bank1.psi = np.reshape(np.transpose(full_psi), new_dim, "F")
+        self.bank1.phi = np.reshape(np.transpose(full_phi), new_dim, "F")
 
     def isolating_banks(self):
         _raw_data_iv = self.data.raw_iv
