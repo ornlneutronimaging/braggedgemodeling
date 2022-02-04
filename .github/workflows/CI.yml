@@ -46,8 +46,16 @@ jobs:
       - name: test
         shell: pwsh
         run: |
-          py.test --cov=bem tests --cov-report xml
-          ./tests/Test_xs_NaCl.py noplot
+          py.test --cov=bem tests
+          # ./tests/Test_xs_NaCl.py noplot
+          
+      - name: Upload coverage data to coveralls.io
+        shell: pwsh
+        run: |
+          conda install coveralls==2.2
+          coveralls --service=github
+        env:
+          GITHUB_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}    
           
       - name: Publish to coveralls.io
         uses: coverallsapp/github-action@v1.1.2
