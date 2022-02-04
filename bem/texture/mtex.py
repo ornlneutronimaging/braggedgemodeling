@@ -50,9 +50,9 @@ def polfig2VPSC(rpfpath, outpath, hkls, Npoints=5000):
     """
     check_setup()
     engine = mlEngine()
-    import StringIO
-    out = StringIO.StringIO()
-    err = StringIO.StringIO()
+    import io
+    out = io.StringIO()
+    err = io.StringIO()
 
     ml_hkls = matlab.double(hkls)
     engine.polfig2VPSC(rpfpath, ml_hkls, outpath, Npoints, nargout=0, stdout=out, stderr=err)
