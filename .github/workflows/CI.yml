@@ -1,0 +1,50 @@
+name: CI
+
+env: {}
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: "30 7 * * *"
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-latest"]
+        python-version: ["3.8"]  
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # setup conda
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: true
+          activate-environment: testenv
+          python-version: ${{ matrix.python-version }}
+          channels: conda-forge
+
+      # install deps and build
+      - name: install / build
+        shell: pwsh
+        run: |
+          conda install pip pytest pytest-cov coveralls pyyaml numpy scipy matplotlib pandas
+          conda install -c diffpy diffpy.Structure
+          conda install periodictable
+          python setup.py install
+      # test
+      - name: test
+        shell: pwsh
+        run: |
+          py.test --cov=bem tests
+          ./tests/Test_xs_NaCl.py noplot
