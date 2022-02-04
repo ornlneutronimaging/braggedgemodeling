@@ -38,7 +38,7 @@ jobs:
       - name: install / build
         shell: pwsh
         run: |
-          conda install pip pytest pytest-cov coveralls pyyaml numpy scipy matplotlib pandas
+          conda install pip pytest pytest-cov pyyaml numpy scipy matplotlib pandas
           conda install -c diffpy diffpy.Structure
           conda install periodictable
           python setup.py install
