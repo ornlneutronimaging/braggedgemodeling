@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ornlneutronimaging/braggedgemodeling.svg?branch=master)](https://travis-ci.org/ornlneutronimaging/braggedgemodeling)
+[![CI](https://github.com/ornlneutronimaging/braggedgemodeling/actions/workflows/CI.yml/badge.svg)](https://github.com/ornlneutronimaging/braggedgemodeling/actions/workflows/CI.yml)
 [![Coverage Status](https://coveralls.io/repos/github/ornlneutronimaging/braggedgemodeling/badge.svg?branch=master)](https://coveralls.io/github/ornlneutronimaging/braggedgemodeling?branch=master)
 [![DOI](http://joss.theoj.org/papers/10.21105/joss.00973/status.svg)](https://doi.org/10.21105/joss.00973)
 
