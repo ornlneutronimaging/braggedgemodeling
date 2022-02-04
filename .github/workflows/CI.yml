@@ -48,3 +48,4 @@ jobs:
         run: |
           py.test --cov=bem tests
           ./tests/Test_xs_NaCl.py noplot
+          coveralls
