@@ -522,3 +522,5 @@ class TestVDriveHandler(unittest.TestCase):
         _created_expected = zip(row0_created, row0_expected)
         for _created, _expected in _created_expected:
             self.assertAlmostEqual(_created, _expected, delta=self.maxDiff)
+
+if __name__ == '__main__': unittest.main()
