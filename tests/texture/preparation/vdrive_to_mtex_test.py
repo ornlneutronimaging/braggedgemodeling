@@ -3,7 +3,7 @@ import os
 import numpy as np
 import shutil
 
-from bem.texture.preparation.vdrive_to_mtex import VDriveToMtex
+from braggedgemodeling.texture.preparation.vdrive_to_mtex import VDriveToMtex
 
 
 class TestVDriveToMtexHandler(unittest.TestCase):

@@ -38,7 +38,7 @@ def Structure(*args, **kwds):
 
     Examples
     --------
-    >>> from bem.matter import Atom, Lattice, Structure
+    >>> from braggedgemodeling.matter import Atom, Lattice, Structure
     >>> atoms = [Atom('Fe', (0,0,0)), Atom('Fe', (0.5, 0.5, 0.5))]
     >>> a=2.856
     >>> alpha = 90.

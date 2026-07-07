@@ -4,8 +4,8 @@
 interactive = False
 
 import numpy as np
-from bem import xscalc, diffraction, xtaloriprobmodel as xopm
-from bem.matter import fccNi
+from braggedgemodeling import xscalc, diffraction, xtaloriprobmodel as xopm
+from braggedgemodeling.matter import fccNi
 
 def test_fccNi():
     lambdas = np.arange(0.05, 5.5, 0.001)

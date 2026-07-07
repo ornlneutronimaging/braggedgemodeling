@@ -4,10 +4,10 @@
 interactive = False
 
 import os, sys, numpy as np
-from bem import xscalc, peak_profile as pp, calc
+from braggedgemodeling import xscalc, peak_profile as pp, calc
 thisdir = os.path.abspath(os.path.dirname(__file__))
 
-from bem.matter import fccNi
+from braggedgemodeling.matter import fccNi
 
 def test_fccNi():
     lambdas = np.arange(0.05, 5.5, 0.001)

@@ -3,9 +3,9 @@
 from __future__ import print_function
 
 import numpy as np
-from bem import diffraction
+from braggedgemodeling import diffraction
 
-from bem.matter import fccNi
+from braggedgemodeling.matter import fccNi
 
 
 def test_F_i():

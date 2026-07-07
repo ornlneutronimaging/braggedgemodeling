@@ -2,9 +2,9 @@
 # Jiao Lin <jiao.lin@gmail.com>
 
 import os, numpy as np
-from bem import xscalc, diffraction
-from bem import xtaloriprobmodel as xopm
-from bem.matter import fccAl
+from braggedgemodeling import xscalc, diffraction
+from braggedgemodeling import xtaloriprobmodel as xopm
+from braggedgemodeling.matter import fccAl
 
 thisdir = os.path.dirname(__file__)
 

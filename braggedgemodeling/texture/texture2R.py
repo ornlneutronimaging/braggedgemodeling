@@ -53,7 +53,7 @@ def compute(
     #
     euler_matrices = np.transpose(euler_matrices, (0, 2, 1))
     # compute diffraction peaks
-    from bem.diffraction import iter_peaks
+    from braggedgemodeling.diffraction import iter_peaks
     peaks = list(iter_peaks(structure, T=300., max_index = max_hkl_index))
     peaks = sorted(peaks, key = lambda k: -k.d) # sort peaks by d spacing
     hkls = [p.hkl for p in peaks]
@@ -165,7 +165,7 @@ def euler_angles2matrix(fi1, PHI, fi2, T):
 
 
 def equiv_planes(hkl, structure):
-    from bem import diffraction
+    from braggedgemodeling import diffraction
     candidates = [tuple(map(int, _)) for _ in diffraction.equivalent_hkls(hkl, structure.sg)]
     res = [hkl]
     for c in candidates:
@@ -202,7 +202,7 @@ def normalized_equiv_planes(hkl, structure):
 
 
 def main():
-    from bem import matter
+    from braggedgemodeling import matter
     # FCC
     atoms = [matter.Atom('Ni', (0,0,0)), matter.Atom('Ni', (0.5, 0.5, 0)),
              matter.Atom('Ni', (0.5,0,0.5)), matter.Atom('Ni', (0, 0.5, 0.5))]

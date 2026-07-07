@@ -5,3 +5,11 @@ log.*
 .idea/*
 .DS_Store
 .pytest_cache
+.pixi/
+*.egg-info/
+dist/
+build/
+conda.recipe/*.tar.bz2
+conda.recipe/noarch/
+conda.recipe/linux-64/
+braggedgemodeling/_version.py

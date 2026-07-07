@@ -4,8 +4,8 @@
 interactive = False
 
 import os, numpy as np
-from bem import xscalc, peak_profile as pp
-from bem.matter import fccNi
+from braggedgemodeling import xscalc, peak_profile as pp
+from braggedgemodeling.matter import fccNi
 
 thisdir = os.path.dirname(__file__)
 

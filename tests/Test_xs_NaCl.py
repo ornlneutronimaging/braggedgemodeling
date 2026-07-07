@@ -10,7 +10,7 @@ saved_pwd = os.path.abspath('.')
 
 def test_NaCl():
     os.chdir(here)
-    from bem import xscalc, diffraction, matter
+    from braggedgemodeling import xscalc, diffraction, matter
     NaCl = matter.loadCif('NaCl.cif')
 
     lambdas = np.arange(1.5, 7, 0.01)
