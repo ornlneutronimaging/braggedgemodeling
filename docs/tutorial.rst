@@ -14,7 +14,7 @@ First we import some essential tools::
   import os, numpy as np
   import warnings
   from matplotlib import pyplot as plt
-  from bem.matter import Atom, Lattice, Structure
+  from braggedgemodeling.matter import Atom, Lattice, Structure
 
 Atomic structure
 ----------------
@@ -30,7 +30,7 @@ The first step is to create a model of the material. Here we use bcc Fe as the e
 .. note:: You can also use :code:`bem.matter.loadCif(path)` to load an atomic structure
    from a CIF file::
 
-     from bem.matter import loadCif
+     from braggedgemodeling.matter import loadCif
      astruct = loadCif(path)
 
 No texture
@@ -53,7 +53,7 @@ Calculate cross sections
   
 Create calculator. Larger max_diffraction_index will lead to more accurate result at low wavelength::
 
-  from bem import xscalc
+  from braggedgemodeling import xscalc
   xscalculator = xscalc.XSCalculator(astruct, T, max_diffraction_index=4)
 
 Compute various contributions
@@ -97,7 +97,7 @@ In March Dollase model,
   
 In the following, we create a March Dollas model and adjust the 𝑟 and 𝛽 for [011]::
 
-  from bem import xtaloriprobmodel as xopm
+  from braggedgemodeling import xtaloriprobmodel as xopm
   texture_model = xopm.MarchDollase()
   texture_model.r[(0,1,1)] = 2
   texture_model.beta[(0,1,1)] = np.deg2rad(60.)
@@ -156,7 +156,7 @@ Peak profile
 
 The peak profile takes care of broadening due to neutron source::
 
-  from bem import peak_profile as pp, calc
+  from braggedgemodeling import peak_profile as pp, calc
   jorgensen = pp.Jorgensen(alpha=[50, 0.], beta=[10, 0], sigma=[0, .003, 0])
   spectrum_calculator = calc.BraggEdgeSpectrumCalculator(xscalculator, jorgensen)
   # calculate total cross section convolved with peak profile

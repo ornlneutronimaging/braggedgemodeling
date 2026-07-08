@@ -9,7 +9,12 @@ deps:
   * matplotlib, numpy
 """
 
-from ._version import __version__
+from importlib.metadata import PackageNotFoundError, version
+
+try:
+    __version__ = version("braggedgemodeling")
+except PackageNotFoundError:  # package not installed (e.g. running from a source tree)
+    __version__ = "unknown"
 
 # config file
 import yaml, os

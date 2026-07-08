@@ -5,7 +5,7 @@ import re
 import shutil
 import pandas as pd
 
-from bem.texture.preparation.vdrive_handler import VDriveHandler
+from braggedgemodeling.texture.preparation.vdrive_handler import VDriveHandler
 
 
 class TestVDriveHandler(unittest.TestCase):

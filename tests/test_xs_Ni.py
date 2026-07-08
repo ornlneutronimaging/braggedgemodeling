@@ -6,8 +6,8 @@ from __future__ import print_function
 interactive = False
 
 import os, sys, numpy as np
-from bem import xscalc, diffraction
-from bem.matter import fccNi
+from braggedgemodeling import xscalc, diffraction
+from braggedgemodeling.matter import fccNi
 thisdir = os.path.abspath(os.path.dirname(__file__))
 
 

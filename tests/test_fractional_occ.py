@@ -4,7 +4,7 @@
 interactive = False
 
 import numpy as np
-from bem import xscalc, diffraction, matter
+from braggedgemodeling import xscalc, diffraction, matter
 
 atoms = [
     matter.Atom('Ni', (0,0,0), occupancy=0.5), matter.Atom('Ni', (0.5, 0.5, 0), occupancy=0.5),

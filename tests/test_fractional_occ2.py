@@ -4,7 +4,7 @@
 interactive = False
 
 import os, numpy as np
-from bem import xscalc, diffraction, matter
+from braggedgemodeling import xscalc, diffraction, matter
 thisdir = os.path.dirname(__file__)
 
 atoms = [

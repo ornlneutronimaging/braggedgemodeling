@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from bem.atomic_scattering import test
+from braggedgemodeling.atomic_scattering import test
 
 def main():
     test()

@@ -1,0 +1,46 @@
+{% set pyproject = load_file_data('pyproject.toml') %}
+{% set project = pyproject.get('project', {}) %}
+{% set description = project.get('description') %}
+{% set license = project.get('license').get('text') %}
+{% set url = project.get('urls', {}).get('homepage') %}
+# version is supplied via the VERSION environment variable (set from versioningit)
+{% set version = environ.get('VERSION') %}
+{% set version_number = version.split('+')[0] %}
+{% set build_number = 0 %}
+
+package:
+  name: braggedgemodeling
+  version: {{ version_number }}
+
+source:
+  path: ..
+
+build:
+  noarch: python
+  number: {{ build_number }}
+  script:
+    - {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv
+
+requirements:
+  host:
+    - python
+    - pip
+    - versioningit
+  build:
+    - pip
+    - setuptools
+    - versioningit
+  run:
+    - python
+    - pyyaml
+    - numpy
+    - scipy
+    - matplotlib-base
+    - diffpy.structure
+    - periodictable
+    - pandas
+
+about:
+  home: {{ url }}
+  license: {{ license }}
+  summary: {{ description }}

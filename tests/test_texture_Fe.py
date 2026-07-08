@@ -4,8 +4,8 @@
 interactive = False
 
 import os, numpy as np
-from bem import xscalc, diffraction, xtaloriprobmodel as xopm
-from bem.matter import bccFe
+from braggedgemodeling import xscalc, diffraction, xtaloriprobmodel as xopm
+from braggedgemodeling.matter import bccFe
 
 thisdir = os.path.dirname(__file__)
 
