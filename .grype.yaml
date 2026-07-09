@@ -1,0 +1,22 @@
+# Grype ignore rules for the CI dependency gate (org decision 2026-06-10:
+# grype, not pip-audit). Every entry needs a reason and a revisit
+# condition — this file is the reviewable record of accepted risk.
+#
+# The `default` pixi env resolves the newest conda-forge CPython (>=3.12,
+# currently the 3.14 line). Grype flags the advisories below against it,
+# but each is "fixed" only in a CPython 3.15 PRE-RELEASE (alpha/beta) —
+# there is no installable stable fix for the 3.14 line. They are accepted
+# until conda-forge ships a patched CPython that backports them (the
+# lockfile-update maintenance will pick it up). No non-python package in
+# bem's scientific stack surfaces a fixable advisory today (2026-07-08).
+
+ignore:
+  - vulnerability: CVE-2025-15366 # Medium; fixed in 3.15.0a6 (prerelease), no 3.14 backport
+    package:
+      name: python
+  - vulnerability: CVE-2025-15367 # Medium; fixed in 3.15.0a6 (prerelease), no 3.14 backport
+    package:
+      name: python
+  - vulnerability: CVE-2026-12003 # Medium; fixed in 3.15.0b3 (prerelease), no 3.14 backport
+    package:
+      name: python
