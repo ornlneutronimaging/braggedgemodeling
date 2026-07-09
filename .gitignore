@@ -9,7 +9,8 @@ log.*
 *.egg-info/
 dist/
 build/
-conda.recipe/*.tar.bz2
-conda.recipe/noarch/
-conda.recipe/linux-64/
+# pixi-build conda artifacts (pixi publish)
+local-channel/
+*.conda
+pyproject.toml.bak
 braggedgemodeling/_version.py

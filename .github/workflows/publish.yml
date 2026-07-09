@@ -39,6 +39,9 @@ jobs:
         run: |
           echo "Build conda package"
           pixi run -e package build-conda
+          # pixi publish writes the .conda into ./local-channel/<subdir>/;
+          # copy it to the workspace root for upload/artifact steps
+          find local-channel -name "braggedgemodeling*.conda" -exec cp {} . \;
       - name: upload conda package to anaconda
         if: startsWith(github.ref, 'refs/tags/v')
         env:
@@ -49,7 +52,7 @@ jobs:
           CONDA_LABEL="main"
           if [ "${IS_RC}" = "true" ]; then CONDA_LABEL="rc"; fi
           echo "pushing ${{ github.ref }} with label $CONDA_LABEL"
-          pixi run -e package anaconda upload --label $CONDA_LABEL --user neutronimaging conda.recipe/noarch/braggedgemodeling*.tar.bz2
+          pixi run -e package anaconda upload --label $CONDA_LABEL --user neutronimaging braggedgemodeling*.conda
       - name: build PyPI package
         run: |
           echo "Build PyPI package"
@@ -59,7 +62,7 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: conda-package
-          path: conda.recipe/noarch/braggedgemodeling*.tar.bz2
+          path: braggedgemodeling*.conda
       - name: upload PyPI artifact
         if: startsWith(github.ref, 'refs/tags/v')
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
