@@ -27,7 +27,7 @@ The first step is to create a model of the material. Here we use bcc Fe as the e
   lattice = Lattice(a=a, b=a, c=a, alpha=alpha, beta=alpha, gamma=alpha)
   astruct = Structure(atoms, lattice, sgid=229)
 
-.. note:: You can also use :code:`bem.matter.loadCif(path)` to load an atomic structure
+.. note:: You can also use :code:`braggedgemodeling.matter.loadCif(path)` to load an atomic structure
    from a CIF file::
 
      from braggedgemodeling.matter import loadCif
