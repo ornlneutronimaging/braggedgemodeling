@@ -19,14 +19,22 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'bem'
-copyright = '2017-2018, ORNL Neutron Data Sciences Group'
-author = 'ORNL Neutron Data Sciences Group'
+project = 'braggedgemodeling'
+copyright = '2017-2026, ORNL Neutron Imaging Team'
+author = 'ORNL Neutron Imaging Team'
 
+# The version is read from the installed package metadata (set by versioningit
+# at build time), so it never needs to be hand-maintained here.
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as _pkg_version
+
+try:
+    # The full version, including alpha/beta/rc tags
+    release = _pkg_version('braggedgemodeling')
+except PackageNotFoundError:
+    release = ''
 # The short X.Y version
-version = ''
-# The full version, including alpha/beta/rc tags
-release = '0.1.1'
+version = '.'.join(release.split('.')[:2])
 
 
 # -- General configuration ---------------------------------------------------
@@ -63,7 +71,7 @@ master_doc = 'index'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.

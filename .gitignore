@@ -14,3 +14,4 @@ local-channel/
 *.conda
 pyproject.toml.bak
 braggedgemodeling/_version.py
+docs/_build/
