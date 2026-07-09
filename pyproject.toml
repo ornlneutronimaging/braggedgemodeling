@@ -99,7 +99,13 @@ anaconda-client = "*"
 # the default [tool.pixi.tasks])
 [tool.pixi.feature.package.tasks]
 build = { cmd = "python -m build", description = "Build the PyPI sdist + wheel" }
-build-conda = { cmd = "cd conda.recipe && VERSION=$(versioningit ../) conda mambabuild --channel conda-forge --channel neutronimaging --output-folder . .", description = "Build the conda package" }
+# --croot keeps conda-build's work dir OUTSIDE the repo. The recipe source is
+# `path: ..` (the repo root), and .pixi/ lives inside the repo, so the default
+# croot ($CONDA_PREFIX/conda-bld = .pixi/envs/package/conda-bld) would nest the
+# build dir inside the source and conda-build aborts ("Can't merge/copy source
+# into subdirectory of itself"). The final package still lands in
+# conda.recipe/noarch via --output-folder.
+build-conda = { cmd = "cd conda.recipe && VERSION=$(versioningit ../) conda mambabuild --croot $HOME/conda-bld --channel conda-forge --channel neutronimaging --output-folder . .", description = "Build the conda package" }
 
 [tool.pixi.feature.docs.dependencies]
 sphinx = "*"
