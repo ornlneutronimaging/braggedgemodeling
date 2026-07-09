@@ -1,0 +1,135 @@
+name: packaging and publish
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+# cancel previous job if new commit is pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    # Build + PR smoke-test job. Runs on every trigger, including fork PRs,
+    # so it must NOT hold id-token:write — see the dedicated pypi-publish job
+    # below for trusted publishing (it only runs on tags).
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - uses: prefix-dev/setup-pixi@a09b6247153796b190642a2b53fac4241043cf6f # v0.10.0
+        with:
+          manifest-path: pyproject.toml
+          environments: package
+      - name: build conda package
+        run: |
+          echo "Build conda package"
+          pixi run -e package build-conda
+          # pixi publish writes the .conda into ./local-channel/<subdir>/;
+          # copy it to the workspace root for upload/artifact steps
+          find local-channel -name "braggedgemodeling*.conda" -exec cp {} . \;
+      - name: upload conda package to anaconda
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+          IS_RC: ${{ contains(github.ref, 'rc') }}
+        run: |
+          # label is main or rc depending on the tag name
+          CONDA_LABEL="main"
+          if [ "${IS_RC}" = "true" ]; then CONDA_LABEL="rc"; fi
+          echo "pushing ${{ github.ref }} with label $CONDA_LABEL"
+          pixi run -e package anaconda upload --label $CONDA_LABEL --user neutronimaging braggedgemodeling*.conda
+      - name: build PyPI package
+        run: |
+          echo "Build PyPI package"
+          pixi run -e package build
+      - name: upload conda artifact
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: conda-package
+          path: braggedgemodeling*.conda
+      - name: upload PyPI artifact
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: pypi-package
+          path: dist/*
+
+  # Trusted publishing to PyPI. Isolated in its own tag-only job so that
+  # id-token:write is never present while fork-PR-controlled build code runs.
+  # PyPI trusted publisher must be registered for project "braggedgemodeling"
+  # against this repo + workflow filename "publish.yml" + environment "pypi".
+  pypi-publish:
+    name: Publish to PyPI (trusted publishing)
+    needs: linux
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    environment:
+      name: pypi
+      url: https://pypi.org/p/braggedgemodeling
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Download PyPI artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: pypi-package
+          path: dist
+      - name: publish PyPI package
+        uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b # v1.14.0
+
+  # Create GitHub Release with auto-generated release notes
+  github-release:
+    name: Create GitHub Release
+    needs: linux
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Download conda artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: conda-package
+          path: dist/conda
+
+      - name: Download PyPI artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: pypi-package
+          path: dist/pypi
+
+      - name: List artifacts
+        run: |
+          echo "Conda packages:"
+          ls -la dist/conda/
+          echo "PyPI packages:"
+          ls -la dist/pypi/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b # v3.0.1
+        with:
+          files: |
+            dist/conda/*
+            dist/pypi/*
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
