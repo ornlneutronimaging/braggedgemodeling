@@ -1,6 +1,6 @@
 [![CI](https://github.com/ornlneutronimaging/braggedgemodeling/actions/workflows/CI.yml/badge.svg)](https://github.com/ornlneutronimaging/braggedgemodeling/actions/workflows/CI.yml)
 [![codecov](https://codecov.io/gh/ornlneutronimaging/braggedgemodeling/graph/badge.svg)](https://codecov.io/gh/ornlneutronimaging/braggedgemodeling)
-[![DOI](http://joss.theoj.org/papers/10.21105/joss.00973/status.svg)](https://doi.org/10.21105/joss.00973)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.00973/status.svg)](https://doi.org/10.21105/joss.00973)
 
 # Bragg Edge Modeling
 
