@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 # Jiao Lin <jiao.lin@gmail.com>
 
-import os, numpy as np
-from braggedgemodeling import xscalc, diffraction
+import os
+
+import numpy as np
+
+from braggedgemodeling import xscalc
 from braggedgemodeling import xtaloriprobmodel as xopm
 from braggedgemodeling.matter import fccAl
 
 thisdir = os.path.dirname(__file__)
+
 
 def test1():
     lambdas = np.arange(0.05, 5.5, 0.005)
@@ -21,7 +25,7 @@ def test1():
     coh_inel_xs = calc.xs_coh_inel(lambdas)
     inc_inel_xs = calc.xs_inc_inel(lambdas)
     total = calc.xs(lambdas)
-    for i,l in enumerate(lambdas):
+    for i, l in enumerate(lambdas):
         assert np.isclose(calc.xs_coh_el(l), coh_el_xs[i])
         assert np.isclose(calc.xs_inc_el(l), inc_el_xs[i])
         assert np.isclose(calc.xs_inel(l), inel_xs[i])
@@ -37,8 +41,8 @@ def test2():
     lambdas = np.arange(0.05, 5.5, 0.005)
     T = 300
     texture_model = xopm.MarchDollase()
-    texture_model.r[(0,1,1)] = 2
-    texture_model.beta[(0,1,1)] = np.deg2rad(60.)
+    texture_model.r[(0, 1, 1)] = 2
+    texture_model.beta[(0, 1, 1)] = np.deg2rad(60.0)
 
     calc = xscalc.XSCalculator(fccAl, T, texture_model, max_diffraction_index=8)
     calc.xs_coh_el(1.5)
@@ -49,7 +53,7 @@ def test2():
     coh_inel_xs = calc.xs_coh_inel(lambdas)
     inc_inel_xs = calc.xs_inc_inel(lambdas)
     total = calc.xs(lambdas)
-    for i,l in enumerate(lambdas):
+    for i, l in enumerate(lambdas):
         assert np.isclose(calc.xs_coh_el(l), coh_el_xs[i])
         assert np.isclose(calc.xs_inc_el(l), inc_el_xs[i])
         assert np.isclose(calc.xs_inel(l), inel_xs[i])
@@ -66,6 +70,8 @@ def main():
     test2()
     return
 
-if __name__ == '__main__': main()
+
+if __name__ == "__main__":
+    main()
 
 # End of file

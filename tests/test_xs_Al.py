@@ -3,11 +3,15 @@
 
 interactive = False
 
-import os, numpy as np
-from braggedgemodeling import xscalc, diffraction
+import os
+
+import numpy as np
+
+from braggedgemodeling import xscalc
 from braggedgemodeling.matter import fccAl
 
 thisdir = os.path.dirname(__file__)
+
 
 def test_fccAl():
     lambdas = np.arange(0.05, 5.5, 0.005)
@@ -23,23 +27,25 @@ def test_fccAl():
     total = calc.xs(lambdas)
     data = np.array([lambdas, total])
     # np.save(os.path.join(thisdir, 'expected', 'fccAl-total-xs.npy'), data)
-    expected = np.load(os.path.join(thisdir, 'expected', 'fccAl-total-xs.npy'))
+    expected = np.load(os.path.join(thisdir, "expected", "fccAl-total-xs.npy"))
     assert np.isclose(data, expected).all()
 
     if interactive:
         from matplotlib import pyplot as plt
-        plt.plot(lambdas, coh_el_xs, label='coh el')
-        plt.plot(lambdas, inc_el_xs, label='inc el')
-        plt.plot(lambdas, coh_inel_xs, label='coh inel')
-        plt.plot(lambdas, inc_inel_xs, label='inc inel')
+
+        plt.plot(lambdas, coh_el_xs, label="coh el")
+        plt.plot(lambdas, inc_el_xs, label="inc el")
+        plt.plot(lambdas, coh_inel_xs, label="coh inel")
+        plt.plot(lambdas, inc_inel_xs, label="inc inel")
         # plt.plot(lambdas, inel_xs, label='inel')
-        plt.plot(lambdas, abs_xs, label='abs')
-        plt.plot(lambdas, total, label='total')
+        plt.plot(lambdas, abs_xs, label="abs")
+        plt.plot(lambdas, total, label="total")
         plt.ylim(-0.2, None)
-        plt.xlim(0,7)
+        plt.xlim(0, 7)
         plt.legend()
         plt.show()
     return
+
 
 def main():
     global interactive
@@ -47,6 +53,8 @@ def main():
     test_fccAl()
     return
 
-if __name__ == '__main__': main()
+
+if __name__ == "__main__":
+    main()
 
 # End of file

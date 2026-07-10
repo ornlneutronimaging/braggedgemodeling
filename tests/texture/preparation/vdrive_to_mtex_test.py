@@ -1,20 +1,19 @@
-import unittest
 import os
-import numpy as np
 import shutil
+import unittest
+
+import numpy as np
 
 from braggedgemodeling.texture.preparation.vdrive_to_mtex import VDriveToMtex
 
 
 class TestVDriveToMtexHandler(unittest.TestCase):
-
     def setUp(self):
         _file_path = os.path.dirname(__file__)
-        self.data_path = os.path.abspath(os.path.join(_file_path,
-                                                      '../../data/'))
-        self.export_folder = self.data_path + '/temporary_folder/'
+        self.data_path = os.path.abspath(os.path.join(_file_path, "../../data/"))
+        self.export_folder = self.data_path + "/temporary_folder/"
         self.export_filename = "my_VULCAN.rpf"
-        self.input_filename = os.path.join(self.data_path, 'my_ducu.txt')
+        self.input_filename = os.path.join(self.data_path, "my_ducu.txt")
         os.mkdir(self.export_folder)
 
         # max diff allowed to compare two arrays
@@ -51,15 +50,15 @@ class TestVDriveToMtexHandler(unittest.TestCase):
         o_handler.sort_raw_data()
 
         data_sorted = o_handler.raw_data_sorted
-        psi_column = np.array(data_sorted['#psi'])
-        phi_column = np.array(data_sorted['phi'])
+        psi_column = np.array(data_sorted["#psi"])
+        phi_column = np.array(data_sorted["phi"])
 
         expected_phi_column = np.array([0, 0, 30, 60, 90, 120, 150])
-        returned_phi_column = phi_column[0: 7]
+        returned_phi_column = phi_column[0:7]
         self.assertTrue((expected_phi_column == returned_phi_column).all())
 
         expected_psi_column = np.array([0, 5, 5, 5, 5, 5, 5])
-        returned_psi_column = psi_column[0: 7]
+        returned_psi_column = psi_column[0:7]
         self.assertTrue((expected_psi_column == returned_psi_column).all())
 
     def test_a111_arrays(self):
@@ -91,15 +90,80 @@ class TestVDriveToMtexHandler(unittest.TestCase):
         o_handler.interpolation()
 
         a111_interpolated = o_handler.a111_interpolated
-        a111_1_1_expected = [0.8429,  0.8194,  0.7959,  0.7725,  0.7490,  0.7255,  0.7020, 0.6951,
-                             0.6881,  0.6812,  0.6742,  0.6673,  0.6603,  0.6725,  0.6846,  0.6967,
-                             0.7089,  0.7210,  0.7331,  0.7414,  0.7497,  0.7580,  0.7663,  0.7746,
-                             0.7828,  0.7918,  0.8008,  0.8097,  0.8187,  0.8276,  0.8366,  0.8401,
-                             0.8437,  0.8473,  0.8508,  0.8544,  0.8580,  0.8880,  0.9179,  0.9479,
-                             0.9779,  1.0079, 1.0379, 1.0434,  1.0490,  1.0545,  1.0601,  1.0656,
-                             1.0712,  1.0594,  1.0476,  1.0358,  1.0241,  1.0123,  1.0005,  1.0030,
-                             1.0056,  1.0082,  1.0107,  1.0133,  1.0159,  1.0113,  1.0067,  1.0022,
-                             0.9976,  0.9930,  0.9885,  0.9642,  0.9399,  0.9157,  0.8914,  0.8671]
+        a111_1_1_expected = [
+            0.8429,
+            0.8194,
+            0.7959,
+            0.7725,
+            0.7490,
+            0.7255,
+            0.7020,
+            0.6951,
+            0.6881,
+            0.6812,
+            0.6742,
+            0.6673,
+            0.6603,
+            0.6725,
+            0.6846,
+            0.6967,
+            0.7089,
+            0.7210,
+            0.7331,
+            0.7414,
+            0.7497,
+            0.7580,
+            0.7663,
+            0.7746,
+            0.7828,
+            0.7918,
+            0.8008,
+            0.8097,
+            0.8187,
+            0.8276,
+            0.8366,
+            0.8401,
+            0.8437,
+            0.8473,
+            0.8508,
+            0.8544,
+            0.8580,
+            0.8880,
+            0.9179,
+            0.9479,
+            0.9779,
+            1.0079,
+            1.0379,
+            1.0434,
+            1.0490,
+            1.0545,
+            1.0601,
+            1.0656,
+            1.0712,
+            1.0594,
+            1.0476,
+            1.0358,
+            1.0241,
+            1.0123,
+            1.0005,
+            1.0030,
+            1.0056,
+            1.0082,
+            1.0107,
+            1.0133,
+            1.0159,
+            1.0113,
+            1.0067,
+            1.0022,
+            0.9976,
+            0.9930,
+            0.9885,
+            0.9642,
+            0.9399,
+            0.9157,
+            0.8914,
+            0.8671,
+        ]
         a111_1_1_returned = a111_interpolated[1, :]
 
         for _returned, _expected in zip(a111_1_1_returned, a111_1_1_expected):
@@ -118,8 +182,8 @@ class TestVDriveToMtexHandler(unittest.TestCase):
         output_file_name = os.path.join(self.export_folder, self.export_filename)
         o_handler.export(filename=output_file_name)
 
-        def _read_ascii(filename=''):
-            f = open(filename, 'r')
+        def _read_ascii(filename=""):
+            f = open(filename, "r")
             text = []
             for line in f:
                 text.append(line)
@@ -127,13 +191,15 @@ class TestVDriveToMtexHandler(unittest.TestCase):
             return text
 
         text_created = _read_ascii(output_file_name)
-        text_expected = ["*Dump of file:XQG",
-                         "*Sample: VULCAN",
-                         "*Corrected, rescaled data * Phi range    0.00 -  360.00 Step    5.00",
-                         "*Pole figure: 111",
-                         "*Khi =   0.00",
-                         "0.8126  0.8126  0.8126  0.8126  0.8126  0.8126  0.8126  0.8126",
-                         "0.8126  0.8126  0.8126  0.8126  0.8126  0.8126  0.8126  0.8126"]
+        text_expected = [
+            "*Dump of file:XQG",
+            "*Sample: VULCAN",
+            "*Corrected, rescaled data * Phi range    0.00 -  360.00 Step    5.00",
+            "*Pole figure: 111",
+            "*Khi =   0.00",
+            "0.8126  0.8126  0.8126  0.8126  0.8126  0.8126  0.8126  0.8126",
+            "0.8126  0.8126  0.8126  0.8126  0.8126  0.8126  0.8126  0.8126",
+        ]
 
         for _returned, _expected in zip(text_created[0:7], text_expected):
             self.assertTrue(_returned.strip() == _expected)

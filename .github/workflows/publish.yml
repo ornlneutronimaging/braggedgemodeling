@@ -52,7 +52,8 @@ jobs:
           CONDA_LABEL="main"
           if [ "${IS_RC}" = "true" ]; then CONDA_LABEL="rc"; fi
           echo "pushing ${{ github.ref }} with label $CONDA_LABEL"
-          pixi run -e package anaconda upload --label $CONDA_LABEL --user neutronimaging braggedgemodeling*.conda
+          pixi run -e package anaconda upload --label $CONDA_LABEL \
+            --user neutronimaging braggedgemodeling*.conda
       - name: build PyPI package
         run: |
           echo "Build PyPI package"
@@ -132,4 +133,6 @@ jobs:
             dist/pypi/*
           generate_release_notes: true
           draft: false
-          prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
+          prerelease: >-
+            ${{ contains(github.ref, 'rc') || contains(github.ref, 'alpha') ||
+            contains(github.ref, 'beta') }}

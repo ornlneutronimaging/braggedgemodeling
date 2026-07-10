@@ -6,8 +6,10 @@ from __future__ import print_function
 interactive = False
 
 import numpy as np
-from braggedgemodeling import xscalc, diffraction
+
+from braggedgemodeling import xscalc
 from braggedgemodeling.matter import fccNi
+
 
 def test_fccNi():
     lambdas = np.arange(0.05, 5.5, 0.001)
@@ -19,9 +21,11 @@ def test_fccNi():
     if interactive:
         print("plotting...")
         from matplotlib import pyplot as plt
+
         plt.plot(lambdas, xs)
         plt.show()
     return
+
 
 def main():
     global interactive
@@ -29,6 +33,8 @@ def main():
     test_fccNi()
     return
 
-if __name__ == '__main__': main()
+
+if __name__ == "__main__":
+    main()
 
 # End of file

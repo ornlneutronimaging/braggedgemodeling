@@ -4,15 +4,18 @@
 interactive = False
 
 import numpy as np
-from braggedgemodeling import xscalc, diffraction, xtaloriprobmodel as xopm
+
+from braggedgemodeling import xscalc
+from braggedgemodeling import xtaloriprobmodel as xopm
 from braggedgemodeling.matter import fccNi
+
 
 def test_fccNi():
     lambdas = np.arange(0.05, 5.5, 0.001)
     T = 300
     texture_model = xopm.MarchDollase()
-    texture_model.r[(0,0,1)] = 2
-    texture_model.beta[(0,0,1)] = 1.
+    texture_model.r[(0, 0, 1)] = 2
+    texture_model.beta[(0, 0, 1)] = 1.0
     calc = xscalc.XSCalculator(fccNi, T, texture_model)
     coh_el_xs = calc.xs_coh_el(lambdas)
     # coh_el_xs = [calc.xs_coh_el(l) for l in lambdas]
@@ -25,13 +28,15 @@ def test_fccNi():
     abs_xs = calc.xs_abs(lambdas)
     if interactive:
         from matplotlib import pyplot as plt
+
         plt.plot(lambdas, coh_el_xs)
         plt.plot(lambdas, inc_el_xs)
         plt.plot(lambdas, inel_xs)
         plt.plot(lambdas, abs_xs)
-        plt.plot(lambdas, abs_xs+coh_el_xs+inc_el_xs+inel_xs)
+        plt.plot(lambdas, abs_xs + coh_el_xs + inc_el_xs + inel_xs)
         plt.show()
     return
+
 
 def main():
     global interactive
@@ -39,6 +44,8 @@ def main():
     test_fccNi()
     return
 
-if __name__ == '__main__': main()
+
+if __name__ == "__main__":
+    main()
 
 # End of file
