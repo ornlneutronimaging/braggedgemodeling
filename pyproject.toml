@@ -22,6 +22,8 @@ dependencies = [
 # toolchain (not installable from PyPI/conda). See docs; tracked in issue #40.
 [project.optional-dependencies]
 texture = []
+# used by the Read the Docs pip build (`.[docs]`)
+docs = ["sphinx", "sphinx-rtd-theme"]
 
 [project.urls]
 homepage = "https://github.com/ornlneutronimaging/braggedgemodeling"
@@ -142,6 +144,9 @@ reset-toml = { cmd = "cp pyproject.toml.bak pyproject.toml && rm pyproject.toml.
 [tool.pixi.feature.docs.dependencies]
 sphinx = "*"
 sphinx_rtd_theme = "*"
+
+[tool.pixi.feature.docs.tasks]
+build-docs = { cmd = "sphinx-build -b html docs docs/_build/html", description = "Build the HTML documentation" }
 
 [tool.pixi.feature.py312.dependencies]
 python = "3.12.*"

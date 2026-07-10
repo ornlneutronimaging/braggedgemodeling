@@ -1,6 +1,6 @@
 [![CI](https://github.com/ornlneutronimaging/braggedgemodeling/actions/workflows/CI.yml/badge.svg)](https://github.com/ornlneutronimaging/braggedgemodeling/actions/workflows/CI.yml)
-[![Coverage Status](https://coveralls.io/repos/github/ornlneutronimaging/braggedgemodeling/badge.svg?branch=master)](https://coveralls.io/github/ornlneutronimaging/braggedgemodeling?branch=master)
-[![DOI](http://joss.theoj.org/papers/10.21105/joss.00973/status.svg)](https://doi.org/10.21105/joss.00973)
+[![codecov](https://codecov.io/gh/ornlneutronimaging/braggedgemodeling/graph/badge.svg)](https://codecov.io/gh/ornlneutronimaging/braggedgemodeling)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.00973/status.svg)](https://doi.org/10.21105/joss.00973)
 
 # Bragg Edge Modeling
 
@@ -18,6 +18,32 @@ calculate neutron Bragg Edge spectrum as a function of neutron wavelength.
   - Jorgensen model
 * Flexible design to allow future extension to texture and peak profile models
 * Allow easy fitting to measured Bragg Edge data
+
+## Installation
+
+`braggedgemodeling` requires Python 3.12+.
+
+```bash
+# from PyPI
+pip install braggedgemodeling
+
+# or from conda (anaconda.org neutronimaging channel)
+conda install -c conda-forge -c neutronimaging braggedgemodeling
+```
+
+The distribution is named `braggedgemodeling` (the short name `bem` is already taken on PyPI) and the **import package is also `braggedgemodeling`**. Code written against the old `bem` module can add a one-line alias as a drop-in stop-gap:
+
+```python
+import braggedgemodeling as bem
+```
+
+For development, the project uses [pixi](https://pixi.sh/):
+
+```bash
+git clone https://github.com/ornlneutronimaging/braggedgemodeling.git
+cd braggedgemodeling
+pixi run test   # build the environment and run the test suite
+```
 
 ## Documentation
 
@@ -40,5 +66,5 @@ Please either use [the github issues](https://github.com/ornlneutronimaging/brag
 
 
 ## Known problems
-* Debye temperatures are listed in a [table](bem/DebyeTemp.py), which is missing data for some elements.
+* Debye temperatures are listed in a [table](braggedgemodeling/DebyeTemp.py), which is missing data for some elements.
   However, users can provide their own table in a [configuration file](tests/bem.conf).

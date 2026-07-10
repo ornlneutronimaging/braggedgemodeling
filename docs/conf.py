@@ -19,14 +19,22 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'bem'
-copyright = '2017-2018, ORNL Neutron Data Sciences Group'
-author = 'ORNL Neutron Data Sciences Group'
+project = 'braggedgemodeling'
+copyright = '2017-2026, ORNL Neutron Imaging Team'
+author = 'ORNL Neutron Imaging Team'
 
+# The version is read from the installed package metadata (set by versioningit
+# at build time), so it never needs to be hand-maintained here.
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as _pkg_version
+
+try:
+    # The full version, including alpha/beta/rc tags
+    release = _pkg_version('braggedgemodeling')
+except PackageNotFoundError:
+    release = ''
 # The short X.Y version
-version = ''
-# The full version, including alpha/beta/rc tags
-release = '0.1.1'
+version = '.'.join(release.split('.')[:2])
 
 
 # -- General configuration ---------------------------------------------------
@@ -63,7 +71,7 @@ master_doc = 'index'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -106,7 +114,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'bemdoc'
+htmlhelp_basename = 'braggedgemodelingdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -133,8 +141,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'bem.tex', 'bem Documentation',
-     'ORNL Neutron Data Sciences Group', 'manual'),
+    (master_doc, 'braggedgemodeling.tex', 'braggedgemodeling Documentation',
+     author, 'manual'),
 ]
 
 
@@ -143,7 +151,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'bem', 'bem Documentation',
+    (master_doc, 'braggedgemodeling', 'braggedgemodeling Documentation',
      [author], 1)
 ]
 
@@ -154,8 +162,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'bem', 'bem Documentation',
-     author, 'bem', 'One line description of project.',
+    (master_doc, 'braggedgemodeling', 'braggedgemodeling Documentation',
+     author, 'braggedgemodeling', 'One line description of project.',
      'Miscellaneous'),
 ]
 
