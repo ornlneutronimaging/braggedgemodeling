@@ -84,13 +84,13 @@ class VDriveHandler(object):
 
     def initialize_bank2_xaxis(self):
         # initialization
-        omega = [np.int(_value) for _value in np.ones(12) * 45]
+        omega = [int(_value) for _value in np.ones(12) * 45]
 
         hrot1 = np.arange(0, 331, 30)
         hrot2 = hrot1[::-1]
 
         psi_init = np.ones(12) * 90
-        psi = [np.int(_value) for _value in psi_init]
+        psi = [int(_value) for _value in psi_init]
 
         phia = np.arange(180, -1, -30)
         phib = np.arange(330, 180, -30)
@@ -133,9 +133,9 @@ class VDriveHandler(object):
 
     def initialize_bank1_xaxis(self):
         # initialization
-        omega = [np.int(_value) for _value in np.ones(12) * 45]
+        omega = [int(_value) for _value in np.ones(12) * 45]
 
-        psi = [np.int(_value) for _value in np.zeros(12)]
+        psi = [int(_value) for _value in np.zeros(12)]
 
         hrot1 = np.arange(0, 331, 30)
         hrot2 = hrot1[::-1]

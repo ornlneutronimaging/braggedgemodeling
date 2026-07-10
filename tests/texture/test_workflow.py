@@ -4,6 +4,7 @@ import pytest
 
 pytest.importorskip("matlab")
 
+import ast
 import os
 
 import numpy as np
@@ -82,7 +83,8 @@ def test4():
     from braggedgemodeling.texture import texture2R
 
     lambdas, Rs = texture2R.read_results(Rsamples_file)
-    hkls = [eval(l) for l in open("hkls.txt").readlines()]
+    with open("hkls.txt") as f:
+        hkls = [ast.literal_eval(line) for line in f]
     from braggedgemodeling.texture.InterpolatedXOPM import InterpolatedXOPM
 
     texture_model = InterpolatedXOPM(hkls, lambdas, Rs)
