@@ -1,52 +1,51 @@
-import numpy as np
 import os
-import pandas as pd
 import re
+
+import numpy as np
+import pandas as pd
 
 
 class Data(object):
-
     # pandas objects
-    raw = None # just after loading the file
-    raw_iv = None # just I/V columns data
-    raw_eiv = None # just eI/V columns data
+    raw = None  # just after loading the file
+    raw_iv = None  # just I/V columns data
+    raw_eiv = None  # just eI/V columns data
     cleaned = None  # only columns of interest
-    bank1 = None # only data from bank1
-    bank2 = None # only data from bank2
+    bank1 = None  # only data from bank1
+    bank2 = None  # only data from bank2
 
-    filename = ''
+    filename = ""
+
 
 class Bank(object):
-
     omega = []
     hrot = []
     psi = []
     phi = []
 
     iv = []  # pandas object
-    eiv = [] # pandas object
+    eiv = []  # pandas object
 
-    iv_mean_omega_45 = [] # mean of all omega=45 for iv
-    eiv_mean_omega_45 = [] # mean of all omega=45 for eiv
+    iv_mean_omega_45 = []  # mean of all omega=45 for iv
+    eiv_mean_omega_45 = []  # mean of all omega=45 for eiv
 
-    iv_stdev_omega_45 = [] # stdev of all omega=45 for iv
-    eiv_stdev_omega_45 = [] # stdev of all omega=45 for eiv
+    iv_stdev_omega_45 = []  # stdev of all omega=45 for iv
+    eiv_stdev_omega_45 = []  # stdev of all omega=45 for eiv
 
     sin_omega = []
 
-    table2 = [] # step before producing output table  iv table * sin(omega)
-    iv_ratio_omega_90 = [] # uses when calculating bank2 table2
-    mean_iv_ratio_omega_90 = [] # mean of iv ratio omega 90
+    table2 = []  # step before producing output table  iv table * sin(omega)
+    iv_ratio_omega_90 = []  # uses when calculating bank2 table2
+    mean_iv_ratio_omega_90 = []  # mean of iv ratio omega 90
 
 
 class VDriveHandler(object):
-
-    def __init__(self, filename=''):
+    def __init__(self, filename=""):
         self.data = Data()
         self.bank1 = Bank()
         self.bank2 = Bank()
         self.mean_table = np.NaN
-        self.output_table = [] # final table of iv for output
+        self.output_table = []  # final table of iv for output
         self.filename = filename
         self.__load_vdrive()
 
@@ -67,7 +66,7 @@ class VDriveHandler(object):
         this requires the initialize_bank_xaxis to be run before
         """
 
-        #bank1
+        # bank1
         bank1_omega = self.bank1.omega
         bank1_omega_rad = np.radians(bank1_omega)
         bank1_sin_omega = np.sin(bank1_omega_rad)
@@ -109,7 +108,7 @@ class VDriveHandler(object):
             full_omega.append(omega + _offset)
 
         hrot_offset = 0
-        while (hrot_offset < 5):
+        while hrot_offset < 5:
             full_hrot.append(hrot1)
             full_hrot.append(hrot2)
             hrot_offset += 1
@@ -119,14 +118,14 @@ class VDriveHandler(object):
             full_psi.append(psi - _offset)
 
         phi_offset = 0
-        while (phi_offset < 5):
+        while phi_offset < 5:
             full_phi.append(phi1)
             full_phi.append(phi2)
             phi_offset += 1
 
         [height, width] = np.shape(full_omega)
         new_dim = height * width
-        
+
         self.bank2.omega = np.reshape(np.transpose(full_omega), new_dim, "F")
         self.bank2.hrot = np.reshape(np.transpose(full_hrot), new_dim, "F")
         self.bank2.psi = np.reshape(np.transpose(full_psi), new_dim, "F")
@@ -134,7 +133,7 @@ class VDriveHandler(object):
 
     def initialize_bank1_xaxis(self):
         # initialization
-        omega = [np.int(_value) for _value in np.ones(12)*45]
+        omega = [np.int(_value) for _value in np.ones(12) * 45]
 
         psi = [np.int(_value) for _value in np.zeros(12)]
 
@@ -156,7 +155,7 @@ class VDriveHandler(object):
             full_psi.append(psi + _offset)
 
         _index = 0
-        while (_index < 46):
+        while _index < 46:
             full_hrot.append(hrot1)
             full_phi.append(phi1)
 
@@ -177,8 +176,8 @@ class VDriveHandler(object):
         _raw_data_iv = self.data.raw_iv
         _raw_data_eiv = self.data.raw_eiv
 
-        bank1_string = r'^\w*/\w*_\w*_1$'
-        bank2_string = r'^\w*/\w*_\w*_2$'
+        bank1_string = r"^\w*/\w*_\w*_1$"
+        bank2_string = r"^\w*/\w*_\w*_2$"
 
         # working with iv
         bank1_iv = []
@@ -239,7 +238,7 @@ class VDriveHandler(object):
 
     def calculate_stdev_omega_45(self):
         """calculate std dev of all iv and eiv data for omega 45"""
-        bank1_iv= self.bank1.iv
+        bank1_iv = self.bank1.iv
         if len(bank1_iv) == 0:
             self.bank1.iv_stdev_omega_45 = []
             return
@@ -257,7 +256,7 @@ class VDriveHandler(object):
 
     def keep_columns_of_interest(self):
         """We want to only keep the I/V and eI/V columns"""
-        re_string = r'^I/V_\w*$'
+        re_string = r"^I/V_\w*$"
         name_of_iv_columns_to_keep = []
         name_of_eiv_columns_to_keep = []
 
@@ -275,16 +274,14 @@ class VDriveHandler(object):
     def __load_vdrive(self):
         """load the VDrive file"""
 
-        if self.filename == '':
+        if self.filename == "":
             raise ValueError("Missing VDrive Filename")
 
         if not os.path.exists(self.filename):
             raise ValueError("File does not exist: {}".format(self.filename))
 
         self.data.filename = self.filename
-        self.data.raw = pd.read_csv(self.filename,
-                                     sep='\t',
-                                     index_col=0)
+        self.data.raw = pd.read_csv(self.filename, sep="\t", index_col=0)
 
     def calculate_bank2_iv_ratio_omega_90(self):
         """this ratio will be used in the iv_sin calculation"""
@@ -296,15 +293,15 @@ class VDriveHandler(object):
         [nbr_row, _] = np.shape(bank1_iv)
 
         _iv_ratio_omega_90 = []
-        for _row in np.arange(nbr_row - 12, nbr_row-6):
+        for _row in np.arange(nbr_row - 12, nbr_row - 6):
             _iv_n = bank2_iv[_row, :]
-            _iv_d = bank1_iv[_row+6, :]
-            _iv_ratio_omega_90.append(_iv_n/_iv_d)
+            _iv_d = bank1_iv[_row + 6, :]
+            _iv_ratio_omega_90.append(_iv_n / _iv_d)
 
-        for _row in np.arange(nbr_row-6, nbr_row):
+        for _row in np.arange(nbr_row - 6, nbr_row):
             _iv_n = bank2_iv[_row, :]
-            _iv_d = bank1_iv[_row-6, :]
-            _iv_ratio_omega_90.append(_iv_n/_iv_d)
+            _iv_d = bank1_iv[_row - 6, :]
+            _iv_ratio_omega_90.append(_iv_n / _iv_d)
 
         self.bank2.iv_ratio_omega_90 = np.array(_iv_ratio_omega_90)
         self.bank2.mean_iv_ratio_omega_90 = np.mean(self.bank2.iv_ratio_omega_90, 0)
@@ -330,18 +327,18 @@ class VDriveHandler(object):
 
         # then from index = 12 to before last 12, normal case
         for _column in np.arange(nbr_column):
-            for _row in np.arange(12, nbr_row-12):
+            for _row in np.arange(12, nbr_row - 12):
                 sin_omega = bank1_sin_omega[_row]
                 iv = bank1_iv[_row, _column]
                 bank1_table2[_row, _column] = sin_omega * iv
 
         for _column in np.arange(nbr_column):
-            for _row in np.arange(nbr_row-12, nbr_row-6):
-                _array_to_mean = [bank1_iv[_row, _column], bank2_iv[_row+6, _column]]
+            for _row in np.arange(nbr_row - 12, nbr_row - 6):
+                _array_to_mean = [bank1_iv[_row, _column], bank2_iv[_row + 6, _column]]
                 bank1_table2[_row, _column] = np.mean(_array_to_mean)
 
-            for _row in np.arange(nbr_row-6, nbr_row):
-                _array_to_mean = [bank1_iv[_row, _column], bank2_iv[_row-6, _column]]
+            for _row in np.arange(nbr_row - 6, nbr_row):
+                _array_to_mean = [bank1_iv[_row, _column], bank2_iv[_row - 6, _column]]
                 bank1_table2[_row, _column] = np.mean(_array_to_mean)
 
         self.bank1.table2 = bank1_table2
@@ -388,28 +385,28 @@ class VDriveHandler(object):
 
         [nbr_row_bank1, nbr_column] = np.shape(bank1_table2)
 
-        output_table = np.empty((nbr_row_bank1*2, nbr_column))
-        output_table[:] =np.NaN
+        output_table = np.empty((nbr_row_bank1 * 2, nbr_column))
+        output_table[:] = np.NaN
 
         for _col in np.arange(nbr_column):
-            output_table[0:nbr_row_bank1, _col] = bank1_table2[:,_col] / mean_table[_col]
-            output_table[nbr_row_bank1:-12, _col] = bank2_table2[:-12,_col] / mean_table[_col]
+            output_table[0:nbr_row_bank1, _col] = bank1_table2[:, _col] / mean_table[_col]
+            output_table[nbr_row_bank1:-12, _col] = bank2_table2[:-12, _col] / mean_table[_col]
 
         self.output_table = output_table
 
-    def make_ascii_(self, metadata=[], data=[], output_file_name=''):
+    def make_ascii_(self, metadata=[], data=[], output_file_name=""):
         """produce the ascii output file"""
-        with open(output_file_name, 'w') as f:
+        with open(output_file_name, "w") as f:
             for _meta in metadata:
                 _line = _meta + "\n"
                 f.write(_line)
             for _data in data:
-                _line = str(_data) + '\n'
+                _line = str(_data) + "\n"
                 f.write(_line)
 
-    def export(self, filename=''):
+    def export(self, filename=""):
         """Create the ascii file of the output table produced"""
-        if filename == '':
+        if filename == "":
             raise ValueError("Please provide a filename for the output file!")
 
         output_table = self.output_table

@@ -1,11 +1,16 @@
-import os, shutil, numpy as np
-here = os.path.dirname(__file__)
-import matlab.engine, matlab
+import os
+import shutil
 
-startup_m = 'startup.m'
-odf2vpsc_m = 'odf2VPSC.m'
-polfig2vpsc_m = 'polfig2VPSC.m'
+here = os.path.dirname(__file__)
+import matlab
+import matlab.engine
+
+startup_m = "startup.m"
+odf2vpsc_m = "odf2VPSC.m"
+polfig2vpsc_m = "polfig2VPSC.m"
 startup_modules = [startup_m, odf2vpsc_m, polfig2vpsc_m]
+
+
 def setup(mtex_path="/HFIR/CG1D/shared/mtex/mtex-4.5.2"):
     # assume the current directory is the working dir
     if not os.path.exists(startup_m):
@@ -18,6 +23,7 @@ def setup(mtex_path="/HFIR/CG1D/shared/mtex/mtex-4.5.2"):
         shutil.copyfile(os.path.join(here, polfig2vpsc_m), polfig2vpsc_m)
     return
 
+
 def check_setup():
     for m in startup_modules:
         if not os.path.exists(m):
@@ -26,11 +32,13 @@ def check_setup():
 
 def _createStartupM(path, mtex_path):
     content = "addpath('%s')\nstartup_mtex\n" % mtex_path
-    open(path, 'wt').write(content)
+    open(path, "wt").write(content)
     return
 
 
 _ml_engine = None
+
+
 def mlEngine():
     global _ml_engine
     if _ml_engine is None:
@@ -46,11 +54,12 @@ def polfig2VPSC(rpfpath, outpath, hkls, Npoints=5000):
     hkls: miller indexes of the pole figures
     Npoints: number of sampling points
 
-    !!! This implemenation is limited. Should autodetect the hkl (miller indexes) stored in the file (rpfpath) !!!
+    !!! This implementation is limited. Should autodetect the hkl (miller indexes) stored in the file (rpfpath) !!!
     """
     check_setup()
     engine = mlEngine()
     import io
+
     out = io.StringIO()
     err = io.StringIO()
 

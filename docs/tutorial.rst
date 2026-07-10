@@ -45,12 +45,12 @@ Define wavelength axis::
   wavelengths = np.arange(0.05, 5.5, 0.005)
 
 Experimental condition::
-  
+
   T = 300 # Kelvin
-  
+
 Calculate cross sections
 """"""""""""""""""""""""
-  
+
 Create calculator. Larger max_diffraction_index will lead to more accurate result at low wavelength::
 
   from braggedgemodeling import xscalc
@@ -94,7 +94,7 @@ In March Dollase model,
 * the 𝑟 parameter of a ℎ𝑘𝑙 indicates the degree of anisotropy;
 * 𝑟ℎ𝑘𝑙=1 means the sample is isotropic with respect to the distribution of the particular ℎ𝑘𝑙;
 * 𝛽 is the most probable angle of the preferred orientation
-  
+
 In the following, we create a March Dollas model and adjust the 𝑟 and 𝛽 for [011]::
 
   from braggedgemodeling import xtaloriprobmodel as xopm

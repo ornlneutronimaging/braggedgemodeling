@@ -17,12 +17,15 @@ except PackageNotFoundError:  # package not installed (e.g. running from a sourc
     __version__ = "unknown"
 
 # config file
-import yaml, os
+import os
+
+import yaml
+
 conf_path = "bem.conf"
 config = dict()
 if os.path.exists(conf_path):
     config = yaml.safe_load(open(conf_path))
 
-from . import matter
+from . import matter as matter  # re-exported so `braggedgemodeling.matter` works
 
 # End of file

@@ -1,12 +1,12 @@
-import numpy as np
 import os
+
+import numpy as np
 import pandas as pd
 from scipy.interpolate import interp1d
 
 
 class VDriveToMtex(object):
-
-    vdrive_handler_file = ''  # name of input file (produced by vdrive_handler.py
+    vdrive_handler_file = ""  # name of input file (produced by vdrive_handler.py
     raw_data = []
     raw_data_sorted = []
 
@@ -21,8 +21,8 @@ class VDriveToMtex(object):
     psi = np.arange(0, 91, 5)
     phi = np.arange(0, 331, 30)
 
-    def __init__(self, filename=''):
-        if filename == '':
+    def __init__(self, filename=""):
+        if filename == "":
             raise ValueError("Please provide an input file (output of vdrive_handler.py")
 
         if not os.path.exists(filename):
@@ -37,7 +37,7 @@ class VDriveToMtex(object):
 
     def load(self):
         vdrive_handler_file = self.vdrive_handler_file
-        self.raw_data = pd.read_csv(vdrive_handler_file, sep=',')
+        self.raw_data = pd.read_csv(vdrive_handler_file, sep=",")
 
     def sort_raw_data(self):
         """format the ducu.txt data
@@ -45,11 +45,11 @@ class VDriveToMtex(object):
         only the first 7 columns of data will be used
         The data are sorted according to psi and then phi
         """
-        raw_data_sorted = self.raw_data.sort_values(['#psi', 'phi'])
+        raw_data_sorted = self.raw_data.sort_values(["#psi", "phi"])
         self.raw_data_sorted = raw_data_sorted
 
         # get ride of first 2 columns (psi and phi
-        clean_data_sorted = np.array(raw_data_sorted.drop(['#psi', 'phi'], axis=1))
+        clean_data_sorted = np.array(raw_data_sorted.drop(["#psi", "phi"], axis=1))
         self.i_over_v_data_only = clean_data_sorted
 
         a111 = self.a111
@@ -73,19 +73,19 @@ class VDriveToMtex(object):
 
         # all over psi and phi
         i_over_v_flatten_for_a111 = clean_data_sorted[:, 0].flatten()
-        a111_flatten[12: ] = i_over_v_flatten_for_a111[1: ]
+        a111_flatten[12:] = i_over_v_flatten_for_a111[1:]
 
         i_over_v_flatten_for_a200 = clean_data_sorted[:, 1].flatten()
-        a200_flatten[12: ] = i_over_v_flatten_for_a200[1: ]
+        a200_flatten[12:] = i_over_v_flatten_for_a200[1:]
 
         i_over_v_flatten_for_a220 = clean_data_sorted[:, 2].flatten()
-        a220_flatten[12: ] = i_over_v_flatten_for_a220[1: ]
+        a220_flatten[12:] = i_over_v_flatten_for_a220[1:]
 
         i_over_v_flatten_for_a311 = clean_data_sorted[:, 3].flatten()
-        a311_flatten[12: ] = i_over_v_flatten_for_a311[1: ]
+        a311_flatten[12:] = i_over_v_flatten_for_a311[1:]
 
         i_over_v_flatten_for_a222 = clean_data_sorted[:, 4].flatten()
-        a222_flatten[12: ] = i_over_v_flatten_for_a222[1: ]
+        a222_flatten[12:] = i_over_v_flatten_for_a222[1:]
 
         # reshaping the arrays
         a111 = np.reshape(a111_flatten, (19, 12))
@@ -106,9 +106,8 @@ class VDriveToMtex(object):
         before phi axis: [0, 30, 60, 90 .... 330]
         after phi axis: [0, 5, 10, 15, 20, 25, 30, 35, 40]
         """
-        psi = self.psi
         old_xaxis = self.phi
-        old_xaxis = np.append(old_xaxis, 360) # duplicate of value at 0 degrees for interpolation
+        old_xaxis = np.append(old_xaxis, 360)  # duplicate of value at 0 degrees for interpolation
         new_xaxis = np.arange(0, 359, 5)
 
         def __interpolation(a):
@@ -126,8 +125,8 @@ class VDriveToMtex(object):
         self.a222_interpolated = __interpolation(self.a222)
         self.a311_interpolated = __interpolation(self.a311)
 
-    def export(self, filename=''):
-        if filename == '':
+    def export(self, filename=""):
+        if filename == "":
             raise ValueError("Please provide a file name")
 
         psi = self.psi
@@ -158,9 +157,8 @@ class VDriveToMtex(object):
 
         self.__create_ascii(data=data, filename=filename)
 
-    def __create_ascii(self, data=[], filename=''):
-        with open(filename, 'w') as f:
+    def __create_ascii(self, data=[], filename=""):
+        with open(filename, "w") as f:
             for _data in data:
                 _line = _data + "\n"
                 f.write(_line)
-

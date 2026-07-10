@@ -3,11 +3,16 @@
 
 interactive = False
 
-import os, numpy as np
-from braggedgemodeling import xscalc, peak_profile as pp
+import os
+
+import numpy as np
+
+from braggedgemodeling import peak_profile as pp
+from braggedgemodeling import xscalc
 from braggedgemodeling.matter import fccNi
 
 thisdir = os.path.dirname(__file__)
+
 
 def test_fccNi_onepeak():
     lambdas = np.arange(0.05, 5.5, 0.001)
@@ -16,17 +21,19 @@ def test_fccNi_onepeak():
 
     pk = calc.diffpeaks[6]
     xs = calc.xs_coh_el__peak(lambdas, pk)
-    jorgensen = pp.Jorgensen(alpha=[1., 0.], beta=[2., 0], sigma=[0, 30e-3, 0])
+    jorgensen = pp.Jorgensen(alpha=[1.0, 0.0], beta=[2.0, 0], sigma=[0, 30e-3, 0])
     jorgensen.set_d_spacing(pk.d)
     spectrum = jorgensen.convolve(lambdas, xs)
-    
+
     if interactive:
         from matplotlib import pyplot as plt
-        plt.plot(lambdas, xs, label='cross section')
-        plt.plot(lambdas, spectrum, label='convolved')
+
+        plt.plot(lambdas, xs, label="cross section")
+        plt.plot(lambdas, spectrum, label="convolved")
         plt.legend()
         plt.show()
     return
+
 
 def main():
     global interactive
@@ -34,6 +41,8 @@ def main():
     test_fccNi_onepeak()
     return
 
-if __name__ == '__main__': main()
+
+if __name__ == "__main__":
+    main()
 
 # End of file
