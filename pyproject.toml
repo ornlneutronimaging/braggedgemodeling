@@ -118,7 +118,7 @@ periodictable = "*"
 "diffpy.structure" = "*"
 
 [tool.pixi.tasks]
-test = { cmd = "pytest --ignore=tests/texture --ignore=tests/test_texture.py --ignore=tests/test_texture_Fe.py", description = "Run the MATLAB-free test suite (texture tests need MATLAB/mtex — see issue #40)" }
+test = { cmd = "pytest --ignore=tests/texture --ignore=tests/test_texture.py", description = "Run the MATLAB-free test suite (only tests/texture needs MATLAB/mtex — see #40; test_texture.py's fixture assertion is disabled upstream and is covered by test_xs_Ni)" }
 
 [tool.pixi.feature.test.dependencies]
 pytest = ">=7"
