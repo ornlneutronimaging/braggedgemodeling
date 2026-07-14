@@ -28,9 +28,9 @@ Install from PyPI (pip)
 Install from conda (anaconda.org)
 ----------------------------------
 
-Conda packages are published to the ``neutronimaging`` channel::
+Conda packages are published to our ``neutronimaging`` channel::
 
-   $ conda install -c conda-forge -c neutronimaging braggedgemodeling
+   $ conda install neutronimaging::braggedgemodeling
 
 
 From source (pixi)

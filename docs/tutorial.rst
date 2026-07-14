@@ -5,7 +5,7 @@ Tutorial
 
 Please see :ref:`installation` before start here.
 
-This tutorial also exists as a jupyter notebook: https://github.com/ornlneutronimaging/braggedgemodeling/blob/master/notebooks/tutorial.ipynb
+This tutorial also exists as a jupyter notebook: https://github.com/ornlneutronimaging/braggedgemodeling/blob/main/notebooks/tutorial.ipynb
 
 This tutorial walks through some basic steps of using braggedgemodeling for modeling of neutron Bragg edge spectrum.
 

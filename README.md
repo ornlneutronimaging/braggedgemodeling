@@ -27,8 +27,8 @@ calculate neutron Bragg Edge spectrum as a function of neutron wavelength.
 # from PyPI
 pip install braggedgemodeling
 
-# or from conda (anaconda.org neutronimaging channel)
-conda install -c conda-forge -c neutronimaging braggedgemodeling
+# or from conda (our anaconda.org neutronimaging channel)
+conda install neutronimaging::braggedgemodeling
 ```
 
 The distribution is named `braggedgemodeling` (the short name `bem` is already taken on PyPI) and the **import package is also `braggedgemodeling`**. Code written against the old `bem` module can add a one-line alias as a drop-in stop-gap:
@@ -47,7 +47,7 @@ pixi run test   # build the environment and run the test suite
 
 ## Documentation
 
-Please refer to https://ornlneutronimaging.github.io/braggedgemodeling for documentation
+Please refer to https://braggedge.readthedocs.io for documentation
 on installation, usage, and API.
 
 ## Community guidelines

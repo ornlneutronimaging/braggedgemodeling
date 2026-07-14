@@ -72,7 +72,7 @@ Nothing is published until a tag is pushed — pushes and PRs only build/test.
   ```
 - **conda / anaconda.org**:
   ```bash
-  conda install -c conda-forge -c neutronimaging "braggedgemodeling=0.2.0"
+  conda install neutronimaging::braggedgemodeling=0.2.0
   ```
 - **GitHub Release** — appears at `releases/tag/v0.2.0` with the wheel, sdist,
   and `.conda` attached.
