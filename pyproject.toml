@@ -3,7 +3,7 @@ name = "braggedgemodeling"
 description = "Bragg Edge modeling"
 dynamic = ["version"]
 requires-python = ">=3.12"
-license = { text = "BSD" }
+license = { text = "MIT" }
 keywords = ["instrument", "neutron", "imaging", "Bragg Edge"]
 readme = "README.md"
 authors = [
